@@ -137,7 +137,7 @@ export default function MapSidebar({
           скроллом и при закрытии карточки список всегда открывался бы
           заново сверху, а не с той позиции, где была выбрана станция. */}
       <div className={`flex min-h-0 flex-1 flex-col overflow-hidden ${selectedStation ? "hidden" : ""}`}>
-      <div className="map-sidebar__panel shrink-0 space-y-3 p-4">
+      <div className="map-sidebar__panel thin-scroll min-h-0 shrink space-y-3 overflow-y-auto overscroll-contain p-4">
         {/* Логотип уже есть в SiteHeader над сайдбаром — здесь только поиск. */}
         <CitySearch onFly={onFly} light />
 
@@ -248,7 +248,7 @@ export default function MapSidebar({
         )}
       </div>
 
-      <div className="map-sidebar__recommendations border-b border-paper-border bg-white">
+      <div className="map-sidebar__recommendations shrink-0 border-b border-paper-border bg-white">
         <StationRecommendations
           stations={stations}
           userLocation={listUserLocation}
