@@ -248,7 +248,7 @@ export default function MapSidebar({
         )}
       </div>
 
-      <div className="border-b border-paper-border bg-white px-4 py-3">
+      <div className="map-sidebar__recommendations border-b border-paper-border bg-white">
         <StationRecommendations
           stations={stations}
           userLocation={listUserLocation}

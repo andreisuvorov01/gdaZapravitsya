@@ -75,7 +75,7 @@ export default function StationRecommendations({
   if (nearestFuel) {
     picks.push({
       id: `fuel-${nearestFuel.station.id}`,
-      eyebrow: "Можно ехать",
+      eyebrow: "Ближе с топливом",
       title: displayName(nearestFuel.station),
       meta: `${formatDistance(nearestFuel.distance)} · топливо отмечено`,
       station: nearestFuel.station,
@@ -85,7 +85,7 @@ export default function StationRecommendations({
   if (fresh && fresh.station.id !== nearestFuel?.station.id) {
     picks.push({
       id: `fresh-${fresh.station.id}`,
-      eyebrow: "Самая свежая",
+      eyebrow: "Свежая отметка",
       title: displayName(fresh.station),
       meta: `${formatDistance(fresh.distance)} · новые отметки`,
       station: fresh.station,
@@ -95,7 +95,7 @@ export default function StationRecommendations({
   if (cheap && !picks.some((p) => p.station.id === cheap.station.id)) {
     picks.push({
       id: `cheap-${cheap.station.id}`,
-      eyebrow: "Дешевле рядом",
+      eyebrow: "Низкая цена",
       title: displayName(cheap.station),
       meta: `${cheap.price.fuel} · ${cheap.price.price.toFixed(2)} ₽/л`,
       station: cheap.station,
@@ -106,7 +106,7 @@ export default function StationRecommendations({
   if (picks.length === 0) return null;
 
   return (
-    <div className={`recommend-strip no-scrollbar ${light ? "recommend-strip--light" : ""}`}>
+    <div className={`recommend-strip ${light ? "recommend-strip--light" : ""}`} aria-label="Быстрый выбор АЗС">
       {picks.slice(0, 3).map((pick) => (
         <button
           key={pick.id}

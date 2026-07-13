@@ -386,13 +386,15 @@ export default function MobileNearbySheet({
             </button>
 
         <div className="nearby-sheet__body" aria-hidden={!expanded}>
-            <StationRecommendations
-              stations={source}
-              userLocation={listUserLocation}
-              mapCenter={mapCenter}
-              onSelect={onSelect}
-              fuelType={fuelType}
-            />
+            <div className="nearby-sheet__recommendations">
+              <StationRecommendations
+                stations={source}
+                userLocation={listUserLocation}
+                mapCenter={mapCenter}
+                onSelect={onSelect}
+                fuelType={fuelType}
+              />
+            </div>
 
             <div
               className="nearby-sheet__segments no-scrollbar"
