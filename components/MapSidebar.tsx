@@ -7,6 +7,7 @@ import Filters, { type FilterState } from "./Filters";
 import RoutePlanner from "./RoutePlanner";
 import ShareButton from "./ShareButton";
 import StatsBar from "./StatsBar";
+import StationRecommendations from "./StationRecommendations";
 import StationList, { LIST_MODE_TABS, type ListMode } from "./StationList";
 import { useInstallPrompt } from "./InstallPromptContext";
 import { DONATE_URL, SITE_NAME, SITE_URL } from "@/lib/site";
@@ -136,7 +137,7 @@ export default function MapSidebar({
           скроллом и при закрытии карточки список всегда открывался бы
           заново сверху, а не с той позиции, где была выбрана станция. */}
       <div className={`flex min-h-0 flex-1 flex-col overflow-hidden ${selectedStation ? "hidden" : ""}`}>
-      <div className="map-sidebar__panel shrink-0 space-y-3 p-4">
+      <div className="map-sidebar__panel thin-scroll min-h-0 shrink space-y-3 overflow-y-auto overscroll-contain p-4">
         {/* Логотип уже есть в SiteHeader над сайдбаром — здесь только поиск. */}
         <CitySearch onFly={onFly} light />
 
@@ -166,7 +167,7 @@ export default function MapSidebar({
             type="button"
             onClick={onToggleRoute}
             aria-pressed={routeActive || routeOpen}
-            className={`map-sidebar__route-btn ${
+            className={`map-sidebar__route-btn map-sidebar__route-btn--secondary ${
               routeActive || routeOpen ? "map-sidebar__route-btn--active" : ""
             }`}
           >
@@ -179,7 +180,7 @@ export default function MapSidebar({
             type="button"
             onClick={onEmergencyFuel}
             aria-pressed={emergencyActive}
-            className={`map-sidebar__route-btn ${
+            className={`map-sidebar__route-btn map-sidebar__route-btn--urgent ${
               emergencyActive ? "map-sidebar__route-btn--active" : ""
             }`}
           >
@@ -245,6 +246,17 @@ export default function MapSidebar({
             Поддержать проект
           </a>
         )}
+      </div>
+
+      <div className="map-sidebar__recommendations shrink-0 border-b border-paper-border bg-white">
+        <StationRecommendations
+          stations={stations}
+          userLocation={listUserLocation}
+          mapCenter={mapCenter}
+          onSelect={onSelect}
+          fuelType={filters.fuelType}
+          light
+        />
       </div>
 
       <div className="map-sidebar__tabs shrink-0 border-b border-paper-border bg-white px-4 py-2.5 no-scrollbar">

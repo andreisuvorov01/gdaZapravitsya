@@ -44,7 +44,7 @@ export default function StatusTimeline({ reports }: { reports: Report[] }) {
         </p>
       )}
       <ol className="status-timeline__list">
-        {visible.map((c, i) => (
+        {visible.map((c) => (
           <li key={`${c.at}-${c.status}`} className="status-timeline__item">
             <span
               className="status-timeline__dot"
