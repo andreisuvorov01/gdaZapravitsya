@@ -50,6 +50,24 @@ import StatusTimeline from "./StatusTimeline";
 import ShareButton from "./ShareButton";
 import { shareStationUrl } from "@/lib/navigation";
 
+
+const DECISION_COPY = {
+  yes: { title: "Можно ехать", text: "Есть свежие отметки о топливе." },
+  low: { title: "Ехать с запасом", text: "Топливо есть, но возможны лимиты или остатки." },
+  no: { title: "Лучше выбрать другую", text: "Водители отмечают отсутствие топлива." },
+  unknown: { title: "Нужна проверка", text: "Свежих подтверждений пока мало." },
+} as const;
+
+function decisionFor(station: StationStatus, confLevel: ReturnType<typeof confidence>["level"]) {
+  if (station.conflicting) {
+    return { title: "Данные спорят", text: "Есть противоречивые отчёты — проверьте перед поездкой." };
+  }
+  if (station.stale || confLevel === "none" || confLevel === "old") {
+    return { title: "Данные устарели", text: "Отметки старые: лучше уточнить или оставить свежий отчёт." };
+  }
+  return DECISION_COPY[station.status];
+}
+
 interface StationPanelProps {
   station: StationStatus;
   onClose: () => void;
@@ -309,6 +327,7 @@ export default function StationPanel({
   // идентификатор (можно сослаться на него в репорте о проблеме), а не
   // декоративная цифра.
   const ticketSerial = station.id.slice(-4).toUpperCase();
+  const decision = decisionFor(station, conf.level);
 
   const buildRoute = async () => {
     if (!userLocation) {
@@ -395,7 +414,8 @@ export default function StationPanel({
       )}
 
       <header
-        className="station-sheet__head shrink-0"
+        className="station-sheet__head station-sheet__head--status shrink-0"
+        style={{ "--station-status-color": STATUS_HEX[station.status] } as React.CSSProperties}
         onPointerDown={onHeadPointerDown}
         onPointerMove={onHeadPointerMove}
         onPointerUp={onHeadPointerUp}
@@ -427,6 +447,7 @@ export default function StationPanel({
             <span className="ticket-serial" title="Код станции">
               №{ticketSerial}
             </span>
+            {station.conflicting && <span className="station-conflict-badge">спорно</span>}
             <div className="flex gap-0.5">
               <button
                 type="button"
@@ -459,7 +480,12 @@ export default function StationPanel({
       >
         <div className="station-sheet__content space-y-3">
           <div>
+            <div className="decision-card">
+              <span className="decision-card__title">{decision.title}</span>
+              <span className="decision-card__text">{decision.text}</span>
+            </div>
             <VerdictBadge verdict={verdict} />
+            {station.conflicting && <span className="station-conflict-badge station-conflict-badge--inline">спорно</span>}
             <div className="report-count">
               <ClockIcon className="h-3.5 w-3.5" />
               {station.reports_count} отчётов · {freshConfirms} подтверждений
@@ -476,7 +502,7 @@ export default function StationPanel({
               </span>
               <span className="hero-metric__label">Цена</span>
               <span className="hero-metric__sub">
-                {mainPrice ? `${mainPrice.fuel} ₽/л` : "нет данных"}
+                {mainPrice ? `${mainPrice.fuel} · ₽/л` : "нет данных"}
               </span>
             </div>
             <div
@@ -490,15 +516,15 @@ export default function StationPanel({
                 } as React.CSSProperties
               }
             >
-              <span className="hero-metric__value">
+              <span className="hero-metric__value hero-metric__value--text">
                 {queueEstimate.hasData && queueEstimate.confidence >= 20
-                  ? `${queueEstimate.probability}%`
+                  ? QUEUE_CHANCE_LABEL[queueEstimate.chance]
                   : "—"}
               </span>
               <span className="hero-metric__label">Очередь</span>
               <span className="hero-metric__sub">
                 {queueEstimate.hasData && queueEstimate.confidence >= 20
-                  ? QUEUE_CHANCE_LABEL[queueEstimate.chance]
+                  ? `${queueEstimate.probability}% вероятность`
                   : "нет данных"}
               </span>
             </div>
@@ -506,17 +532,23 @@ export default function StationPanel({
               className="hero-metric"
               style={{ "--metric-color": FRESHNESS_HEX[conf.level] } as React.CSSProperties}
             >
-              <span className="hero-metric__value">{conf.score}</span>
+              <span className="hero-metric__value hero-metric__value--text">{FRESHNESS_LABEL[conf.level]}</span>
               <span className="hero-metric__label">Свежесть</span>
-              <span className="hero-metric__sub">{FRESHNESS_LABEL[conf.level]}</span>
+              <span className="hero-metric__sub">{conf.score} из 100</span>
             </div>
           </div>
 
-          <QuickReportBar
-            stationId={station.id}
-            onSubmitted={onChanged}
-            primaryFuelType={station.fuel_types[0]}
-          />
+          <div className="quick-report-focus">
+            <div className="quick-report-focus__head">
+              <span>Сообщите обстановку</span>
+              <button type="button" onClick={onReport}>Полная форма</button>
+            </div>
+            <QuickReportBar
+              stationId={station.id}
+              onSubmitted={onChanged}
+              primaryFuelType={station.fuel_types[0]}
+            />
+          </div>
 
           <section className="station-sheet__card !p-3">
             <h3 className="mb-2 text-xs font-bold uppercase tracking-widest text-ink-muted">
