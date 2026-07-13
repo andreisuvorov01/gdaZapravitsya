@@ -54,7 +54,8 @@ function sanitizePrices(value: unknown): FuelPrices | null {
 // отправляет) — раньше тут проверялось, что photo_url указывает на Supabase
 // Storage bucket "station-photos"; после перехода на self-hosted Postgres без
 // Storage это поле остаётся в схеме на будущее, но всегда обнуляется.
-function sanitizePhotoUrl(_value: unknown): string | null {
+function sanitizePhotoUrl(value: unknown): string | null {
+  void value;
   return null;
 }
 
