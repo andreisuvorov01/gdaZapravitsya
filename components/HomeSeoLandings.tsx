@@ -24,8 +24,7 @@ export default function HomeSeoLandings() {
     >
       <div className="mx-auto max-w-3xl px-4 py-12 sm:px-6 sm:py-16">
         <h1 className="seo-page-h1 font-display text-2xl font-extrabold tracking-tight text-white sm:text-4xl">
-          Где бензин сейчас?{" "}
-          <span className="text-brand-fuel">бенз</span>рядом
+          Где бензин сейчас? ГдеЗаправиться
         </h1>
         <p className="seo-page-lead mt-3 text-lg font-medium leading-snug text-white/90 sm:text-xl">
           {HOME_H1_CONTINUATION}

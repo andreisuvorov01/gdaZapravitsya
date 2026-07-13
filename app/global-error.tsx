@@ -14,7 +14,7 @@ export default function GlobalError({
       <body className="bg-surface-map font-sans text-ink antialiased">
         <div className="flex min-h-screen flex-col items-center justify-center gap-5 px-4 text-center">
           <p className="font-display text-2xl font-bold tracking-tight text-white">
-            бенз<span className="text-brand-fuel">рядом</span>
+            ГдеЗаправиться
           </p>
           <div className="max-w-md space-y-2">
             <h1 className="font-display text-xl font-bold text-white">
