@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+# После git pull/merge на сервере — сразу пересобрать и передеплоить.
+#
+# Инцидент, который это предотвращает: после git pull кто-то (или скрипт)
+# сразу вызывал pm2 restart/startOrRestart, не запустив npm run build —
+# .next/standalone/server.js не пересоздан (это артефакт сборки, в git не
+# хранится, next build пересоздаёт его с нуля каждый раз), pm2 падает с
+# "Cannot find module .../standalone/server.js" и уходит в цикл рестартов.
+#
+# Включить один раз на сервере (хук не активируется сам по себе — git не
+# запускает хуки не из .git/hooks/ без явного указания пути):
+#   git config core.hooksPath .githooks
+#
+# Ничего не делает на локальной машине разработчика, если хук не включён —
+# это осознанно opt-in, а не автоматика для всех клонов репозитория.
+set -euo pipefail
+cd "$(git rev-parse --show-toplevel)"
+echo "==> post-merge: npm run deploy"
+bash scripts/deploy.sh

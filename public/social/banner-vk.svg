@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1590 400" fill="none">
+  <defs>
+    <linearGradient id="fuel" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop stop-color="#FFB020"/>
+      <stop offset="1" stop-color="#E69500"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="280" cy="200" r="320" gradientUnits="userSpaceOnUse">
+    <stop stop-color="#FFB020" stop-opacity="0.14"/>
+    <stop offset="1" stop-color="#0A0E12" stop-opacity="0"/>
+  </radialGradient>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="8" stdDeviation="14" flood-color="#FFB020" flood-opacity="0.22"/>
+    </filter>
+  </defs>
+  <rect width="1590" height="400" fill="#0A0E12"/>
+  <circle cx="280" cy="200" r="320" fill="url(#glow)"/>
+  <g filter="url(#shadow)">
+    <rect x="72" y="72" width="256" height="256" rx="76.8" fill="url(#fuel)"/>
+    <svg x="136" y="136" width="128" height="128" viewBox="0 0 24 24" fill="none" stroke="#0A0E12" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M3 21h12"/>
+      <path d="M5 21V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v16"/>
+      <path d="M3 9h10"/>
+      <path d="M15 9l2.5 2.5a2 2 0 0 1 .6 1.4V17a1.5 1.5 0 0 0 3 0V8.5L18 6"/>
+    </svg>
+    <circle cx="308.8" cy="91.2" r="44.8" fill="#141A21"/>
+    <circle cx="308.8" cy="91.2" r="32" fill="#00C853"/>
+  </g>
+  <text x="380" y="188" font-family="Unbounded, Arial Black, sans-serif" font-weight="700" font-size="88" fill="#E8ECF0" letter-spacing="-1">&#1073;&#1077;&#1085;&#1079;<tspan fill="#FFB020">&#1088;&#1103;&#1076;&#1086;&#1084;</tspan></text>
+  <text x="382" y="248" font-family="Golos Text, Arial, sans-serif" font-weight="500" font-size="28" fill="#9AA8B5" letter-spacing="6">&#1058;&#1054;&#1055;&#1051;&#1048;&#1042;&#1054; &#1042; &#1056;&#1045;&#1040;&#1051;&#1068;&#1053;&#1054;&#1052; &#1042;&#1056;&#1045;&#1052;&#1045;&#1053;&#1048;</text>
+  <g opacity="0.9">
+    <circle cx="1380" cy="120" r="10" fill="#00C853"/>
+    <circle cx="1420" cy="120" r="10" fill="#FF9100"/>
+    <circle cx="1460" cy="120" r="10" fill="#FF3D00"/>
+    <circle cx="1500" cy="120" r="10" fill="#90A4AE"/>
+  </g>
+  <text x="1368" y="168" font-family="Golos Text, Arial, sans-serif" font-size="18" fill="#9AA8B5" text-anchor="end">&#1077;&#1089;&#1090;&#1100; &#183; &#1084;&#1072;&#1083;&#1086; &#183; &#1085;&#1077;&#1090; &#183; &#1085;&#1077;&#1090; &#1076;&#1072;&#1085;&#1085;&#1099;&#1093;</text>
+</svg>

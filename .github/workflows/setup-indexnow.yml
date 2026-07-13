@@ -1,0 +1,40 @@
+name: Setup IndexNow key
+
+on:
+  workflow_dispatch: {}
+
+# Общая группа с deploy.yml — оба трогают .env/pm2 на одном VPS по SSH, без
+# этого ручной запуск этого workflow мог бы столкнуться с deploy.yml, идущим
+# в этот момент (см. concurrency в deploy.yml).
+concurrency:
+  group: benzin-deploy
+  cancel-in-progress: false
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    environment: SSH_HOST
+    steps:
+      - name: Sync INDEXNOW_KEY on server and restart app
+        uses: appleboy/ssh-action@v1.0.3
+        env:
+          INDEXNOW_KEY: ${{ secrets.INDEXNOW_KEY }}
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          port: ${{ secrets.SSH_PORT }}
+          envs: INDEXNOW_KEY
+          script: |
+            set -euo pipefail
+            cd ${{ secrets.DEPLOY_PATH }}
+            # Тот же лок, что и в scripts/deploy.sh — на случай запуска в обход
+            # concurrency в Actions (напр. кто-то параллельно руками деплоит по SSH).
+            exec 200>.deploy.lock
+            flock -w 1800 200 || { echo "ОШИБКА: не дождались лока деплоя за 30 минут" >&2; exit 1; }
+            bash scripts/ensure-indexnow-env.sh .env
+            if [ -d .next/standalone ]; then
+              cp -f .env .next/standalone/.env
+            fi
+            pm2 restart benzin-map
+            echo "Done. Verify: curl -sS https://benzryadom.ru/${INDEXNOW_KEY}.txt | head -c 40"

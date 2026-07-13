@@ -1,0 +1,4574 @@
+[
+  {
+    "slug": "abakan",
+    "name": "Абакан",
+    "prepositional": "Абакане",
+    "genitive": "Абакана",
+    "lat": 53.7223,
+    "lng": 91.4437,
+    "zoom": 13
+  },
+  {
+    "slug": "abinsk",
+    "name": "Абинск",
+    "prepositional": "Абинске",
+    "genitive": "Абинска",
+    "lat": 44.8706,
+    "lng": 38.1576,
+    "zoom": 12
+  },
+  {
+    "slug": "azov",
+    "name": "Азов",
+    "prepositional": "Азове",
+    "genitive": "Азова",
+    "lat": 47.1069,
+    "lng": 39.4149,
+    "zoom": 12
+  },
+  {
+    "slug": "aksay",
+    "name": "Аксай",
+    "prepositional": "Аксае",
+    "genitive": "Аксая",
+    "lat": 47.2633,
+    "lng": 39.869,
+    "zoom": 12
+  },
+  {
+    "slug": "alatyr",
+    "name": "Алатырь",
+    "prepositional": "Алатыри",
+    "genitive": "Алатыри",
+    "lat": 54.8421,
+    "lng": 46.5813,
+    "zoom": 12
+  },
+  {
+    "slug": "aleksandrov",
+    "name": "Александров",
+    "prepositional": "Александрове",
+    "genitive": "Александрова",
+    "lat": 56.3973,
+    "lng": 38.714,
+    "zoom": 12
+  },
+  {
+    "slug": "aleksin",
+    "name": "Алексин",
+    "prepositional": "Алексине",
+    "genitive": "Алексина",
+    "lat": 54.5048,
+    "lng": 37.067,
+    "zoom": 12
+  },
+  {
+    "slug": "alushta",
+    "name": "Алушта",
+    "prepositional": "Алуште",
+    "genitive": "Алушты",
+    "lat": 44.6763,
+    "lng": 34.4097,
+    "zoom": 13
+  },
+  {
+    "slug": "almetyevsk",
+    "name": "Альметьевск",
+    "prepositional": "Альметьевске",
+    "genitive": "Альметьевска",
+    "lat": 54.9014,
+    "lng": 52.2971,
+    "zoom": 12
+  },
+  {
+    "slug": "amursk",
+    "name": "Амурск",
+    "prepositional": "Амурске",
+    "genitive": "Амурска",
+    "lat": 50.2322,
+    "lng": 136.897,
+    "zoom": 12
+  },
+  {
+    "slug": "anadyr",
+    "name": "Анадырь",
+    "prepositional": "Анадыре",
+    "genitive": "Анадыря",
+    "lat": 64.7314,
+    "lng": 177.5015,
+    "zoom": 13
+  },
+  {
+    "slug": "anapa",
+    "name": "Анапа",
+    "prepositional": "Анапе",
+    "genitive": "Анапы",
+    "lat": 44.895,
+    "lng": 37.3163,
+    "zoom": 12
+  },
+  {
+    "slug": "angarsk",
+    "name": "Ангарск",
+    "prepositional": "Ангарске",
+    "genitive": "Ангарска",
+    "lat": 52.5449,
+    "lng": 103.8885,
+    "zoom": 12
+  },
+  {
+    "slug": "anzhero-sudzhensk",
+    "name": "Анжеро-Судженск",
+    "prepositional": "Анжеро-Судженске",
+    "genitive": "Анжеро-Судженска",
+    "lat": 56.0778,
+    "lng": 86.0194,
+    "zoom": 12
+  },
+  {
+    "slug": "apatity",
+    "name": "Апатиты",
+    "prepositional": "Апатиты",
+    "genitive": "Апатиты",
+    "lat": 67.5827,
+    "lng": 33.4134,
+    "zoom": 12
+  },
+  {
+    "slug": "apsheronsk",
+    "name": "Апшеронск",
+    "prepositional": "Апшеронске",
+    "genitive": "Апшеронска",
+    "lat": 44.4599,
+    "lng": 39.7301,
+    "zoom": 12
+  },
+  {
+    "slug": "argun",
+    "name": "Аргун",
+    "prepositional": "Аргуне",
+    "genitive": "Аргуна",
+    "lat": 43.2929,
+    "lng": 45.8669,
+    "zoom": 12
+  },
+  {
+    "slug": "arzamas",
+    "name": "Арзамас",
+    "prepositional": "Арзамасе",
+    "genitive": "Арзамаса",
+    "lat": 55.3948,
+    "lng": 43.8399,
+    "zoom": 13
+  },
+  {
+    "slug": "armavir",
+    "name": "Армавир",
+    "prepositional": "Армавире",
+    "genitive": "Армавира",
+    "lat": 45.0012,
+    "lng": 41.1324,
+    "zoom": 12
+  },
+  {
+    "slug": "arsenyev",
+    "name": "Арсеньев",
+    "prepositional": "Арсеньеве",
+    "genitive": "Арсеньева",
+    "lat": 44.1431,
+    "lng": 133.2685,
+    "zoom": 12
+  },
+  {
+    "slug": "artyom",
+    "name": "Артём",
+    "prepositional": "Артёме",
+    "genitive": "Артёма",
+    "lat": 43.3599,
+    "lng": 132.1889,
+    "zoom": 12
+  },
+  {
+    "slug": "arkhangelsk",
+    "name": "Архангельск",
+    "prepositional": "Архангельске",
+    "genitive": "Архангельска",
+    "lat": 64.5394,
+    "lng": 40.517,
+    "zoom": 12
+  },
+  {
+    "slug": "asbest",
+    "name": "Асбест",
+    "prepositional": "Асбесте",
+    "genitive": "Асбеста",
+    "lat": 57.005,
+    "lng": 61.458,
+    "zoom": 12
+  },
+  {
+    "slug": "astrakhan",
+    "name": "Астрахань",
+    "prepositional": "Астрахани",
+    "genitive": "Астрахани",
+    "lat": 46.3656,
+    "lng": 48.0559,
+    "zoom": 12
+  },
+  {
+    "slug": "achinsk",
+    "name": "Ачинск",
+    "prepositional": "Ачинске",
+    "genitive": "Ачинска",
+    "lat": 56.2696,
+    "lng": 90.4993,
+    "zoom": 12
+  },
+  {
+    "slug": "asha",
+    "name": "Аша",
+    "prepositional": "Аше",
+    "genitive": "Ашы",
+    "lat": 54.9998,
+    "lng": 57.2549,
+    "zoom": 12
+  },
+  {
+    "slug": "bavly",
+    "name": "Бавлы",
+    "prepositional": "Бавлы",
+    "genitive": "Бавлы",
+    "lat": 54.3976,
+    "lng": 53.2512,
+    "zoom": 12
+  },
+  {
+    "slug": "baksan",
+    "name": "Баксан",
+    "prepositional": "Баксане",
+    "genitive": "Баксана",
+    "lat": 43.6837,
+    "lng": 43.5351,
+    "zoom": 12
+  },
+  {
+    "slug": "balabanovo",
+    "name": "Балабаново",
+    "prepositional": "Балабанове",
+    "genitive": "Балабанова",
+    "lat": 55.1816,
+    "lng": 36.6606,
+    "zoom": 12
+  },
+  {
+    "slug": "balakovo",
+    "name": "Балаково",
+    "prepositional": "Балакове",
+    "genitive": "Балакова",
+    "lat": 52.0226,
+    "lng": 47.7828,
+    "zoom": 12
+  },
+  {
+    "slug": "balakhna",
+    "name": "Балахна",
+    "prepositional": "Балахне",
+    "genitive": "Балахны",
+    "lat": 65.8969,
+    "lng": 43.5191,
+    "zoom": 12
+  },
+  {
+    "slug": "balashikha",
+    "name": "Балашиха",
+    "prepositional": "Балашихе",
+    "genitive": "Балашихи",
+    "lat": 55.7964,
+    "lng": 37.9383,
+    "zoom": 12
+  },
+  {
+    "slug": "balashiha",
+    "name": "Балашиха",
+    "prepositional": "Балашихе",
+    "genitive": "Балашихи",
+    "lat": 55.7948,
+    "lng": 37.9479,
+    "zoom": 12
+  },
+  {
+    "slug": "barabinsk",
+    "name": "Барабинск",
+    "prepositional": "Барабинске",
+    "genitive": "Барабинска",
+    "lat": 55.3507,
+    "lng": 78.3587,
+    "zoom": 12
+  },
+  {
+    "slug": "barnaul",
+    "name": "Барнаул",
+    "prepositional": "Барнауле",
+    "genitive": "Барнаула",
+    "lat": 53.348,
+    "lng": 83.7798,
+    "zoom": 12
+  },
+  {
+    "slug": "bataysk",
+    "name": "Батайск",
+    "prepositional": "Батайске",
+    "genitive": "Батайска",
+    "lat": 47.1383,
+    "lng": 39.7508,
+    "zoom": 12
+  },
+  {
+    "slug": "bakhchisaray",
+    "name": "Бахчисарай",
+    "prepositional": "Бахчисарае",
+    "genitive": "Бахчисарая",
+    "lat": 54.5743,
+    "lng": 53.5513,
+    "zoom": 12
+  },
+  {
+    "slug": "belaya-kalitva",
+    "name": "Белая Калитва",
+    "prepositional": "Белая Калитве",
+    "genitive": "Белая Калитвы",
+    "lat": 48.1793,
+    "lng": 40.7792,
+    "zoom": 12
+  },
+  {
+    "slug": "belgorod",
+    "name": "Белгород",
+    "prepositional": "Белгороде",
+    "genitive": "Белгорода",
+    "lat": 50.5976,
+    "lng": 36.5857,
+    "zoom": 12
+  },
+  {
+    "slug": "belebey",
+    "name": "Белебей",
+    "prepositional": "Белебее",
+    "genitive": "Белебея",
+    "lat": 54.1077,
+    "lng": 54.1174,
+    "zoom": 12
+  },
+  {
+    "slug": "belovo",
+    "name": "Белово",
+    "prepositional": "Белове",
+    "genitive": "Белова",
+    "lat": 54.4165,
+    "lng": 86.3037,
+    "zoom": 12
+  },
+  {
+    "slug": "belogorsk",
+    "name": "Белогорск",
+    "prepositional": "Белогорске",
+    "genitive": "Белогорска",
+    "lat": 50.9124,
+    "lng": 128.5124,
+    "zoom": 12
+  },
+  {
+    "slug": "beloretsk",
+    "name": "Белорецк",
+    "prepositional": "Белорецке",
+    "genitive": "Белорецка",
+    "lat": 53.9621,
+    "lng": 58.4,
+    "zoom": 12
+  },
+  {
+    "slug": "belorechensk",
+    "name": "Белореченск",
+    "prepositional": "Белореченске",
+    "genitive": "Белореченска",
+    "lat": 44.77,
+    "lng": 39.8725,
+    "zoom": 12
+  },
+  {
+    "slug": "berdsk",
+    "name": "Бердск",
+    "prepositional": "Бердске",
+    "genitive": "Бердска",
+    "lat": 54.7583,
+    "lng": 83.1071,
+    "zoom": 12
+  },
+  {
+    "slug": "berezniki",
+    "name": "Березники",
+    "prepositional": "Березниках",
+    "genitive": "Березников",
+    "lat": 59.4079,
+    "lng": 56.8047,
+    "zoom": 12
+  },
+  {
+    "slug": "berezovskiy",
+    "name": "Берёзовский",
+    "prepositional": "Берёзовские",
+    "genitive": "Берёзовския",
+    "lat": 55.6695,
+    "lng": 86.2749,
+    "zoom": 12
+  },
+  {
+    "slug": "biysk",
+    "name": "Бийск",
+    "prepositional": "Бийске",
+    "genitive": "Бийска",
+    "lat": 52.5387,
+    "lng": 85.2072,
+    "zoom": 12
+  },
+  {
+    "slug": "birobidzhan",
+    "name": "Биробиджан",
+    "prepositional": "Биробиджане",
+    "genitive": "Биробиджана",
+    "lat": 48.7946,
+    "lng": 132.9217,
+    "zoom": 13
+  },
+  {
+    "slug": "birsk",
+    "name": "Бирск",
+    "prepositional": "Бирске",
+    "genitive": "Бирска",
+    "lat": 55.4202,
+    "lng": 55.5421,
+    "zoom": 12
+  },
+  {
+    "slug": "blagoveshchensk",
+    "name": "Благовещенск",
+    "prepositional": "Благовещенске",
+    "genitive": "Благовещенска",
+    "lat": 50.2907,
+    "lng": 127.5272,
+    "zoom": 12
+  },
+  {
+    "slug": "blagodarny",
+    "name": "Благодарный",
+    "prepositional": "Благодарные",
+    "genitive": "Благодарныя",
+    "lat": 45.0978,
+    "lng": 43.4364,
+    "zoom": 12
+  },
+  {
+    "slug": "bogorodsk",
+    "name": "Богородск",
+    "prepositional": "Богородске",
+    "genitive": "Богородска",
+    "lat": 56.1015,
+    "lng": 43.5101,
+    "zoom": 12
+  },
+  {
+    "slug": "bolshoy-kamen",
+    "name": "Большой Камень",
+    "prepositional": "Большой Камени",
+    "genitive": "Большой Камени",
+    "lat": 43.1121,
+    "lng": 132.3509,
+    "zoom": 12
+  },
+  {
+    "slug": "bor",
+    "name": "Бор",
+    "prepositional": "Боре",
+    "genitive": "Бора",
+    "lat": 56.3565,
+    "lng": 44.0625,
+    "zoom": 13
+  },
+  {
+    "slug": "borisoglebsk",
+    "name": "Борисоглебск",
+    "prepositional": "Борисоглебске",
+    "genitive": "Борисоглебска",
+    "lat": 51.3689,
+    "lng": 42.098,
+    "zoom": 12
+  },
+  {
+    "slug": "borovichi",
+    "name": "Боровичи",
+    "prepositional": "Боровичи",
+    "genitive": "Боровичи",
+    "lat": 58.3942,
+    "lng": 33.9186,
+    "zoom": 12
+  },
+  {
+    "slug": "bratsk",
+    "name": "Братск",
+    "prepositional": "Братске",
+    "genitive": "Братска",
+    "lat": 56.1513,
+    "lng": 101.634,
+    "zoom": 12
+  },
+  {
+    "slug": "bryansk",
+    "name": "Брянск",
+    "prepositional": "Брянске",
+    "genitive": "Брянска",
+    "lat": 53.242,
+    "lng": 34.3652,
+    "zoom": 12
+  },
+  {
+    "slug": "bugulma",
+    "name": "Бугульма",
+    "prepositional": "Бугульме",
+    "genitive": "Бугульмы",
+    "lat": 54.5378,
+    "lng": 52.7985,
+    "zoom": 12
+  },
+  {
+    "slug": "buguruslan",
+    "name": "Бугуруслан",
+    "prepositional": "Бугуруслане",
+    "genitive": "Бугуруслана",
+    "lat": 53.6554,
+    "lng": 52.442,
+    "zoom": 12
+  },
+  {
+    "slug": "budyonnovsk",
+    "name": "Будённовск",
+    "prepositional": "Будённовске",
+    "genitive": "Будённовска",
+    "lat": 44.7839,
+    "lng": 44.1658,
+    "zoom": 12
+  },
+  {
+    "slug": "buzuluk",
+    "name": "Бузулук",
+    "prepositional": "Бузулуке",
+    "genitive": "Бузулука",
+    "lat": 52.7783,
+    "lng": 52.2585,
+    "zoom": 12
+  },
+  {
+    "slug": "buynaksk",
+    "name": "Буйнакск",
+    "prepositional": "Буйнакске",
+    "genitive": "Буйнакска",
+    "lat": 42.818,
+    "lng": 47.1268,
+    "zoom": 12
+  },
+  {
+    "slug": "buturlinovka",
+    "name": "Бутурлиновка",
+    "prepositional": "Бутурлиновке",
+    "genitive": "Бутурлиновкы",
+    "lat": 50.8262,
+    "lng": 40.598,
+    "zoom": 12
+  },
+  {
+    "slug": "valuyki",
+    "name": "Валуйки",
+    "prepositional": "Валуйки",
+    "genitive": "Валуйки",
+    "lat": 50.1966,
+    "lng": 38.1167,
+    "zoom": 12
+  },
+  {
+    "slug": "velikiye-luki",
+    "name": "Великие Луки",
+    "prepositional": "Великие Луки",
+    "genitive": "Великие Луки",
+    "lat": 56.3406,
+    "lng": 30.5438,
+    "zoom": 12
+  },
+  {
+    "slug": "velikiy-novgorod",
+    "name": "Великий Новгород",
+    "prepositional": "Великом Новгороде",
+    "genitive": "Великого Новгорода",
+    "lat": 58.5214,
+    "lng": 31.2755,
+    "zoom": 12
+  },
+  {
+    "slug": "veliky-novgorod",
+    "name": "Великий Новгород",
+    "prepositional": "Великом Новгороде",
+    "genitive": "Великого Новгорода",
+    "lat": 58.5213,
+    "lng": 31.2755,
+    "zoom": 12
+  },
+  {
+    "slug": "velikiy-ustyug",
+    "name": "Великий Устюг",
+    "prepositional": "Великий Устюге",
+    "genitive": "Великий Устюга",
+    "lat": 60.7619,
+    "lng": 46.3135,
+    "zoom": 12
+  },
+  {
+    "slug": "verkhnyaya-pyshma",
+    "name": "Верхняя Пышма",
+    "prepositional": "Верхняя Пышме",
+    "genitive": "Верхняя Пышмы",
+    "lat": 56.9705,
+    "lng": 60.5822,
+    "zoom": 12
+  },
+  {
+    "slug": "verkhnyaya-salda",
+    "name": "Верхняя Салда",
+    "prepositional": "Верхняя Салде",
+    "genitive": "Верхняя Салды",
+    "lat": 58.045,
+    "lng": 60.551,
+    "zoom": 12
+  },
+  {
+    "slug": "vidnoye",
+    "name": "Видное",
+    "prepositional": "Видноее",
+    "genitive": "Видноеа",
+    "lat": 55.5523,
+    "lng": 37.7089,
+    "zoom": 12
+  },
+  {
+    "slug": "vladivostok",
+    "name": "Владивосток",
+    "prepositional": "Владивостоке",
+    "genitive": "Владивостока",
+    "lat": 43.1165,
+    "lng": 131.8824,
+    "zoom": 12
+  },
+  {
+    "slug": "vladikavkaz",
+    "name": "Владикавказ",
+    "prepositional": "Владикавказе",
+    "genitive": "Владикавказа",
+    "lat": 43.0206,
+    "lng": 44.6819,
+    "zoom": 12
+  },
+  {
+    "slug": "vladimir",
+    "name": "Владимир",
+    "prepositional": "Владимире",
+    "genitive": "Владимира",
+    "lat": 56.1281,
+    "lng": 40.4084,
+    "zoom": 12
+  },
+  {
+    "slug": "volgograd",
+    "name": "Волгоград",
+    "prepositional": "Волгограде",
+    "genitive": "Волгограда",
+    "lat": 48.707,
+    "lng": 44.517,
+    "zoom": 12
+  },
+  {
+    "slug": "volgodonsk",
+    "name": "Волгодонск",
+    "prepositional": "Волгодонске",
+    "genitive": "Волгодонска",
+    "lat": 47.5167,
+    "lng": 42.1989,
+    "zoom": 12
+  },
+  {
+    "slug": "volzhsk",
+    "name": "Волжск",
+    "prepositional": "Волжске",
+    "genitive": "Волжска",
+    "lat": 55.8666,
+    "lng": 48.3593,
+    "zoom": 12
+  },
+  {
+    "slug": "volzhskiy",
+    "name": "Волжский",
+    "prepositional": "Волжском",
+    "genitive": "Волжского",
+    "lat": 48.7978,
+    "lng": 44.7463,
+    "zoom": 12
+  },
+  {
+    "slug": "vologda",
+    "name": "Вологда",
+    "prepositional": "Вологде",
+    "genitive": "Вологды",
+    "lat": 59.2484,
+    "lng": 39.8356,
+    "zoom": 12
+  },
+  {
+    "slug": "volkhov",
+    "name": "Волхов",
+    "prepositional": "Волхове",
+    "genitive": "Волхова",
+    "lat": 59.9234,
+    "lng": 32.3397,
+    "zoom": 12
+  },
+  {
+    "slug": "vorkuta",
+    "name": "Воркута",
+    "prepositional": "Воркуте",
+    "genitive": "Воркуты",
+    "lat": 67.4979,
+    "lng": 64.0525,
+    "zoom": 12
+  },
+  {
+    "slug": "voronezh",
+    "name": "Воронеж",
+    "prepositional": "Воронеже",
+    "genitive": "Воронежа",
+    "lat": 51.6593,
+    "lng": 39.1969,
+    "zoom": 12
+  },
+  {
+    "slug": "voskresensk",
+    "name": "Воскресенск",
+    "prepositional": "Воскресенске",
+    "genitive": "Воскресенска",
+    "lat": 55.313,
+    "lng": 38.691,
+    "zoom": 12
+  },
+  {
+    "slug": "votkinsk",
+    "name": "Воткинск",
+    "prepositional": "Воткинске",
+    "genitive": "Воткинска",
+    "lat": 57.0487,
+    "lng": 53.9872,
+    "zoom": 12
+  },
+  {
+    "slug": "vsevolozhsk",
+    "name": "Всеволожск",
+    "prepositional": "Всеволожске",
+    "genitive": "Всеволожска",
+    "lat": 60.0151,
+    "lng": 30.6731,
+    "zoom": 12
+  },
+  {
+    "slug": "vyborg",
+    "name": "Выборг",
+    "prepositional": "Выборге",
+    "genitive": "Выборга",
+    "lat": 60.7136,
+    "lng": 28.7528,
+    "zoom": 12
+  },
+  {
+    "slug": "vyksa",
+    "name": "Выкса",
+    "prepositional": "Выксе",
+    "genitive": "Выксы",
+    "lat": 55.3206,
+    "lng": 42.174,
+    "zoom": 12
+  },
+  {
+    "slug": "vyshniy-volochek",
+    "name": "Вышний Волочёк",
+    "prepositional": "Вышний Волочёке",
+    "genitive": "Вышний Волочёка",
+    "lat": 57.5888,
+    "lng": 34.5685,
+    "zoom": 12
+  },
+  {
+    "slug": "vyazniki",
+    "name": "Вязники",
+    "prepositional": "Вязники",
+    "genitive": "Вязники",
+    "lat": 56.2423,
+    "lng": 42.1491,
+    "zoom": 12
+  },
+  {
+    "slug": "vyazma",
+    "name": "Вязьма",
+    "prepositional": "Вязьме",
+    "genitive": "Вязьмы",
+    "lat": 55.1491,
+    "lng": 34.3831,
+    "zoom": 12
+  },
+  {
+    "slug": "gagarin",
+    "name": "Гагарин",
+    "prepositional": "Гагарине",
+    "genitive": "Гагарина",
+    "lat": 55.5533,
+    "lng": 34.9968,
+    "zoom": 12
+  },
+  {
+    "slug": "gay",
+    "name": "Гай",
+    "prepositional": "Гае",
+    "genitive": "Гая",
+    "lat": 51.4727,
+    "lng": 58.4516,
+    "zoom": 12
+  },
+  {
+    "slug": "gatchina",
+    "name": "Гатчина",
+    "prepositional": "Гатчине",
+    "genitive": "Гатчины",
+    "lat": 59.5652,
+    "lng": 30.1282,
+    "zoom": 13
+  },
+  {
+    "slug": "gelendzhik",
+    "name": "Геленджик",
+    "prepositional": "Геленджике",
+    "genitive": "Геленджика",
+    "lat": 44.563,
+    "lng": 38.0791,
+    "zoom": 12
+  },
+  {
+    "slug": "georgievsk",
+    "name": "Георгиевск",
+    "prepositional": "Георгиевске",
+    "genitive": "Георгиевска",
+    "lat": 44.1479,
+    "lng": 43.4742,
+    "zoom": 12
+  },
+  {
+    "slug": "glazov",
+    "name": "Глазов",
+    "prepositional": "Глазове",
+    "genitive": "Глазова",
+    "lat": 58.14,
+    "lng": 52.6562,
+    "zoom": 12
+  },
+  {
+    "slug": "gorno-altaysk",
+    "name": "Горно-Алтайск",
+    "prepositional": "Горно-Алтайске",
+    "genitive": "Горно-Алтайска",
+    "lat": 51.9581,
+    "lng": 85.9603,
+    "zoom": 13
+  },
+  {
+    "slug": "gorodets",
+    "name": "Городец",
+    "prepositional": "Городеце",
+    "genitive": "Городеца",
+    "lat": 56.655,
+    "lng": 43.4727,
+    "zoom": 12
+  },
+  {
+    "slug": "aznakaevo",
+    "name": "городское поселение Азнакаево",
+    "prepositional": "городское поселение Азнакаеве",
+    "genitive": "городское поселение Азнакаева",
+    "lat": 54.863,
+    "lng": 53.0792,
+    "zoom": 12
+  },
+  {
+    "slug": "kamen-na-obi",
+    "name": "городское поселение Камень-на-Оби",
+    "prepositional": "городское поселение Камень-на-Оби",
+    "genitive": "городское поселение Камень-на-Оби",
+    "lat": 53.7937,
+    "lng": 81.3516,
+    "zoom": 12
+  },
+  {
+    "slug": "kotelnich",
+    "name": "городской округ Котельнич",
+    "prepositional": "городской округ Котельниче",
+    "genitive": "городской округ Котельнича",
+    "lat": 58.3046,
+    "lng": 48.3471,
+    "zoom": 12
+  },
+  {
+    "slug": "pyt-yakh",
+    "name": "городской округ Пыть-Ях",
+    "prepositional": "городской округ Пыть-Яхе",
+    "genitive": "городской округ Пыть-Яха",
+    "lat": 60.7551,
+    "lng": 72.84,
+    "zoom": 12
+  },
+  {
+    "slug": "goryachiy-klyuch",
+    "name": "Горячий Ключ",
+    "prepositional": "Горячий Ключе",
+    "genitive": "Горячий Ключа",
+    "lat": 44.6339,
+    "lng": 39.1358,
+    "zoom": 12
+  },
+  {
+    "slug": "groznyy",
+    "name": "Грозный",
+    "prepositional": "Грозном",
+    "genitive": "Грозного",
+    "lat": 43.318,
+    "lng": 45.6983,
+    "zoom": 12
+  },
+  {
+    "slug": "gryazi",
+    "name": "Грязи",
+    "prepositional": "Грязи",
+    "genitive": "Грязи",
+    "lat": 52.4954,
+    "lng": 39.9403,
+    "zoom": 12
+  },
+  {
+    "slug": "gubkin",
+    "name": "Губкин",
+    "prepositional": "Губкине",
+    "genitive": "Губкина",
+    "lat": 51.2838,
+    "lng": 37.5351,
+    "zoom": 12
+  },
+  {
+    "slug": "gudermes",
+    "name": "Гудермес",
+    "prepositional": "Гудермесе",
+    "genitive": "Гудермеса",
+    "lat": 43.3508,
+    "lng": 46.101,
+    "zoom": 12
+  },
+  {
+    "slug": "gukovo",
+    "name": "Гуково",
+    "prepositional": "Гукове",
+    "genitive": "Гукова",
+    "lat": 48.0621,
+    "lng": 39.9355,
+    "zoom": 12
+  },
+  {
+    "slug": "gus-khrustalny",
+    "name": "Гусь-Хрустальный",
+    "prepositional": "Гусь-Хрустальные",
+    "genitive": "Гусь-Хрустальныя",
+    "lat": 55.615,
+    "lng": 40.6709,
+    "zoom": 12
+  },
+  {
+    "slug": "dagestanskie-ogni",
+    "name": "Дагестанские Огни",
+    "prepositional": "Дагестанские Огни",
+    "genitive": "Дагестанские Огни",
+    "lat": 42.1152,
+    "lng": 48.1864,
+    "zoom": 12
+  },
+  {
+    "slug": "dalnegorsk",
+    "name": "Дальнегорск",
+    "prepositional": "Дальнегорске",
+    "genitive": "Дальнегорска",
+    "lat": 44.5575,
+    "lng": 135.6209,
+    "zoom": 12
+  },
+  {
+    "slug": "dalnerechensk",
+    "name": "Дальнереченск",
+    "prepositional": "Дальнереченске",
+    "genitive": "Дальнереченска",
+    "lat": 45.9315,
+    "lng": 133.7391,
+    "zoom": 12
+  },
+  {
+    "slug": "derbent",
+    "name": "Дербент",
+    "prepositional": "Дербенте",
+    "genitive": "Дербента",
+    "lat": 42.0578,
+    "lng": 48.2906,
+    "zoom": 12
+  },
+  {
+    "slug": "desnogorsk",
+    "name": "Десногорск",
+    "prepositional": "Десногорске",
+    "genitive": "Десногорска",
+    "lat": 54.1508,
+    "lng": 33.2815,
+    "zoom": 12
+  },
+  {
+    "slug": "dzerzhinsk",
+    "name": "Дзержинск",
+    "prepositional": "Дзержинске",
+    "genitive": "Дзержинска",
+    "lat": 56.2376,
+    "lng": 43.4599,
+    "zoom": 12
+  },
+  {
+    "slug": "divnogorsk",
+    "name": "Дивногорск",
+    "prepositional": "Дивногорске",
+    "genitive": "Дивногорска",
+    "lat": 55.9392,
+    "lng": 92.3751,
+    "zoom": 12
+  },
+  {
+    "slug": "dimitrovgrad",
+    "name": "Димитровград",
+    "prepositional": "Димитровграде",
+    "genitive": "Димитровграда",
+    "lat": 54.2139,
+    "lng": 49.6184,
+    "zoom": 12
+  },
+  {
+    "slug": "dmitrov",
+    "name": "Дмитров",
+    "prepositional": "Дмитрове",
+    "genitive": "Дмитрова",
+    "lat": 56.3449,
+    "lng": 37.5204,
+    "zoom": 12
+  },
+  {
+    "slug": "dolgoprudnyy",
+    "name": "Долгопрудный",
+    "prepositional": "Долгопрудном",
+    "genitive": "Долгопрудного",
+    "lat": 55.9386,
+    "lng": 37.5201,
+    "zoom": 12
+  },
+  {
+    "slug": "domodedovo",
+    "name": "Домодедово",
+    "prepositional": "Домодедово",
+    "genitive": "Домодедово",
+    "lat": 55.4363,
+    "lng": 37.7665,
+    "zoom": 12
+  },
+  {
+    "slug": "donskoy",
+    "name": "Донской",
+    "prepositional": "Донское",
+    "genitive": "Донскоя",
+    "lat": 53.968,
+    "lng": 38.3315,
+    "zoom": 12
+  },
+  {
+    "slug": "dubna",
+    "name": "Дубна",
+    "prepositional": "Дубне",
+    "genitive": "Дубны",
+    "lat": 56.732,
+    "lng": 37.1669,
+    "zoom": 13
+  },
+  {
+    "slug": "dyurtyuli",
+    "name": "Дюртюли",
+    "prepositional": "Дюртюли",
+    "genitive": "Дюртюли",
+    "lat": 55.4873,
+    "lng": 54.8618,
+    "zoom": 12
+  },
+  {
+    "slug": "dyatkovo",
+    "name": "Дятьково",
+    "prepositional": "Дятькове",
+    "genitive": "Дятькова",
+    "lat": 53.6004,
+    "lng": 34.3336,
+    "zoom": 12
+  },
+  {
+    "slug": "evpatoriya",
+    "name": "Евпатория",
+    "prepositional": "Евпатории",
+    "genitive": "Евпатории",
+    "lat": 45.1902,
+    "lng": 33.3671,
+    "zoom": 13
+  },
+  {
+    "slug": "egoryevsk",
+    "name": "Егорьевск",
+    "prepositional": "Егорьевске",
+    "genitive": "Егорьевска",
+    "lat": 55.3831,
+    "lng": 39.0358,
+    "zoom": 12
+  },
+  {
+    "slug": "eysk",
+    "name": "Ейск",
+    "prepositional": "Ейске",
+    "genitive": "Ейска",
+    "lat": 46.7111,
+    "lng": 38.2733,
+    "zoom": 12
+  },
+  {
+    "slug": "ekaterinburg",
+    "name": "Екатеринбург",
+    "prepositional": "Екатеринбурге",
+    "genitive": "Екатеринбурга",
+    "lat": 56.8385,
+    "lng": 60.6055,
+    "zoom": 12
+  },
+  {
+    "slug": "yelabuga",
+    "name": "Елабуга",
+    "prepositional": "Елабуге",
+    "genitive": "Елабугы",
+    "lat": 55.7623,
+    "lng": 52.0443,
+    "zoom": 12
+  },
+  {
+    "slug": "elets",
+    "name": "Елец",
+    "prepositional": "Елеце",
+    "genitive": "Елеца",
+    "lat": 52.622,
+    "lng": 38.5003,
+    "zoom": 12
+  },
+  {
+    "slug": "yelizovo",
+    "name": "Елизово",
+    "prepositional": "Елизове",
+    "genitive": "Елизова",
+    "lat": 53.1894,
+    "lng": 158.3828,
+    "zoom": 12
+  },
+  {
+    "slug": "emanzhelinsk",
+    "name": "Еманжелинск",
+    "prepositional": "Еманжелинске",
+    "genitive": "Еманжелинска",
+    "lat": 54.7591,
+    "lng": 61.3132,
+    "zoom": 12
+  },
+  {
+    "slug": "essentuki",
+    "name": "Ессентуки",
+    "prepositional": "Ессентуках",
+    "genitive": "Ессентуков",
+    "lat": 44.0445,
+    "lng": 42.8649,
+    "zoom": 13
+  },
+  {
+    "slug": "efremov",
+    "name": "Ефремов",
+    "prepositional": "Ефремове",
+    "genitive": "Ефремова",
+    "lat": 53.1418,
+    "lng": 38.1162,
+    "zoom": 12
+  },
+  {
+    "slug": "zheleznovodsk",
+    "name": "Железноводск",
+    "prepositional": "Железноводске",
+    "genitive": "Железноводска",
+    "lat": 44.1432,
+    "lng": 43.0048,
+    "zoom": 12
+  },
+  {
+    "slug": "zheleznogorsk",
+    "name": "Железногорск",
+    "prepositional": "Железногорске",
+    "genitive": "Железногорска",
+    "lat": 52.342,
+    "lng": 35.3592,
+    "zoom": 12
+  },
+  {
+    "slug": "zhigulevsk",
+    "name": "Жигулёвск",
+    "prepositional": "Жигулёвске",
+    "genitive": "Жигулёвска",
+    "lat": 53.4033,
+    "lng": 49.5106,
+    "zoom": 12
+  },
+  {
+    "slug": "zhukovskiy",
+    "name": "Жуковский",
+    "prepositional": "Жуковском",
+    "genitive": "Жуковского",
+    "lat": 55.5975,
+    "lng": 38.1198,
+    "zoom": 12
+  },
+  {
+    "slug": "zavodoukovsk",
+    "name": "Заводоуковск",
+    "prepositional": "Заводоуковске",
+    "genitive": "Заводоуковска",
+    "lat": 56.5033,
+    "lng": 66.5467,
+    "zoom": 12
+  },
+  {
+    "slug": "zavolzhye",
+    "name": "Заволжье",
+    "prepositional": "Заволжьее",
+    "genitive": "Заволжьеа",
+    "lat": 56.64,
+    "lng": 43.3994,
+    "zoom": 12
+  },
+  {
+    "slug": "zainsk",
+    "name": "Заинск",
+    "prepositional": "Заинске",
+    "genitive": "Заинска",
+    "lat": 55.2836,
+    "lng": 51.9987,
+    "zoom": 12
+  },
+  {
+    "slug": "zarechnyy",
+    "name": "Заречный",
+    "prepositional": "Заречные",
+    "genitive": "Заречныя",
+    "lat": 56.811,
+    "lng": 61.3254,
+    "zoom": 12
+  },
+  {
+    "slug": "zarinsk",
+    "name": "Заринск",
+    "prepositional": "Заринске",
+    "genitive": "Заринска",
+    "lat": 53.7082,
+    "lng": 84.9431,
+    "zoom": 12
+  },
+  {
+    "slug": "zelenogorsk",
+    "name": "Зеленогорск",
+    "prepositional": "Зеленогорске",
+    "genitive": "Зеленогорска",
+    "lat": 56.1092,
+    "lng": 94.587,
+    "zoom": 12
+  },
+  {
+    "slug": "zelenodolsk",
+    "name": "Зеленодольск",
+    "prepositional": "Зеленодольске",
+    "genitive": "Зеленодольска",
+    "lat": 55.8438,
+    "lng": 48.5178,
+    "zoom": 12
+  },
+  {
+    "slug": "zelenokumsk",
+    "name": "Зеленокумск",
+    "prepositional": "Зеленокумске",
+    "genitive": "Зеленокумска",
+    "lat": 44.4104,
+    "lng": 43.8801,
+    "zoom": 12
+  },
+  {
+    "slug": "zima",
+    "name": "Зима",
+    "prepositional": "Зиме",
+    "genitive": "Зимы",
+    "lat": 53.9202,
+    "lng": 102.0442,
+    "zoom": 12
+  },
+  {
+    "slug": "zlatoust",
+    "name": "Златоуст",
+    "prepositional": "Златоусте",
+    "genitive": "Златоуста",
+    "lat": 55.1711,
+    "lng": 59.6508,
+    "zoom": 12
+  },
+  {
+    "slug": "znamensk",
+    "name": "Знаменск",
+    "prepositional": "Знаменске",
+    "genitive": "Знаменска",
+    "lat": 48.5842,
+    "lng": 45.7338,
+    "zoom": 12
+  },
+  {
+    "slug": "ivanovo",
+    "name": "Иваново",
+    "prepositional": "Иванове",
+    "genitive": "Иванова",
+    "lat": 56.9994,
+    "lng": 40.9728,
+    "zoom": 12
+  },
+  {
+    "slug": "ivanteyevka",
+    "name": "Ивантеевка",
+    "prepositional": "Ивантеевке",
+    "genitive": "Ивантеевки",
+    "lat": 55.9718,
+    "lng": 37.9208,
+    "zoom": 12
+  },
+  {
+    "slug": "izhevsk",
+    "name": "Ижевск",
+    "prepositional": "Ижевске",
+    "genitive": "Ижевска",
+    "lat": 56.8527,
+    "lng": 53.2115,
+    "zoom": 12
+  },
+  {
+    "slug": "izberbash",
+    "name": "Избербаш",
+    "prepositional": "Избербаше",
+    "genitive": "Избербаша",
+    "lat": 42.5671,
+    "lng": 47.8755,
+    "zoom": 12
+  },
+  {
+    "slug": "izobilny",
+    "name": "Изобильный",
+    "prepositional": "Изобильные",
+    "genitive": "Изобильныя",
+    "lat": 45.3741,
+    "lng": 41.7121,
+    "zoom": 12
+  },
+  {
+    "slug": "ipatovo",
+    "name": "Ипатово",
+    "prepositional": "Ипатове",
+    "genitive": "Ипатова",
+    "lat": 45.718,
+    "lng": 42.9061,
+    "zoom": 12
+  },
+  {
+    "slug": "irbit",
+    "name": "Ирбит",
+    "prepositional": "Ирбите",
+    "genitive": "Ирбита",
+    "lat": 57.6686,
+    "lng": 63.0707,
+    "zoom": 12
+  },
+  {
+    "slug": "irkutsk",
+    "name": "Иркутск",
+    "prepositional": "Иркутске",
+    "genitive": "Иркутска",
+    "lat": 52.2864,
+    "lng": 104.2807,
+    "zoom": 12
+  },
+  {
+    "slug": "iskitim",
+    "name": "Искитим",
+    "prepositional": "Искитиме",
+    "genitive": "Искитима",
+    "lat": 54.642,
+    "lng": 83.3065,
+    "zoom": 12
+  },
+  {
+    "slug": "istra",
+    "name": "Истра",
+    "prepositional": "Истре",
+    "genitive": "Истры",
+    "lat": 55.9198,
+    "lng": 36.8688,
+    "zoom": 12
+  },
+  {
+    "slug": "ishim",
+    "name": "Ишим",
+    "prepositional": "Ишиме",
+    "genitive": "Ишима",
+    "lat": 56.1125,
+    "lng": 69.4872,
+    "zoom": 12
+  },
+  {
+    "slug": "ishimbay",
+    "name": "Ишимбай",
+    "prepositional": "Ишимбае",
+    "genitive": "Ишимбая",
+    "lat": 53.4546,
+    "lng": 56.0439,
+    "zoom": 12
+  },
+  {
+    "slug": "yoshkar-ola",
+    "name": "Йошкар-Ола",
+    "prepositional": "Йошкар-Оле",
+    "genitive": "Йошкар-Олы",
+    "lat": 56.6344,
+    "lng": 47.9,
+    "zoom": 12
+  },
+  {
+    "slug": "kazan",
+    "name": "Казань",
+    "prepositional": "Казани",
+    "genitive": "Казани",
+    "lat": 55.7944,
+    "lng": 49.1115,
+    "zoom": 12
+  },
+  {
+    "slug": "kalach-na-donu",
+    "name": "Калач-на-Дону",
+    "prepositional": "Калач-на-Донуе",
+    "genitive": "Калач-на-Донуа",
+    "lat": 48.6819,
+    "lng": 43.538,
+    "zoom": 12
+  },
+  {
+    "slug": "kaliningrad",
+    "name": "Калининград",
+    "prepositional": "Калининграде",
+    "genitive": "Калининграда",
+    "lat": 54.7075,
+    "lng": 20.5073,
+    "zoom": 12
+  },
+  {
+    "slug": "kaluga",
+    "name": "Калуга",
+    "prepositional": "Калуге",
+    "genitive": "Калуги",
+    "lat": 54.506,
+    "lng": 36.2516,
+    "zoom": 12
+  },
+  {
+    "slug": "kamensk-uralskiy",
+    "name": "Каменск-Уральский",
+    "prepositional": "Каменске-Уральском",
+    "genitive": "Каменска-Уральского",
+    "lat": 56.4149,
+    "lng": 61.9189,
+    "zoom": 12
+  },
+  {
+    "slug": "kamyshin",
+    "name": "Камышин",
+    "prepositional": "Камышине",
+    "genitive": "Камышина",
+    "lat": 50.0833,
+    "lng": 45.4167,
+    "zoom": 12
+  },
+  {
+    "slug": "kanash",
+    "name": "Канаш",
+    "prepositional": "Канаше",
+    "genitive": "Канаша",
+    "lat": 55.5096,
+    "lng": 47.4913,
+    "zoom": 12
+  },
+  {
+    "slug": "kandalaksha",
+    "name": "Кандалакша",
+    "prepositional": "Кандалакше",
+    "genitive": "Кандалакшы",
+    "lat": 67.1512,
+    "lng": 32.4128,
+    "zoom": 12
+  },
+  {
+    "slug": "kansk",
+    "name": "Канск",
+    "prepositional": "Канске",
+    "genitive": "Канска",
+    "lat": 56.205,
+    "lng": 95.705,
+    "zoom": 12
+  },
+  {
+    "slug": "karabulak",
+    "name": "Карабулак",
+    "prepositional": "Карабулаке",
+    "genitive": "Карабулака",
+    "lat": 43.3051,
+    "lng": 44.8995,
+    "zoom": 12
+  },
+  {
+    "slug": "karasuk",
+    "name": "Карасук",
+    "prepositional": "Карасуке",
+    "genitive": "Карасука",
+    "lat": 53.7395,
+    "lng": 78.0439,
+    "zoom": 12
+  },
+  {
+    "slug": "kasimov",
+    "name": "Касимов",
+    "prepositional": "Касимове",
+    "genitive": "Касимова",
+    "lat": 54.9438,
+    "lng": 41.4034,
+    "zoom": 12
+  },
+  {
+    "slug": "kaspiysk",
+    "name": "Каспийск",
+    "prepositional": "Каспийске",
+    "genitive": "Каспийска",
+    "lat": 42.8816,
+    "lng": 47.6382,
+    "zoom": 12
+  },
+  {
+    "slug": "kachkanar",
+    "name": "Качканар",
+    "prepositional": "Качканаре",
+    "genitive": "Качканара",
+    "lat": 58.7002,
+    "lng": 59.4839,
+    "zoom": 12
+  },
+  {
+    "slug": "kashira",
+    "name": "Кашира",
+    "prepositional": "Кашире",
+    "genitive": "Каширы",
+    "lat": 54.8476,
+    "lng": 38.1821,
+    "zoom": 12
+  },
+  {
+    "slug": "kemerovo",
+    "name": "Кемерово",
+    "prepositional": "Кемерове",
+    "genitive": "Кемерова",
+    "lat": 55.3911,
+    "lng": 86.0468,
+    "zoom": 12
+  },
+  {
+    "slug": "kerch",
+    "name": "Керчь",
+    "prepositional": "Керчи",
+    "genitive": "Керчи",
+    "lat": 45.3562,
+    "lng": 36.4674,
+    "zoom": 13
+  },
+  {
+    "slug": "kizlyar",
+    "name": "Кизляр",
+    "prepositional": "Кизляре",
+    "genitive": "Кизляра",
+    "lat": 43.8469,
+    "lng": 46.7098,
+    "zoom": 12
+  },
+  {
+    "slug": "kimry",
+    "name": "Кимры",
+    "prepositional": "Кимры",
+    "genitive": "Кимры",
+    "lat": 56.8746,
+    "lng": 37.3596,
+    "zoom": 12
+  },
+  {
+    "slug": "kingisepp",
+    "name": "Кингисепп",
+    "prepositional": "Кингисеппе",
+    "genitive": "Кингисеппа",
+    "lat": 59.3763,
+    "lng": 28.6141,
+    "zoom": 12
+  },
+  {
+    "slug": "kineshma",
+    "name": "Кинешма",
+    "prepositional": "Кинешме",
+    "genitive": "Кинешмы",
+    "lat": 57.4367,
+    "lng": 42.1277,
+    "zoom": 12
+  },
+  {
+    "slug": "kirishi",
+    "name": "Кириши",
+    "prepositional": "Кириши",
+    "genitive": "Кириши",
+    "lat": 59.4742,
+    "lng": 32.0401,
+    "zoom": 12
+  },
+  {
+    "slug": "kirov",
+    "name": "Киров",
+    "prepositional": "Кирове",
+    "genitive": "Кирова",
+    "lat": 58.6035,
+    "lng": 49.6679,
+    "zoom": 12
+  },
+  {
+    "slug": "kirovo-chepetsk",
+    "name": "Кирово-Чепецк",
+    "prepositional": "Кирово-Чепецке",
+    "genitive": "Кирово-Чепецка",
+    "lat": 58.5382,
+    "lng": 50.0032,
+    "zoom": 12
+  },
+  {
+    "slug": "kiselevsk",
+    "name": "Киселёвск",
+    "prepositional": "Киселёвске",
+    "genitive": "Киселёвска",
+    "lat": 53.9904,
+    "lng": 86.662,
+    "zoom": 12
+  },
+  {
+    "slug": "kislovodsk",
+    "name": "Кисловодск",
+    "prepositional": "Кисловодске",
+    "genitive": "Кисловодска",
+    "lat": 43.9057,
+    "lng": 42.7168,
+    "zoom": 13
+  },
+  {
+    "slug": "klin",
+    "name": "Клин",
+    "prepositional": "Клине",
+    "genitive": "Клина",
+    "lat": 56.3319,
+    "lng": 36.7272,
+    "zoom": 13
+  },
+  {
+    "slug": "klintsy",
+    "name": "Клинцы",
+    "prepositional": "Клинцы",
+    "genitive": "Клинцы",
+    "lat": 52.7603,
+    "lng": 32.2391,
+    "zoom": 12
+  },
+  {
+    "slug": "kovrov",
+    "name": "Ковров",
+    "prepositional": "Коврове",
+    "genitive": "Коврова",
+    "lat": 56.3557,
+    "lng": 41.3171,
+    "zoom": 12
+  },
+  {
+    "slug": "kogalym",
+    "name": "Когалым",
+    "prepositional": "Когалыме",
+    "genitive": "Когалыма",
+    "lat": 62.2654,
+    "lng": 74.4791,
+    "zoom": 12
+  },
+  {
+    "slug": "kolomna",
+    "name": "Коломна",
+    "prepositional": "Коломне",
+    "genitive": "Коломны",
+    "lat": 55.0794,
+    "lng": 38.7789,
+    "zoom": 12
+  },
+  {
+    "slug": "kolchugino",
+    "name": "Кольчугино",
+    "prepositional": "Кольчугине",
+    "genitive": "Кольчугина",
+    "lat": 56.294,
+    "lng": 39.376,
+    "zoom": 12
+  },
+  {
+    "slug": "komsomolsk-na-amure",
+    "name": "Комсомольск-на-Амуре",
+    "prepositional": "Комсомольске-на-Амуре",
+    "genitive": "Комсомольска-на-Амуре",
+    "lat": 50.5499,
+    "lng": 137.0079,
+    "zoom": 12
+  },
+  {
+    "slug": "konakovo",
+    "name": "Конаково",
+    "prepositional": "Конакове",
+    "genitive": "Конакова",
+    "lat": 56.7015,
+    "lng": 36.7731,
+    "zoom": 12
+  },
+  {
+    "slug": "kondopoga",
+    "name": "Кондопога",
+    "prepositional": "Кондопоге",
+    "genitive": "Кондопогы",
+    "lat": 62.2041,
+    "lng": 34.2693,
+    "zoom": 12
+  },
+  {
+    "slug": "kopeysk",
+    "name": "Копейск",
+    "prepositional": "Копейске",
+    "genitive": "Копейска",
+    "lat": 55.1168,
+    "lng": 61.6175,
+    "zoom": 12
+  },
+  {
+    "slug": "korenovsk",
+    "name": "Кореновск",
+    "prepositional": "Кореновске",
+    "genitive": "Кореновска",
+    "lat": 45.4672,
+    "lng": 39.4492,
+    "zoom": 12
+  },
+  {
+    "slug": "korkino",
+    "name": "Коркино",
+    "prepositional": "Коркине",
+    "genitive": "Коркина",
+    "lat": 54.8915,
+    "lng": 61.392,
+    "zoom": 12
+  },
+  {
+    "slug": "korolev",
+    "name": "Королёв",
+    "prepositional": "Королёве",
+    "genitive": "Королёва",
+    "lat": 55.9162,
+    "lng": 37.8545,
+    "zoom": 12
+  },
+  {
+    "slug": "korsakov",
+    "name": "Корсаков",
+    "prepositional": "Корсакове",
+    "genitive": "Корсакова",
+    "lat": 46.6353,
+    "lng": 142.7758,
+    "zoom": 12
+  },
+  {
+    "slug": "koryazhma",
+    "name": "Коряжма",
+    "prepositional": "Коряжме",
+    "genitive": "Коряжмы",
+    "lat": 61.3124,
+    "lng": 47.1483,
+    "zoom": 12
+  },
+  {
+    "slug": "kostomuksha",
+    "name": "Костомукша",
+    "prepositional": "Костомукше",
+    "genitive": "Костомукшы",
+    "lat": 64.571,
+    "lng": 30.5767,
+    "zoom": 12
+  },
+  {
+    "slug": "kostroma",
+    "name": "Кострома",
+    "prepositional": "Костроме",
+    "genitive": "Костромы",
+    "lat": 57.768,
+    "lng": 40.927,
+    "zoom": 12
+  },
+  {
+    "slug": "kotelniki",
+    "name": "Котельники",
+    "prepositional": "Котельники",
+    "genitive": "Котельники",
+    "lat": 55.6617,
+    "lng": 37.8673,
+    "zoom": 12
+  },
+  {
+    "slug": "kotlas",
+    "name": "Котлас",
+    "prepositional": "Котласе",
+    "genitive": "Котласа",
+    "lat": 61.2566,
+    "lng": 46.6537,
+    "zoom": 12
+  },
+  {
+    "slug": "krasnogorsk",
+    "name": "Красногорск",
+    "prepositional": "Красногорске",
+    "genitive": "Красногорска",
+    "lat": 55.8317,
+    "lng": 37.3295,
+    "zoom": 12
+  },
+  {
+    "slug": "krasnodar",
+    "name": "Краснодар",
+    "prepositional": "Краснодаре",
+    "genitive": "Краснодара",
+    "lat": 45.0402,
+    "lng": 38.976,
+    "zoom": 12
+  },
+  {
+    "slug": "krasnoznamensk",
+    "name": "Краснознаменск",
+    "prepositional": "Краснознаменске",
+    "genitive": "Краснознаменска",
+    "lat": 55.5953,
+    "lng": 37.0523,
+    "zoom": 12
+  },
+  {
+    "slug": "krasnokamensk",
+    "name": "Краснокаменск",
+    "prepositional": "Краснокаменске",
+    "genitive": "Краснокаменска",
+    "lat": 50.0928,
+    "lng": 118.0322,
+    "zoom": 12
+  },
+  {
+    "slug": "krasnokamsk",
+    "name": "Краснокамск",
+    "prepositional": "Краснокамске",
+    "genitive": "Краснокамска",
+    "lat": 58.0787,
+    "lng": 55.7562,
+    "zoom": 12
+  },
+  {
+    "slug": "krasnoturyinsk",
+    "name": "Краснотурьинск",
+    "prepositional": "Краснотурьинске",
+    "genitive": "Краснотурьинска",
+    "lat": 59.7646,
+    "lng": 60.1936,
+    "zoom": 12
+  },
+  {
+    "slug": "krasnoyarsk",
+    "name": "Красноярск",
+    "prepositional": "Красноярске",
+    "genitive": "Красноярска",
+    "lat": 56.0094,
+    "lng": 92.8525,
+    "zoom": 12
+  },
+  {
+    "slug": "kropotkin",
+    "name": "Кропоткин",
+    "prepositional": "Кропоткине",
+    "genitive": "Кропоткина",
+    "lat": 45.4372,
+    "lng": 40.5704,
+    "zoom": 12
+  },
+  {
+    "slug": "krymsk",
+    "name": "Крымск",
+    "prepositional": "Крымске",
+    "genitive": "Крымска",
+    "lat": 44.9263,
+    "lng": 37.9903,
+    "zoom": 12
+  },
+  {
+    "slug": "kstovo",
+    "name": "Кстово",
+    "prepositional": "Кстове",
+    "genitive": "Кстова",
+    "lat": 56.143,
+    "lng": 44.1669,
+    "zoom": 12
+  },
+  {
+    "slug": "kuvandyk",
+    "name": "Кувандык",
+    "prepositional": "Кувандыке",
+    "genitive": "Кувандыка",
+    "lat": 51.4848,
+    "lng": 57.3579,
+    "zoom": 12
+  },
+  {
+    "slug": "kamenka",
+    "name": "Кувшиново",
+    "prepositional": "Кувшинове",
+    "genitive": "Кувшинова",
+    "lat": 57.0286,
+    "lng": 34.179,
+    "zoom": 12
+  },
+  {
+    "slug": "kudrovo",
+    "name": "Кудрово",
+    "prepositional": "Кудрове",
+    "genitive": "Кудрова",
+    "lat": 59.9035,
+    "lng": 30.5106,
+    "zoom": 12
+  },
+  {
+    "slug": "kuznetsk",
+    "name": "Кузнецк",
+    "prepositional": "Кузнецке",
+    "genitive": "Кузнецка",
+    "lat": 53.1168,
+    "lng": 46.6004,
+    "zoom": 12
+  },
+  {
+    "slug": "kuybyshev",
+    "name": "Куйбышев",
+    "prepositional": "Куйбышеве",
+    "genitive": "Куйбышева",
+    "lat": 55.4478,
+    "lng": 78.3191,
+    "zoom": 12
+  },
+  {
+    "slug": "kulebaki",
+    "name": "Кулебаки",
+    "prepositional": "Кулебаки",
+    "genitive": "Кулебаки",
+    "lat": 55.4133,
+    "lng": 42.5325,
+    "zoom": 12
+  },
+  {
+    "slug": "kumertau",
+    "name": "Кумертау",
+    "prepositional": "Кумертауе",
+    "genitive": "Кумертауа",
+    "lat": 52.7649,
+    "lng": 55.7879,
+    "zoom": 12
+  },
+  {
+    "slug": "kungur",
+    "name": "Кунгур",
+    "prepositional": "Кунгуре",
+    "genitive": "Кунгура",
+    "lat": 57.4144,
+    "lng": 56.9716,
+    "zoom": 12
+  },
+  {
+    "slug": "kurgan",
+    "name": "Курган",
+    "prepositional": "Кургане",
+    "genitive": "Кургана",
+    "lat": 55.4444,
+    "lng": 65.3162,
+    "zoom": 12
+  },
+  {
+    "slug": "kurganinsk",
+    "name": "Курганинск",
+    "prepositional": "Курганинске",
+    "genitive": "Курганинска",
+    "lat": 44.8845,
+    "lng": 40.5889,
+    "zoom": 12
+  },
+  {
+    "slug": "kursk",
+    "name": "Курск",
+    "prepositional": "Курске",
+    "genitive": "Курска",
+    "lat": 51.7304,
+    "lng": 36.1926,
+    "zoom": 12
+  },
+  {
+    "slug": "kurchatov",
+    "name": "Курчатов",
+    "prepositional": "Курчатове",
+    "genitive": "Курчатова",
+    "lat": 51.6536,
+    "lng": 35.6865,
+    "zoom": 12
+  },
+  {
+    "slug": "kyzyl",
+    "name": "Кызыл",
+    "prepositional": "Кызыле",
+    "genitive": "Кызыла",
+    "lat": 51.7191,
+    "lng": 94.4377,
+    "zoom": 13
+  },
+  {
+    "slug": "kyshtym",
+    "name": "Кыштым",
+    "prepositional": "Кыштыме",
+    "genitive": "Кыштыма",
+    "lat": 55.7163,
+    "lng": 60.551,
+    "zoom": 12
+  },
+  {
+    "slug": "labinsk",
+    "name": "Лабинск",
+    "prepositional": "Лабинске",
+    "genitive": "Лабинска",
+    "lat": 44.636,
+    "lng": 40.7357,
+    "zoom": 12
+  },
+  {
+    "slug": "langepas",
+    "name": "Лангепас",
+    "prepositional": "Лангепасе",
+    "genitive": "Лангепаса",
+    "lat": 61.2544,
+    "lng": 75.2124,
+    "zoom": 12
+  },
+  {
+    "slug": "leninogorsk",
+    "name": "Лениногорск",
+    "prepositional": "Лениногорске",
+    "genitive": "Лениногорска",
+    "lat": 54.5971,
+    "lng": 52.4512,
+    "zoom": 12
+  },
+  {
+    "slug": "leninsk-kuznetskiy",
+    "name": "Ленинск-Кузнецкий",
+    "prepositional": "Ленинске-Кузнецком",
+    "genitive": "Ленинска-Кузнецкого",
+    "lat": 54.656,
+    "lng": 86.1737,
+    "zoom": 12
+  },
+  {
+    "slug": "lermontov",
+    "name": "Лермонтов",
+    "prepositional": "Лермонтове",
+    "genitive": "Лермонтова",
+    "lat": 44.1072,
+    "lng": 42.978,
+    "zoom": 12
+  },
+  {
+    "slug": "lesnoy",
+    "name": "Лесной",
+    "prepositional": "Лесное",
+    "genitive": "Лесноя",
+    "lat": 58.6394,
+    "lng": 59.7896,
+    "zoom": 12
+  },
+  {
+    "slug": "lesozavodsk",
+    "name": "Лесозаводск",
+    "prepositional": "Лесозаводске",
+    "genitive": "Лесозаводска",
+    "lat": 45.4717,
+    "lng": 133.3983,
+    "zoom": 12
+  },
+  {
+    "slug": "lesosibirsk",
+    "name": "Лесосибирск",
+    "prepositional": "Лесосибирске",
+    "genitive": "Лесосибирска",
+    "lat": 58.2354,
+    "lng": 92.4835,
+    "zoom": 12
+  },
+  {
+    "slug": "livny",
+    "name": "Ливны",
+    "prepositional": "Ливны",
+    "genitive": "Ливны",
+    "lat": 52.4243,
+    "lng": 37.5996,
+    "zoom": 12
+  },
+  {
+    "slug": "lipetsk",
+    "name": "Липецк",
+    "prepositional": "Липецке",
+    "genitive": "Липецка",
+    "lat": 52.6102,
+    "lng": 39.5948,
+    "zoom": 12
+  },
+  {
+    "slug": "liski",
+    "name": "Лиски",
+    "prepositional": "Лиски",
+    "genitive": "Лиски",
+    "lat": 50.9824,
+    "lng": 39.504,
+    "zoom": 12
+  },
+  {
+    "slug": "lobnya",
+    "name": "Лобня",
+    "prepositional": "Лобняе",
+    "genitive": "Лобняа",
+    "lat": 56.0271,
+    "lng": 37.4679,
+    "zoom": 12
+  },
+  {
+    "slug": "luga",
+    "name": "Луга",
+    "prepositional": "Луге",
+    "genitive": "Лугы",
+    "lat": 58.7388,
+    "lng": 29.8476,
+    "zoom": 12
+  },
+  {
+    "slug": "lysva",
+    "name": "Лысьва",
+    "prepositional": "Лысьве",
+    "genitive": "Лысьвы",
+    "lat": 59.5606,
+    "lng": 56.6516,
+    "zoom": 12
+  },
+  {
+    "slug": "lytkarino",
+    "name": "Лыткарино",
+    "prepositional": "Лыткарине",
+    "genitive": "Лыткарина",
+    "lat": 55.5765,
+    "lng": 37.9125,
+    "zoom": 12
+  },
+  {
+    "slug": "lyubertsy",
+    "name": "Люберцы",
+    "prepositional": "Люберцах",
+    "genitive": "Люберцов",
+    "lat": 55.7004,
+    "lng": 37.9606,
+    "zoom": 12
+  },
+  {
+    "slug": "lyudinovo",
+    "name": "Людиново",
+    "prepositional": "Людинове",
+    "genitive": "Людинова",
+    "lat": 53.8664,
+    "lng": 34.4478,
+    "zoom": 12
+  },
+  {
+    "slug": "lyantor",
+    "name": "Лянтор",
+    "prepositional": "Лянторе",
+    "genitive": "Лянтора",
+    "lat": 61.6195,
+    "lng": 72.1555,
+    "zoom": 12
+  },
+  {
+    "slug": "magadan",
+    "name": "Магадан",
+    "prepositional": "Магадане",
+    "genitive": "Магадана",
+    "lat": 59.5681,
+    "lng": 150.8085,
+    "zoom": 13
+  },
+  {
+    "slug": "magas",
+    "name": "Магас",
+    "prepositional": "Магасе",
+    "genitive": "Магаса",
+    "lat": 43.1689,
+    "lng": 44.8131,
+    "zoom": 13
+  },
+  {
+    "slug": "magnitogorsk",
+    "name": "Магнитогорск",
+    "prepositional": "Магнитогорске",
+    "genitive": "Магнитогорска",
+    "lat": 53.4072,
+    "lng": 58.9791,
+    "zoom": 12
+  },
+  {
+    "slug": "maykop",
+    "name": "Майкоп",
+    "prepositional": "Майкопе",
+    "genitive": "Майкопа",
+    "lat": 44.6098,
+    "lng": 40.1007,
+    "zoom": 13
+  },
+  {
+    "slug": "malgobek",
+    "name": "Малгобек",
+    "prepositional": "Малгобеке",
+    "genitive": "Малгобека",
+    "lat": 43.5112,
+    "lng": 44.5905,
+    "zoom": 12
+  },
+  {
+    "slug": "marks",
+    "name": "Маркс",
+    "prepositional": "Марксе",
+    "genitive": "Маркса",
+    "lat": 51.7102,
+    "lng": 46.7455,
+    "zoom": 12
+  },
+  {
+    "slug": "makhachkala",
+    "name": "Махачкала",
+    "prepositional": "Махачкале",
+    "genitive": "Махачкалы",
+    "lat": 42.9849,
+    "lng": 47.5047,
+    "zoom": 12
+  },
+  {
+    "slug": "megion",
+    "name": "Мегион",
+    "prepositional": "Мегионе",
+    "genitive": "Мегиона",
+    "lat": 61.0343,
+    "lng": 76.1068,
+    "zoom": 12
+  },
+  {
+    "slug": "mednogorsk",
+    "name": "Медногорск",
+    "prepositional": "Медногорске",
+    "genitive": "Медногорска",
+    "lat": 51.4057,
+    "lng": 57.5875,
+    "zoom": 12
+  },
+  {
+    "slug": "mezhdurechensk",
+    "name": "Междуреченск",
+    "prepositional": "Междуреченске",
+    "genitive": "Междуреченска",
+    "lat": 53.6866,
+    "lng": 88.0703,
+    "zoom": 12
+  },
+  {
+    "slug": "meleuz",
+    "name": "Мелеуз",
+    "prepositional": "Мелеузе",
+    "genitive": "Мелеуза",
+    "lat": 52.9647,
+    "lng": 55.9328,
+    "zoom": 12
+  },
+  {
+    "slug": "miass",
+    "name": "Миасс",
+    "prepositional": "Миассе",
+    "genitive": "Миасса",
+    "lat": 55.045,
+    "lng": 60.1084,
+    "zoom": 12
+  },
+  {
+    "slug": "millerovo",
+    "name": "Миллерово",
+    "prepositional": "Миллерове",
+    "genitive": "Миллерова",
+    "lat": 48.9252,
+    "lng": 40.3998,
+    "zoom": 12
+  },
+  {
+    "slug": "mineralnye-vody",
+    "name": "Минеральные Воды",
+    "prepositional": "Минеральных Водах",
+    "genitive": "Минеральных Вод",
+    "lat": 44.2087,
+    "lng": 43.1351,
+    "zoom": 13
+  },
+  {
+    "slug": "minusinsk",
+    "name": "Минусинск",
+    "prepositional": "Минусинске",
+    "genitive": "Минусинска",
+    "lat": 53.7012,
+    "lng": 91.708,
+    "zoom": 12
+  },
+  {
+    "slug": "mirny",
+    "name": "Мирный",
+    "prepositional": "Мирные",
+    "genitive": "Мирныя",
+    "lat": 62.5353,
+    "lng": 113.9611,
+    "zoom": 12
+  },
+  {
+    "slug": "mikhaylovka",
+    "name": "Михайловка",
+    "prepositional": "Михайловке",
+    "genitive": "Михайловкы",
+    "lat": 50.0619,
+    "lng": 43.2334,
+    "zoom": 12
+  },
+  {
+    "slug": "mikhaylovsk",
+    "name": "Михайловск",
+    "prepositional": "Михайловске",
+    "genitive": "Михайловска",
+    "lat": 45.131,
+    "lng": 42.027,
+    "zoom": 12
+  },
+  {
+    "slug": "michurinsk",
+    "name": "Мичуринск",
+    "prepositional": "Мичуринске",
+    "genitive": "Мичуринска",
+    "lat": 52.9076,
+    "lng": 40.4823,
+    "zoom": 12
+  },
+  {
+    "slug": "mozhaysk",
+    "name": "Можайск",
+    "prepositional": "Можайске",
+    "genitive": "Можайска",
+    "lat": 55.5019,
+    "lng": 36.0272,
+    "zoom": 12
+  },
+  {
+    "slug": "mozhga",
+    "name": "Можга",
+    "prepositional": "Можге",
+    "genitive": "Можгы",
+    "lat": 56.4458,
+    "lng": 52.2156,
+    "zoom": 12
+  },
+  {
+    "slug": "monchegorsk",
+    "name": "Мончегорск",
+    "prepositional": "Мончегорске",
+    "genitive": "Мончегорска",
+    "lat": 67.9397,
+    "lng": 32.8739,
+    "zoom": 12
+  },
+  {
+    "slug": "morshansk",
+    "name": "Моршанск",
+    "prepositional": "Моршанске",
+    "genitive": "Моршанска",
+    "lat": 53.4433,
+    "lng": 41.8106,
+    "zoom": 12
+  },
+  {
+    "slug": "moskva",
+    "name": "Москва",
+    "prepositional": "Москве",
+    "genitive": "Москвы",
+    "lat": 55.754,
+    "lng": 37.6204,
+    "zoom": 11
+  },
+  {
+    "slug": "murino",
+    "name": "Мурино",
+    "prepositional": "Мурине",
+    "genitive": "Мурина",
+    "lat": 60.048,
+    "lng": 30.452,
+    "zoom": 12
+  },
+  {
+    "slug": "murmansk",
+    "name": "Мурманск",
+    "prepositional": "Мурманске",
+    "genitive": "Мурманска",
+    "lat": 69.0077,
+    "lng": 33.0686,
+    "zoom": 12
+  },
+  {
+    "slug": "murom",
+    "name": "Муром",
+    "prepositional": "Муроме",
+    "genitive": "Мурома",
+    "lat": 55.5631,
+    "lng": 42.0236,
+    "zoom": 13
+  },
+  {
+    "slug": "mtsensk",
+    "name": "Мценск",
+    "prepositional": "Мценске",
+    "genitive": "Мценска",
+    "lat": 53.2788,
+    "lng": 36.5805,
+    "zoom": 12
+  },
+  {
+    "slug": "myski",
+    "name": "Мыски",
+    "prepositional": "Мыски",
+    "genitive": "Мыски",
+    "lat": 53.7163,
+    "lng": 87.7965,
+    "zoom": 12
+  },
+  {
+    "slug": "mytischi",
+    "name": "Мытищи",
+    "prepositional": "Мытищах",
+    "genitive": "Мытищ",
+    "lat": 55.8965,
+    "lng": 37.6653,
+    "zoom": 12
+  },
+  {
+    "slug": "mytishchi",
+    "name": "Мытищи",
+    "prepositional": "Мытищах",
+    "genitive": "Мытищов",
+    "lat": 55.9106,
+    "lng": 37.7364,
+    "zoom": 12
+  },
+  {
+    "slug": "naberezhnye-chelny",
+    "name": "Набережные Челны",
+    "prepositional": "Набережных Челнах",
+    "genitive": "Набережных Челнов",
+    "lat": 55.7435,
+    "lng": 52.3959,
+    "zoom": 12
+  },
+  {
+    "slug": "nadym",
+    "name": "Надым",
+    "prepositional": "Надыме",
+    "genitive": "Надыма",
+    "lat": 65.5333,
+    "lng": 72.5167,
+    "zoom": 12
+  },
+  {
+    "slug": "nazarovo",
+    "name": "Назарово",
+    "prepositional": "Назарове",
+    "genitive": "Назарова",
+    "lat": 56.0114,
+    "lng": 90.4166,
+    "zoom": 12
+  },
+  {
+    "slug": "nazran",
+    "name": "Назрань",
+    "prepositional": "Назрани",
+    "genitive": "Назрани",
+    "lat": 43.2287,
+    "lng": 44.7644,
+    "zoom": 13
+  },
+  {
+    "slug": "nalchik",
+    "name": "Нальчик",
+    "prepositional": "Нальчике",
+    "genitive": "Нальчика",
+    "lat": 43.4845,
+    "lng": 43.6071,
+    "zoom": 12
+  },
+  {
+    "slug": "naro-fominsk",
+    "name": "Наро-Фоминск",
+    "prepositional": "Наро-Фоминске",
+    "genitive": "Наро-Фоминска",
+    "lat": 55.3843,
+    "lng": 36.7235,
+    "zoom": 12
+  },
+  {
+    "slug": "nartkala",
+    "name": "Нарткала",
+    "prepositional": "Нарткале",
+    "genitive": "Нарткалы",
+    "lat": 43.5544,
+    "lng": 43.855,
+    "zoom": 12
+  },
+  {
+    "slug": "naryan-mar",
+    "name": "Нарьян-Мар",
+    "prepositional": "Нарьян-Маре",
+    "genitive": "Нарьян-Мара",
+    "lat": 67.6569,
+    "lng": 52.9762,
+    "zoom": 13
+  },
+  {
+    "slug": "nakhodka",
+    "name": "Находка",
+    "prepositional": "Находке",
+    "genitive": "Находки",
+    "lat": 42.824,
+    "lng": 132.8928,
+    "zoom": 13
+  },
+  {
+    "slug": "nevinnomyssk",
+    "name": "Невинномысск",
+    "prepositional": "Невинномысске",
+    "genitive": "Невинномысска",
+    "lat": 44.6333,
+    "lng": 41.9444,
+    "zoom": 12
+  },
+  {
+    "slug": "neryungri",
+    "name": "Нерюнгри",
+    "prepositional": "Нерюнгри",
+    "genitive": "Нерюнгри",
+    "lat": 56.6584,
+    "lng": 124.725,
+    "zoom": 12
+  },
+  {
+    "slug": "neftekamsk",
+    "name": "Нефтекамск",
+    "prepositional": "Нефтекамске",
+    "genitive": "Нефтекамска",
+    "lat": 56.088,
+    "lng": 54.2483,
+    "zoom": 12
+  },
+  {
+    "slug": "neftekumsk",
+    "name": "Нефтекумск",
+    "prepositional": "Нефтекумске",
+    "genitive": "Нефтекумска",
+    "lat": 44.7558,
+    "lng": 44.9925,
+    "zoom": 12
+  },
+  {
+    "slug": "nefteyugansk",
+    "name": "Нефтеюганск",
+    "prepositional": "Нефтеюганске",
+    "genitive": "Нефтеюганска",
+    "lat": 61.0883,
+    "lng": 72.6164,
+    "zoom": 12
+  },
+  {
+    "slug": "nizhnevartovsk",
+    "name": "Нижневартовск",
+    "prepositional": "Нижневартовске",
+    "genitive": "Нижневартовска",
+    "lat": 60.9397,
+    "lng": 76.5696,
+    "zoom": 12
+  },
+  {
+    "slug": "nizhnekamsk",
+    "name": "Нижнекамск",
+    "prepositional": "Нижнекамске",
+    "genitive": "Нижнекамска",
+    "lat": 55.6314,
+    "lng": 51.8145,
+    "zoom": 12
+  },
+  {
+    "slug": "nizhneudinsk",
+    "name": "Нижнеудинск",
+    "prepositional": "Нижнеудинске",
+    "genitive": "Нижнеудинска",
+    "lat": 54.9073,
+    "lng": 99.034,
+    "zoom": 12
+  },
+  {
+    "slug": "nizhniy-novgorod",
+    "name": "Нижний Новгород",
+    "prepositional": "Нижнем Новгороде",
+    "genitive": "Нижнего Новгорода",
+    "lat": 56.3241,
+    "lng": 44.0054,
+    "zoom": 12
+  },
+  {
+    "slug": "nizhniy-tagil",
+    "name": "Нижний Тагил",
+    "prepositional": "Нижнем Тагиле",
+    "genitive": "Нижнего Тагила",
+    "lat": 57.9101,
+    "lng": 59.9813,
+    "zoom": 12
+  },
+  {
+    "slug": "nizhnyaya-tura",
+    "name": "Нижняя Тура",
+    "prepositional": "Нижней Туре",
+    "genitive": "Нижней Туры",
+    "lat": 58.6306,
+    "lng": 59.852,
+    "zoom": 12
+  },
+  {
+    "slug": "novoaleksandrovsk",
+    "name": "Новоалександровск",
+    "prepositional": "Новоалександровске",
+    "genitive": "Новоалександровска",
+    "lat": 45.4975,
+    "lng": 41.2253,
+    "zoom": 12
+  },
+  {
+    "slug": "novoaltaysk",
+    "name": "Новоалтайск",
+    "prepositional": "Новоалтайске",
+    "genitive": "Новоалтайска",
+    "lat": 53.4143,
+    "lng": 83.9411,
+    "zoom": 12
+  },
+  {
+    "slug": "novodvinsk",
+    "name": "Новодвинск",
+    "prepositional": "Новодвинске",
+    "genitive": "Новодвинска",
+    "lat": 64.4164,
+    "lng": 40.8167,
+    "zoom": 12
+  },
+  {
+    "slug": "novozybkov",
+    "name": "Новозыбков",
+    "prepositional": "Новозыбкове",
+    "genitive": "Новозыбкова",
+    "lat": 52.5371,
+    "lng": 31.9366,
+    "zoom": 12
+  },
+  {
+    "slug": "novokubansk",
+    "name": "Новокубанск",
+    "prepositional": "Новокубанске",
+    "genitive": "Новокубанска",
+    "lat": 45.1133,
+    "lng": 41.0365,
+    "zoom": 12
+  },
+  {
+    "slug": "novokuznetsk",
+    "name": "Новокузнецк",
+    "prepositional": "Новокузнецке",
+    "genitive": "Новокузнецка",
+    "lat": 53.7943,
+    "lng": 87.2143,
+    "zoom": 12
+  },
+  {
+    "slug": "novokuybyshevsk",
+    "name": "Новокуйбышевск",
+    "prepositional": "Новокуйбышевске",
+    "genitive": "Новокуйбышевска",
+    "lat": 53.0971,
+    "lng": 49.94,
+    "zoom": 12
+  },
+  {
+    "slug": "novomoskovsk",
+    "name": "Новомосковск",
+    "prepositional": "Новомосковске",
+    "genitive": "Новомосковска",
+    "lat": 54.0105,
+    "lng": 38.2846,
+    "zoom": 12
+  },
+  {
+    "slug": "novorossiysk",
+    "name": "Новороссийск",
+    "prepositional": "Новороссийске",
+    "genitive": "Новороссийска",
+    "lat": 44.7235,
+    "lng": 37.7686,
+    "zoom": 12
+  },
+  {
+    "slug": "novosibirsk",
+    "name": "Новосибирск",
+    "prepositional": "Новосибирске",
+    "genitive": "Новосибирска",
+    "lat": 55.0282,
+    "lng": 82.9211,
+    "zoom": 12
+  },
+  {
+    "slug": "novotroitsk",
+    "name": "Новотроицк",
+    "prepositional": "Новотроицке",
+    "genitive": "Новотроицка",
+    "lat": 51.2037,
+    "lng": 58.3266,
+    "zoom": 12
+  },
+  {
+    "slug": "novouralsk",
+    "name": "Новоуральск",
+    "prepositional": "Новоуральске",
+    "genitive": "Новоуральска",
+    "lat": 57.2472,
+    "lng": 60.0956,
+    "zoom": 12
+  },
+  {
+    "slug": "novocheboksarsk",
+    "name": "Новочебоксарск",
+    "prepositional": "Новочебоксарске",
+    "genitive": "Новочебоксарска",
+    "lat": 56.1095,
+    "lng": 47.4791,
+    "zoom": 12
+  },
+  {
+    "slug": "novocherkassk",
+    "name": "Новочеркасск",
+    "prepositional": "Новочеркасске",
+    "genitive": "Новочеркасска",
+    "lat": 47.4119,
+    "lng": 40.0939,
+    "zoom": 12
+  },
+  {
+    "slug": "novoshakhtinsk",
+    "name": "Новошахтинск",
+    "prepositional": "Новошахтинске",
+    "genitive": "Новошахтинска",
+    "lat": 47.7576,
+    "lng": 39.9364,
+    "zoom": 12
+  },
+  {
+    "slug": "novyy-urengoy",
+    "name": "Новый Уренгой",
+    "prepositional": "Новый Уренгое",
+    "genitive": "Новый Уренгоя",
+    "lat": 66.0833,
+    "lng": 76.6333,
+    "zoom": 12
+  },
+  {
+    "slug": "noginsk",
+    "name": "Ногинск",
+    "prepositional": "Ногинске",
+    "genitive": "Ногинска",
+    "lat": 55.8686,
+    "lng": 38.4622,
+    "zoom": 12
+  },
+  {
+    "slug": "norilsk",
+    "name": "Норильск",
+    "prepositional": "Норильске",
+    "genitive": "Норильска",
+    "lat": 69.349,
+    "lng": 88.201,
+    "zoom": 12
+  },
+  {
+    "slug": "noyabrsk",
+    "name": "Ноябрьск",
+    "prepositional": "Ноябрьске",
+    "genitive": "Ноябрьска",
+    "lat": 63.2018,
+    "lng": 75.451,
+    "zoom": 12
+  },
+  {
+    "slug": "nurlat",
+    "name": "Нурлат",
+    "prepositional": "Нурлате",
+    "genitive": "Нурлата",
+    "lat": 54.429,
+    "lng": 50.806,
+    "zoom": 12
+  },
+  {
+    "slug": "nyagan",
+    "name": "Нягань",
+    "prepositional": "Нягани",
+    "genitive": "Нягани",
+    "lat": 62.1406,
+    "lng": 65.3936,
+    "zoom": 12
+  },
+  {
+    "slug": "obninsk",
+    "name": "Обнинск",
+    "prepositional": "Обнинске",
+    "genitive": "Обнинска",
+    "lat": 55.1099,
+    "lng": 36.6124,
+    "zoom": 12
+  },
+  {
+    "slug": "ob",
+    "name": "Обь",
+    "prepositional": "Оби",
+    "genitive": "Оби",
+    "lat": 61.2216,
+    "lng": 73.1186,
+    "zoom": 12
+  },
+  {
+    "slug": "odintsovo",
+    "name": "Одинцово",
+    "prepositional": "Одинцове",
+    "genitive": "Одинцова",
+    "lat": 55.6789,
+    "lng": 37.2637,
+    "zoom": 12
+  },
+  {
+    "slug": "ozyorsk",
+    "name": "Озёрск",
+    "prepositional": "Озёрске",
+    "genitive": "Озёрска",
+    "lat": 54.4087,
+    "lng": 22.0144,
+    "zoom": 12
+  },
+  {
+    "slug": "oktyabrskiy",
+    "name": "Октябрьский",
+    "prepositional": "Октябрьском",
+    "genitive": "Октябрьского",
+    "lat": 54.4815,
+    "lng": 53.4716,
+    "zoom": 12
+  },
+  {
+    "slug": "omsk",
+    "name": "Омск",
+    "prepositional": "Омске",
+    "genitive": "Омска",
+    "lat": 54.9849,
+    "lng": 73.3675,
+    "zoom": 12
+  },
+  {
+    "slug": "orel",
+    "name": "Орёл",
+    "prepositional": "Орле",
+    "genitive": "Орла",
+    "lat": 52.9671,
+    "lng": 36.0696,
+    "zoom": 12
+  },
+  {
+    "slug": "orenburg",
+    "name": "Оренбург",
+    "prepositional": "Оренбурге",
+    "genitive": "Оренбурга",
+    "lat": 51.7875,
+    "lng": 55.1019,
+    "zoom": 12
+  },
+  {
+    "slug": "orekhovo-zuevo",
+    "name": "Орехово-Зуево",
+    "prepositional": "Орехово-Зуеве",
+    "genitive": "Орехово-Зуева",
+    "lat": 55.8067,
+    "lng": 38.9618,
+    "zoom": 12
+  },
+  {
+    "slug": "orsk",
+    "name": "Орск",
+    "prepositional": "Орске",
+    "genitive": "Орска",
+    "lat": 51.2293,
+    "lng": 58.4757,
+    "zoom": 12
+  },
+  {
+    "slug": "osinniki",
+    "name": "Осинники",
+    "prepositional": "Осинники",
+    "genitive": "Осинники",
+    "lat": 53.6036,
+    "lng": 87.332,
+    "zoom": 12
+  },
+  {
+    "slug": "ostrogozhsk",
+    "name": "Острогожск",
+    "prepositional": "Острогожске",
+    "genitive": "Острогожска",
+    "lat": 50.8659,
+    "lng": 39.0781,
+    "zoom": 12
+  },
+  {
+    "slug": "otradny",
+    "name": "Отрадный",
+    "prepositional": "Отрадные",
+    "genitive": "Отрадныя",
+    "lat": 53.376,
+    "lng": 51.3452,
+    "zoom": 12
+  },
+  {
+    "slug": "pavlovo",
+    "name": "Павлово",
+    "prepositional": "Павлове",
+    "genitive": "Павлова",
+    "lat": 55.9686,
+    "lng": 43.0912,
+    "zoom": 12
+  },
+  {
+    "slug": "pavlovsk",
+    "name": "Павловск",
+    "prepositional": "Павловске",
+    "genitive": "Павловска",
+    "lat": 50.4543,
+    "lng": 40.1237,
+    "zoom": 12
+  },
+  {
+    "slug": "pavlovskiy-posad",
+    "name": "Павловский Посад",
+    "prepositional": "Павловский Посаде",
+    "genitive": "Павловский Посада",
+    "lat": 55.7819,
+    "lng": 38.6503,
+    "zoom": 12
+  },
+  {
+    "slug": "partizansk",
+    "name": "Партизанск",
+    "prepositional": "Партизанске",
+    "genitive": "Партизанска",
+    "lat": 43.1199,
+    "lng": 133.1232,
+    "zoom": 12
+  },
+  {
+    "slug": "penza",
+    "name": "Пенза",
+    "prepositional": "Пензе",
+    "genitive": "Пензы",
+    "lat": 53.1753,
+    "lng": 45.0349,
+    "zoom": 12
+  },
+  {
+    "slug": "pervouralsk",
+    "name": "Первоуральск",
+    "prepositional": "Первоуральске",
+    "genitive": "Первоуральска",
+    "lat": 56.9053,
+    "lng": 59.9436,
+    "zoom": 12
+  },
+  {
+    "slug": "perm",
+    "name": "Пермь",
+    "prepositional": "Перми",
+    "genitive": "Перми",
+    "lat": 58.0103,
+    "lng": 56.2342,
+    "zoom": 12
+  },
+  {
+    "slug": "petrozavodsk",
+    "name": "Петрозаводск",
+    "prepositional": "Петрозаводске",
+    "genitive": "Петрозаводска",
+    "lat": 61.7891,
+    "lng": 34.3596,
+    "zoom": 12
+  },
+  {
+    "slug": "petropavlovsk-kamchatskiy",
+    "name": "Петропавловск-Камчатский",
+    "prepositional": "Петропавловске-Камчатском",
+    "genitive": "Петропавловска-Камчатского",
+    "lat": 53.0369,
+    "lng": 158.6559,
+    "zoom": 13
+  },
+  {
+    "slug": "pechora",
+    "name": "Печора",
+    "prepositional": "Печоре",
+    "genitive": "Печоры",
+    "lat": 65.1353,
+    "lng": 57.1995,
+    "zoom": 12
+  },
+  {
+    "slug": "podolsk",
+    "name": "Подольск",
+    "prepositional": "Подольске",
+    "genitive": "Подольска",
+    "lat": 55.4389,
+    "lng": 37.5703,
+    "zoom": 12
+  },
+  {
+    "slug": "polevskoy",
+    "name": "Полевской",
+    "prepositional": "Полевское",
+    "genitive": "Полевскоя",
+    "lat": 56.4422,
+    "lng": 60.1878,
+    "zoom": 12
+  },
+  {
+    "slug": "pokhvistnevo",
+    "name": "Похвистнево",
+    "prepositional": "Похвистневе",
+    "genitive": "Похвистнева",
+    "lat": 53.6524,
+    "lng": 52.1274,
+    "zoom": 12
+  },
+  {
+    "slug": "primorsko-akhtarsk",
+    "name": "Приморско-Ахтарск",
+    "prepositional": "Приморско-Ахтарске",
+    "genitive": "Приморско-Ахтарска",
+    "lat": 46.0598,
+    "lng": 38.2395,
+    "zoom": 12
+  },
+  {
+    "slug": "prokopyevsk",
+    "name": "Прокопьевск",
+    "prepositional": "Прокопьевске",
+    "genitive": "Прокопьевска",
+    "lat": 53.9062,
+    "lng": 86.7189,
+    "zoom": 12
+  },
+  {
+    "slug": "prokopevsk",
+    "name": "Прокопьевск",
+    "prepositional": "Прокопьевске",
+    "genitive": "Прокопьевска",
+    "lat": 53.7743,
+    "lng": 86.9816,
+    "zoom": 12
+  },
+  {
+    "slug": "prokhladny",
+    "name": "Прохладный",
+    "prepositional": "Прохладные",
+    "genitive": "Прохладныя",
+    "lat": 43.7574,
+    "lng": 44.0297,
+    "zoom": 12
+  },
+  {
+    "slug": "pskov",
+    "name": "Псков",
+    "prepositional": "Пскове",
+    "genitive": "Пскова",
+    "lat": 57.8194,
+    "lng": 28.3317,
+    "zoom": 13
+  },
+  {
+    "slug": "pugachev",
+    "name": "Пугачёв",
+    "prepositional": "Пугачёве",
+    "genitive": "Пугачёва",
+    "lat": 52.0166,
+    "lng": 48.799,
+    "zoom": 12
+  },
+  {
+    "slug": "pushkino",
+    "name": "Пушкино",
+    "prepositional": "Пушкине",
+    "genitive": "Пушкина",
+    "lat": 56.0104,
+    "lng": 37.8471,
+    "zoom": 12
+  },
+  {
+    "slug": "pyatigorsk",
+    "name": "Пятигорск",
+    "prepositional": "Пятигорске",
+    "genitive": "Пятигорска",
+    "lat": 44.0486,
+    "lng": 43.0594,
+    "zoom": 12
+  },
+  {
+    "slug": "raduzhny",
+    "name": "Радужный",
+    "prepositional": "Радужные",
+    "genitive": "Радужныя",
+    "lat": 62.0961,
+    "lng": 77.475,
+    "zoom": 12
+  },
+  {
+    "slug": "ramenskoye",
+    "name": "Раменское",
+    "prepositional": "Раменском",
+    "genitive": "Раменского",
+    "lat": 55.5669,
+    "lng": 38.2303,
+    "zoom": 12
+  },
+  {
+    "slug": "rasskazovo",
+    "name": "Рассказово",
+    "prepositional": "Рассказове",
+    "genitive": "Рассказова",
+    "lat": 52.6638,
+    "lng": 41.8892,
+    "zoom": 12
+  },
+  {
+    "slug": "revda",
+    "name": "Ревда",
+    "prepositional": "Ревде",
+    "genitive": "Ревды",
+    "lat": 56.8024,
+    "lng": 59.9377,
+    "zoom": 12
+  },
+  {
+    "slug": "reutov",
+    "name": "Реутов",
+    "prepositional": "Реутове",
+    "genitive": "Реутова",
+    "lat": 55.7612,
+    "lng": 37.8575,
+    "zoom": 12
+  },
+  {
+    "slug": "rzhev",
+    "name": "Ржев",
+    "prepositional": "Ржеве",
+    "genitive": "Ржева",
+    "lat": 56.2629,
+    "lng": 34.3289,
+    "zoom": 12
+  },
+  {
+    "slug": "roslavl",
+    "name": "Рославль",
+    "prepositional": "Рославли",
+    "genitive": "Рославли",
+    "lat": 53.9539,
+    "lng": 32.8641,
+    "zoom": 12
+  },
+  {
+    "slug": "rossosh",
+    "name": "Россошь",
+    "prepositional": "Россоши",
+    "genitive": "Россоши",
+    "lat": 50.1965,
+    "lng": 39.5663,
+    "zoom": 12
+  },
+  {
+    "slug": "rostov-na-donu",
+    "name": "Ростов-на-Дону",
+    "prepositional": "Ростове-на-Дону",
+    "genitive": "Ростова-на-Дону",
+    "lat": 47.2225,
+    "lng": 39.7188,
+    "zoom": 12
+  },
+  {
+    "slug": "rtishchevo",
+    "name": "Ртищево",
+    "prepositional": "Ртищеве",
+    "genitive": "Ртищева",
+    "lat": 52.2597,
+    "lng": 43.7868,
+    "zoom": 12
+  },
+  {
+    "slug": "rubtsovsk",
+    "name": "Рубцовск",
+    "prepositional": "Рубцовске",
+    "genitive": "Рубцовска",
+    "lat": 51.5263,
+    "lng": 81.2078,
+    "zoom": 12
+  },
+  {
+    "slug": "ruzaevka",
+    "name": "Рузаевка",
+    "prepositional": "Рузаевке",
+    "genitive": "Рузаевкы",
+    "lat": 54.06,
+    "lng": 44.949,
+    "zoom": 12
+  },
+  {
+    "slug": "rybinsk",
+    "name": "Рыбинск",
+    "prepositional": "Рыбинске",
+    "genitive": "Рыбинска",
+    "lat": 58.0456,
+    "lng": 38.8381,
+    "zoom": 12
+  },
+  {
+    "slug": "ryazan",
+    "name": "Рязань",
+    "prepositional": "Рязани",
+    "genitive": "Рязани",
+    "lat": 54.6254,
+    "lng": 39.7359,
+    "zoom": 12
+  },
+  {
+    "slug": "salavat",
+    "name": "Салават",
+    "prepositional": "Салавате",
+    "genitive": "Салавата",
+    "lat": 53.3617,
+    "lng": 55.9247,
+    "zoom": 12
+  },
+  {
+    "slug": "salekhard",
+    "name": "Салехард",
+    "prepositional": "Салехарде",
+    "genitive": "Салехарда",
+    "lat": 66.5492,
+    "lng": 66.6085,
+    "zoom": 13
+  },
+  {
+    "slug": "salsk",
+    "name": "Сальск",
+    "prepositional": "Сальске",
+    "genitive": "Сальска",
+    "lat": 46.475,
+    "lng": 41.541,
+    "zoom": 12
+  },
+  {
+    "slug": "samara",
+    "name": "Самара",
+    "prepositional": "Самаре",
+    "genitive": "Самары",
+    "lat": 53.195,
+    "lng": 50.107,
+    "zoom": 12
+  },
+  {
+    "slug": "sankt-peterburg",
+    "name": "Санкт-Петербург",
+    "prepositional": "Санкт-Петербурге",
+    "genitive": "Санкт-Петербурга",
+    "lat": 59.9436,
+    "lng": 30.2852,
+    "zoom": 11
+  },
+  {
+    "slug": "saransk",
+    "name": "Саранск",
+    "prepositional": "Саранске",
+    "genitive": "Саранска",
+    "lat": 54.1809,
+    "lng": 45.1863,
+    "zoom": 12
+  },
+  {
+    "slug": "sarapul",
+    "name": "Сарапул",
+    "prepositional": "Сарапуле",
+    "genitive": "Сарапула",
+    "lat": 56.4763,
+    "lng": 53.7978,
+    "zoom": 12
+  },
+  {
+    "slug": "saratov",
+    "name": "Саратов",
+    "prepositional": "Саратове",
+    "genitive": "Саратова",
+    "lat": 51.5336,
+    "lng": 46.0343,
+    "zoom": 12
+  },
+  {
+    "slug": "satka",
+    "name": "Сатка",
+    "prepositional": "Сатке",
+    "genitive": "Саткы",
+    "lat": 55.041,
+    "lng": 59.0475,
+    "zoom": 12
+  },
+  {
+    "slug": "safonovo",
+    "name": "Сафоново",
+    "prepositional": "Сафонове",
+    "genitive": "Сафонова",
+    "lat": 55.1109,
+    "lng": 33.2373,
+    "zoom": 12
+  },
+  {
+    "slug": "sayanogorsk",
+    "name": "Саяногорск",
+    "prepositional": "Саяногорске",
+    "genitive": "Саяногорска",
+    "lat": 53.0998,
+    "lng": 91.4074,
+    "zoom": 12
+  },
+  {
+    "slug": "sayansk",
+    "name": "Саянск",
+    "prepositional": "Саянске",
+    "genitive": "Саянска",
+    "lat": 54.1129,
+    "lng": 102.1777,
+    "zoom": 12
+  },
+  {
+    "slug": "svetlograd",
+    "name": "Светлоград",
+    "prepositional": "Светлограде",
+    "genitive": "Светлограда",
+    "lat": 45.3274,
+    "lng": 42.8562,
+    "zoom": 12
+  },
+  {
+    "slug": "svobodny",
+    "name": "Свободный",
+    "prepositional": "Свободные",
+    "genitive": "Свободныя",
+    "lat": 51.5946,
+    "lng": 40.778,
+    "zoom": 12
+  },
+  {
+    "slug": "sevastopol",
+    "name": "Севастополь",
+    "prepositional": "Севастополе",
+    "genitive": "Севастополя",
+    "lat": 44.6166,
+    "lng": 33.5254,
+    "zoom": 12
+  },
+  {
+    "slug": "severodvinsk",
+    "name": "Северодвинск",
+    "prepositional": "Северодвинске",
+    "genitive": "Северодвинска",
+    "lat": 64.5583,
+    "lng": 39.8297,
+    "zoom": 12
+  },
+  {
+    "slug": "severomorsk",
+    "name": "Североморск",
+    "prepositional": "Североморске",
+    "genitive": "Североморска",
+    "lat": 69.0694,
+    "lng": 33.4081,
+    "zoom": 12
+  },
+  {
+    "slug": "seversk",
+    "name": "Северск",
+    "prepositional": "Северске",
+    "genitive": "Северска",
+    "lat": 56.603,
+    "lng": 84.8809,
+    "zoom": 12
+  },
+  {
+    "slug": "semyonov",
+    "name": "Семёнов",
+    "prepositional": "Семёнове",
+    "genitive": "Семёнова",
+    "lat": 56.7883,
+    "lng": 44.4915,
+    "zoom": 12
+  },
+  {
+    "slug": "semiluki",
+    "name": "Семилуки",
+    "prepositional": "Семилуки",
+    "genitive": "Семилуки",
+    "lat": 51.729,
+    "lng": 39.048,
+    "zoom": 12
+  },
+  {
+    "slug": "sergiev-posad",
+    "name": "Сергиев Посад",
+    "prepositional": "Сергиев Посаде",
+    "genitive": "Сергиев Посада",
+    "lat": 56.3153,
+    "lng": 38.136,
+    "zoom": 12
+  },
+  {
+    "slug": "serov",
+    "name": "Серов",
+    "prepositional": "Серове",
+    "genitive": "Серова",
+    "lat": 59.605,
+    "lng": 60.573,
+    "zoom": 12
+  },
+  {
+    "slug": "serpukhov",
+    "name": "Серпухов",
+    "prepositional": "Серпухове",
+    "genitive": "Серпухова",
+    "lat": 54.9158,
+    "lng": 37.4111,
+    "zoom": 12
+  },
+  {
+    "slug": "sertolovo",
+    "name": "Сертолово",
+    "prepositional": "Сертолове",
+    "genitive": "Сертолова",
+    "lat": 60.1444,
+    "lng": 30.2017,
+    "zoom": 12
+  },
+  {
+    "slug": "sibay",
+    "name": "Сибай",
+    "prepositional": "Сибае",
+    "genitive": "Сибая",
+    "lat": 52.7179,
+    "lng": 58.6667,
+    "zoom": 12
+  },
+  {
+    "slug": "simferopol",
+    "name": "Симферополь",
+    "prepositional": "Симферополе",
+    "genitive": "Симферополя",
+    "lat": 44.9521,
+    "lng": 34.1024,
+    "zoom": 12
+  },
+  {
+    "slug": "slavgorod",
+    "name": "Славгород",
+    "prepositional": "Славгороде",
+    "genitive": "Славгорода",
+    "lat": 53,
+    "lng": 78.6473,
+    "zoom": 12
+  },
+  {
+    "slug": "slavyansk-na-kubani",
+    "name": "Славянск-на-Кубани",
+    "prepositional": "Славянске-на-Кубани",
+    "genitive": "Славянска-на-Кубани",
+    "lat": 45.2064,
+    "lng": 38.0871,
+    "zoom": 12
+  },
+  {
+    "slug": "slobodskoy",
+    "name": "Слободской",
+    "prepositional": "Слободское",
+    "genitive": "Слободскоя",
+    "lat": 58.7313,
+    "lng": 50.1712,
+    "zoom": 12
+  },
+  {
+    "slug": "smolensk",
+    "name": "Смоленск",
+    "prepositional": "Смоленске",
+    "genitive": "Смоленска",
+    "lat": 54.7826,
+    "lng": 32.0453,
+    "zoom": 12
+  },
+  {
+    "slug": "snezhinsk",
+    "name": "Снежинск",
+    "prepositional": "Снежинске",
+    "genitive": "Снежинска",
+    "lat": 56.0783,
+    "lng": 60.7479,
+    "zoom": 12
+  },
+  {
+    "slug": "sokol",
+    "name": "Сокол",
+    "prepositional": "Соколе",
+    "genitive": "Сокола",
+    "lat": 59.4617,
+    "lng": 40.1206,
+    "zoom": 12
+  },
+  {
+    "slug": "solikamsk",
+    "name": "Соликамск",
+    "prepositional": "Соликамске",
+    "genitive": "Соликамска",
+    "lat": 59.6669,
+    "lng": 56.7427,
+    "zoom": 12
+  },
+  {
+    "slug": "solnechnogorsk",
+    "name": "Солнечногорск",
+    "prepositional": "Солнечногорске",
+    "genitive": "Солнечногорска",
+    "lat": 56.1753,
+    "lng": 36.9708,
+    "zoom": 12
+  },
+  {
+    "slug": "sol-iletsk",
+    "name": "Соль-Илецк",
+    "prepositional": "Соль-Илецке",
+    "genitive": "Соль-Илецка",
+    "lat": 51.1618,
+    "lng": 54.9807,
+    "zoom": 12
+  },
+  {
+    "slug": "sorochinsk",
+    "name": "Сорочинск",
+    "prepositional": "Сорочинске",
+    "genitive": "Сорочинска",
+    "lat": 52.4288,
+    "lng": 53.1503,
+    "zoom": 12
+  },
+  {
+    "slug": "sosnovoborsk",
+    "name": "Сосновоборск",
+    "prepositional": "Сосновоборске",
+    "genitive": "Сосновоборска",
+    "lat": 56.1218,
+    "lng": 93.3381,
+    "zoom": 12
+  },
+  {
+    "slug": "sosnovyy-bor",
+    "name": "Сосновый Бор",
+    "prepositional": "Сосновый Боре",
+    "genitive": "Сосновый Бора",
+    "lat": 59.8996,
+    "lng": 29.0857,
+    "zoom": 12
+  },
+  {
+    "slug": "sochi",
+    "name": "Сочи",
+    "prepositional": "Сочи",
+    "genitive": "Сочи",
+    "lat": 43.5855,
+    "lng": 39.7232,
+    "zoom": 12
+  },
+  {
+    "slug": "spassk-dalny",
+    "name": "Спасск-Дальний",
+    "prepositional": "Спасск-Дальние",
+    "genitive": "Спасск-Дальния",
+    "lat": 44.598,
+    "lng": 132.8157,
+    "zoom": 12
+  },
+  {
+    "slug": "stavropol",
+    "name": "Ставрополь",
+    "prepositional": "Ставрополе",
+    "genitive": "Ставрополя",
+    "lat": 45.0445,
+    "lng": 41.969,
+    "zoom": 12
+  },
+  {
+    "slug": "staraya-russa",
+    "name": "Старая Русса",
+    "prepositional": "Старая Руссе",
+    "genitive": "Старая Руссы",
+    "lat": 57.9962,
+    "lng": 31.36,
+    "zoom": 12
+  },
+  {
+    "slug": "staryy-oskol",
+    "name": "Старый Оскол",
+    "prepositional": "Старом Осколе",
+    "genitive": "Старого Оскола",
+    "lat": 51.2967,
+    "lng": 37.835,
+    "zoom": 12
+  },
+  {
+    "slug": "sterlitamak",
+    "name": "Стерлитамак",
+    "prepositional": "Стерлитамаке",
+    "genitive": "Стерлитамака",
+    "lat": 53.6301,
+    "lng": 55.9317,
+    "zoom": 12
+  },
+  {
+    "slug": "strezhevoy",
+    "name": "Стрежевой",
+    "prepositional": "Стрежевое",
+    "genitive": "Стрежевоя",
+    "lat": 60.7333,
+    "lng": 77.5889,
+    "zoom": 12
+  },
+  {
+    "slug": "stupino",
+    "name": "Ступино",
+    "prepositional": "Ступине",
+    "genitive": "Ступина",
+    "lat": 54.8974,
+    "lng": 38.068,
+    "zoom": 12
+  },
+  {
+    "slug": "sunzha",
+    "name": "Сунжа",
+    "prepositional": "Сунже",
+    "genitive": "Сунжы",
+    "lat": 43.3206,
+    "lng": 45.049,
+    "zoom": 12
+  },
+  {
+    "slug": "surgut",
+    "name": "Сургут",
+    "prepositional": "Сургуте",
+    "genitive": "Сургута",
+    "lat": 61.2541,
+    "lng": 73.3962,
+    "zoom": 12
+  },
+  {
+    "slug": "syzran",
+    "name": "Сызрань",
+    "prepositional": "Сызрани",
+    "genitive": "Сызрани",
+    "lat": 53.1557,
+    "lng": 48.4741,
+    "zoom": 12
+  },
+  {
+    "slug": "syktyvkar",
+    "name": "Сыктывкар",
+    "prepositional": "Сыктывкаре",
+    "genitive": "Сыктывкара",
+    "lat": 61.6687,
+    "lng": 50.8358,
+    "zoom": 12
+  },
+  {
+    "slug": "taganrog",
+    "name": "Таганрог",
+    "prepositional": "Таганроге",
+    "genitive": "Таганрога",
+    "lat": 47.2095,
+    "lng": 38.9351,
+    "zoom": 12
+  },
+  {
+    "slug": "tayshet",
+    "name": "Тайшет",
+    "prepositional": "Тайшете",
+    "genitive": "Тайшета",
+    "lat": 55.9328,
+    "lng": 97.9896,
+    "zoom": 12
+  },
+  {
+    "slug": "tambov",
+    "name": "Тамбов",
+    "prepositional": "Тамбове",
+    "genitive": "Тамбова",
+    "lat": 52.7213,
+    "lng": 41.4523,
+    "zoom": 12
+  },
+  {
+    "slug": "tara",
+    "name": "Тара",
+    "prepositional": "Таре",
+    "genitive": "Тары",
+    "lat": 56.896,
+    "lng": 74.3694,
+    "zoom": 12
+  },
+  {
+    "slug": "tver",
+    "name": "Тверь",
+    "prepositional": "Твери",
+    "genitive": "Твери",
+    "lat": 56.8586,
+    "lng": 35.9117,
+    "zoom": 12
+  },
+  {
+    "slug": "teykovo",
+    "name": "Тейково",
+    "prepositional": "Тейкове",
+    "genitive": "Тейкова",
+    "lat": 56.8585,
+    "lng": 40.5403,
+    "zoom": 12
+  },
+  {
+    "slug": "temryuk",
+    "name": "Темрюк",
+    "prepositional": "Темрюке",
+    "genitive": "Темрюка",
+    "lat": 45.2689,
+    "lng": 37.3975,
+    "zoom": 12
+  },
+  {
+    "slug": "timashevsk",
+    "name": "Тимашёвск",
+    "prepositional": "Тимашёвске",
+    "genitive": "Тимашёвска",
+    "lat": 45.5418,
+    "lng": 38.7871,
+    "zoom": 12
+  },
+  {
+    "slug": "tikhvin",
+    "name": "Тихвин",
+    "prepositional": "Тихвине",
+    "genitive": "Тихвина",
+    "lat": 59.6392,
+    "lng": 33.5256,
+    "zoom": 12
+  },
+  {
+    "slug": "tihoretsk",
+    "name": "Тихорецк",
+    "prepositional": "Тихорецке",
+    "genitive": "Тихорецка",
+    "lat": 45.8547,
+    "lng": 40.1281,
+    "zoom": 12
+  },
+  {
+    "slug": "tobolsk",
+    "name": "Тобольск",
+    "prepositional": "Тобольске",
+    "genitive": "Тобольска",
+    "lat": 58.2017,
+    "lng": 68.2538,
+    "zoom": 12
+  },
+  {
+    "slug": "tolyatti",
+    "name": "Тольятти",
+    "prepositional": "Тольятти",
+    "genitive": "Тольятти",
+    "lat": 53.5205,
+    "lng": 49.3894,
+    "zoom": 12
+  },
+  {
+    "slug": "tomsk",
+    "name": "Томск",
+    "prepositional": "Томске",
+    "genitive": "Томска",
+    "lat": 56.4846,
+    "lng": 84.9482,
+    "zoom": 12
+  },
+  {
+    "slug": "torzhok",
+    "name": "Торжок",
+    "prepositional": "Торжоке",
+    "genitive": "Торжока",
+    "lat": 57.0436,
+    "lng": 34.9622,
+    "zoom": 12
+  },
+  {
+    "slug": "tosno",
+    "name": "Тосно",
+    "prepositional": "Тосне",
+    "genitive": "Тосна",
+    "lat": 59.54,
+    "lng": 30.8775,
+    "zoom": 12
+  },
+  {
+    "slug": "troitsk",
+    "name": "Троицк",
+    "prepositional": "Троицке",
+    "genitive": "Троицка",
+    "lat": 54.0922,
+    "lng": 61.5676,
+    "zoom": 12
+  },
+  {
+    "slug": "tuapse",
+    "name": "Туапсе",
+    "prepositional": "Туапсе",
+    "genitive": "Туапсе",
+    "lat": 44.0876,
+    "lng": 39.0825,
+    "zoom": 13
+  },
+  {
+    "slug": "tuymazy",
+    "name": "Туймазы",
+    "prepositional": "Туймазы",
+    "genitive": "Туймазы",
+    "lat": 54.6064,
+    "lng": 53.7118,
+    "zoom": 12
+  },
+  {
+    "slug": "tula",
+    "name": "Тула",
+    "prepositional": "Туле",
+    "genitive": "Тулы",
+    "lat": 54.1921,
+    "lng": 37.6154,
+    "zoom": 12
+  },
+  {
+    "slug": "tulun",
+    "name": "Тулун",
+    "prepositional": "Тулуне",
+    "genitive": "Тулуна",
+    "lat": 54.5676,
+    "lng": 100.5766,
+    "zoom": 12
+  },
+  {
+    "slug": "tutaev",
+    "name": "Тутаев",
+    "prepositional": "Тутаеве",
+    "genitive": "Тутаева",
+    "lat": 57.87,
+    "lng": 39.5308,
+    "zoom": 12
+  },
+  {
+    "slug": "tynda",
+    "name": "Тында",
+    "prepositional": "Тынде",
+    "genitive": "Тынды",
+    "lat": 55.1494,
+    "lng": 124.7368,
+    "zoom": 12
+  },
+  {
+    "slug": "tyumen",
+    "name": "Тюмень",
+    "prepositional": "Тюмени",
+    "genitive": "Тюмени",
+    "lat": 57.153,
+    "lng": 65.5344,
+    "zoom": 12
+  },
+  {
+    "slug": "uvarovo",
+    "name": "Уварово",
+    "prepositional": "Уварове",
+    "genitive": "Уварова",
+    "lat": 51.982,
+    "lng": 42.2618,
+    "zoom": 12
+  },
+  {
+    "slug": "uglich",
+    "name": "Углич",
+    "prepositional": "Угличе",
+    "genitive": "Углича",
+    "lat": 57.5232,
+    "lng": 38.3226,
+    "zoom": 12
+  },
+  {
+    "slug": "udomlya",
+    "name": "Удомля",
+    "prepositional": "Удомляе",
+    "genitive": "Удомляа",
+    "lat": 57.876,
+    "lng": 35.007,
+    "zoom": 12
+  },
+  {
+    "slug": "uzlovaya",
+    "name": "Узловая",
+    "prepositional": "Узловаяе",
+    "genitive": "Узловаяа",
+    "lat": 53.9839,
+    "lng": 38.1598,
+    "zoom": 12
+  },
+  {
+    "slug": "ulan-ude",
+    "name": "Улан-Удэ",
+    "prepositional": "Улан-Удэ",
+    "genitive": "Улан-Удэ",
+    "lat": 51.8336,
+    "lng": 107.5842,
+    "zoom": 12
+  },
+  {
+    "slug": "ulyanovsk",
+    "name": "Ульяновск",
+    "prepositional": "Ульяновске",
+    "genitive": "Ульяновска",
+    "lat": 54.3079,
+    "lng": 48.3748,
+    "zoom": 12
+  },
+  {
+    "slug": "unecha",
+    "name": "Унеча",
+    "prepositional": "Унече",
+    "genitive": "Унечы",
+    "lat": 52.8429,
+    "lng": 32.6876,
+    "zoom": 12
+  },
+  {
+    "slug": "uray",
+    "name": "Урай",
+    "prepositional": "Урае",
+    "genitive": "Урая",
+    "lat": 60.1304,
+    "lng": 64.789,
+    "zoom": 12
+  },
+  {
+    "slug": "urus-martan",
+    "name": "Урус-Мартан",
+    "prepositional": "Урус-Мартане",
+    "genitive": "Урус-Мартана",
+    "lat": 43.1331,
+    "lng": 45.5384,
+    "zoom": 12
+  },
+  {
+    "slug": "uryupinsk",
+    "name": "Урюпинск",
+    "prepositional": "Урюпинске",
+    "genitive": "Урюпинска",
+    "lat": 50.806,
+    "lng": 42.0092,
+    "zoom": 12
+  },
+  {
+    "slug": "usinsk",
+    "name": "Усинск",
+    "prepositional": "Усинске",
+    "genitive": "Усинска",
+    "lat": 66.0087,
+    "lng": 57.5305,
+    "zoom": 12
+  },
+  {
+    "slug": "usolye-sibirskoye",
+    "name": "Усолье-Сибирское",
+    "prepositional": "Усолье-Сибирскоее",
+    "genitive": "Усолье-Сибирскоеа",
+    "lat": 52.7575,
+    "lng": 103.6407,
+    "zoom": 12
+  },
+  {
+    "slug": "ussuriysk",
+    "name": "Уссурийск",
+    "prepositional": "Уссурийске",
+    "genitive": "Уссурийска",
+    "lat": 43.8028,
+    "lng": 131.9468,
+    "zoom": 12
+  },
+  {
+    "slug": "ust-ilimsk",
+    "name": "Усть-Илимск",
+    "prepositional": "Усть-Илимске",
+    "genitive": "Усть-Илимска",
+    "lat": 58.0006,
+    "lng": 102.6619,
+    "zoom": 12
+  },
+  {
+    "slug": "ust-kut",
+    "name": "Усть-Кут",
+    "prepositional": "Усть-Куте",
+    "genitive": "Усть-Кута",
+    "lat": 56.7928,
+    "lng": 105.775,
+    "zoom": 12
+  },
+  {
+    "slug": "ust-labinsk",
+    "name": "Усть-Лабинск",
+    "prepositional": "Усть-Лабинске",
+    "genitive": "Усть-Лабинска",
+    "lat": 45.2765,
+    "lng": 39.675,
+    "zoom": 12
+  },
+  {
+    "slug": "ufa",
+    "name": "Уфа",
+    "prepositional": "Уфе",
+    "genitive": "Уфы",
+    "lat": 54.7349,
+    "lng": 55.9578,
+    "zoom": 12
+  },
+  {
+    "slug": "ukhta",
+    "name": "Ухта",
+    "prepositional": "Ухте",
+    "genitive": "Ухты",
+    "lat": 63.566,
+    "lng": 53.6635,
+    "zoom": 12
+  },
+  {
+    "slug": "uchaly",
+    "name": "Учалы",
+    "prepositional": "Учалы",
+    "genitive": "Учалы",
+    "lat": 54.3581,
+    "lng": 59.4361,
+    "zoom": 12
+  },
+  {
+    "slug": "feodosiya",
+    "name": "Феодосия",
+    "prepositional": "Феодосии",
+    "genitive": "Феодосии",
+    "lat": 45.0319,
+    "lng": 35.3824,
+    "zoom": 13
+  },
+  {
+    "slug": "frolovo",
+    "name": "Фролово",
+    "prepositional": "Фролове",
+    "genitive": "Фролова",
+    "lat": 49.7688,
+    "lng": 43.6542,
+    "zoom": 12
+  },
+  {
+    "slug": "fryazino",
+    "name": "Фрязино",
+    "prepositional": "Фрязине",
+    "genitive": "Фрязина",
+    "lat": 55.959,
+    "lng": 38.041,
+    "zoom": 12
+  },
+  {
+    "slug": "furmanov",
+    "name": "Фурманов",
+    "prepositional": "Фурманове",
+    "genitive": "Фурманова",
+    "lat": 57.2542,
+    "lng": 41.1112,
+    "zoom": 12
+  },
+  {
+    "slug": "khabarovsk",
+    "name": "Хабаровск",
+    "prepositional": "Хабаровске",
+    "genitive": "Хабаровска",
+    "lat": 48.4647,
+    "lng": 135.0599,
+    "zoom": 12
+  },
+  {
+    "slug": "khanty-mansiysk",
+    "name": "Ханты-Мансийск",
+    "prepositional": "Ханты-Мансийске",
+    "genitive": "Ханты-Мансийска",
+    "lat": 61.0024,
+    "lng": 69.0185,
+    "zoom": 13
+  },
+  {
+    "slug": "hasavyurt",
+    "name": "Хасавюрт",
+    "prepositional": "Хасавюрте",
+    "genitive": "Хасавюрта",
+    "lat": 43.1299,
+    "lng": 46.5886,
+    "zoom": 12
+  },
+  {
+    "slug": "khimki",
+    "name": "Химки",
+    "prepositional": "Химках",
+    "genitive": "Химок",
+    "lat": 55.8887,
+    "lng": 37.4304,
+    "zoom": 12
+  },
+  {
+    "slug": "chaykovskiy",
+    "name": "Чайковский",
+    "prepositional": "Чайковские",
+    "genitive": "Чайковския",
+    "lat": 56.7632,
+    "lng": 54.1126,
+    "zoom": 12
+  },
+  {
+    "slug": "chapayevsk",
+    "name": "Чапаевск",
+    "prepositional": "Чапаевске",
+    "genitive": "Чапаевска",
+    "lat": 52.9771,
+    "lng": 49.7086,
+    "zoom": 12
+  },
+  {
+    "slug": "cheboksary",
+    "name": "Чебоксары",
+    "prepositional": "Чебоксарах",
+    "genitive": "Чебоксар",
+    "lat": 56.1438,
+    "lng": 47.249,
+    "zoom": 12
+  },
+  {
+    "slug": "chelyabinsk",
+    "name": "Челябинск",
+    "prepositional": "Челябинске",
+    "genitive": "Челябинска",
+    "lat": 55.1603,
+    "lng": 61.4008,
+    "zoom": 12
+  },
+  {
+    "slug": "cheremkhovo",
+    "name": "Черемхово",
+    "prepositional": "Черемхове",
+    "genitive": "Черемхова",
+    "lat": 53.1475,
+    "lng": 103.0819,
+    "zoom": 12
+  },
+  {
+    "slug": "cherepovets",
+    "name": "Череповец",
+    "prepositional": "Череповце",
+    "genitive": "Череповца",
+    "lat": 59.1269,
+    "lng": 37.909,
+    "zoom": 12
+  },
+  {
+    "slug": "cherkessk",
+    "name": "Черкесск",
+    "prepositional": "Черкесске",
+    "genitive": "Черкесска",
+    "lat": 44.2269,
+    "lng": 42.0467,
+    "zoom": 13
+  },
+  {
+    "slug": "chernogorsk",
+    "name": "Черногорск",
+    "prepositional": "Черногорске",
+    "genitive": "Черногорска",
+    "lat": 53.8288,
+    "lng": 91.3095,
+    "zoom": 12
+  },
+  {
+    "slug": "chernushka",
+    "name": "Чернушка",
+    "prepositional": "Чернушке",
+    "genitive": "Чернушкы",
+    "lat": 56.5072,
+    "lng": 56.0771,
+    "zoom": 12
+  },
+  {
+    "slug": "chehov",
+    "name": "Чехов",
+    "prepositional": "Чехове",
+    "genitive": "Чехова",
+    "lat": 55.1003,
+    "lng": 37.4568,
+    "zoom": 12
+  },
+  {
+    "slug": "chistopol",
+    "name": "Чистополь",
+    "prepositional": "Чистополи",
+    "genitive": "Чистополи",
+    "lat": 55.3661,
+    "lng": 50.644,
+    "zoom": 12
+  },
+  {
+    "slug": "chita",
+    "name": "Чита",
+    "prepositional": "Чите",
+    "genitive": "Читы",
+    "lat": 52.034,
+    "lng": 113.4994,
+    "zoom": 12
+  },
+  {
+    "slug": "chusovoy",
+    "name": "Чусовой",
+    "prepositional": "Чусовое",
+    "genitive": "Чусовоя",
+    "lat": 58.2892,
+    "lng": 57.8126,
+    "zoom": 12
+  },
+  {
+    "slug": "shadrinsk",
+    "name": "Шадринск",
+    "prepositional": "Шадринске",
+    "genitive": "Шадринска",
+    "lat": 56.0862,
+    "lng": 63.6382,
+    "zoom": 12
+  },
+  {
+    "slug": "shali",
+    "name": "Шали",
+    "prepositional": "Шали",
+    "genitive": "Шали",
+    "lat": 43.1481,
+    "lng": 45.9019,
+    "zoom": 12
+  },
+  {
+    "slug": "sharypovo",
+    "name": "Шарыпово",
+    "prepositional": "Шарыпове",
+    "genitive": "Шарыпова",
+    "lat": 55.54,
+    "lng": 89.2006,
+    "zoom": 12
+  },
+  {
+    "slug": "shahty",
+    "name": "Шахты",
+    "prepositional": "Шахтах",
+    "genitive": "Шахт",
+    "lat": 53.6417,
+    "lng": 39.54,
+    "zoom": 12
+  },
+  {
+    "slug": "shakhty",
+    "name": "Шахты",
+    "prepositional": "Шахтах",
+    "genitive": "Шахтов",
+    "lat": 47.7085,
+    "lng": 40.216,
+    "zoom": 12
+  },
+  {
+    "slug": "shebekino",
+    "name": "Шебекино",
+    "prepositional": "Шебекине",
+    "genitive": "Шебекина",
+    "lat": 50.4134,
+    "lng": 36.9254,
+    "zoom": 12
+  },
+  {
+    "slug": "shelekhov",
+    "name": "Шелехов",
+    "prepositional": "Шелехове",
+    "genitive": "Шелехова",
+    "lat": 52.2159,
+    "lng": 104.0993,
+    "zoom": 12
+  },
+  {
+    "slug": "shumerlya",
+    "name": "Шумерля",
+    "prepositional": "Шумерляе",
+    "genitive": "Шумерляа",
+    "lat": 55.5005,
+    "lng": 46.4129,
+    "zoom": 12
+  },
+  {
+    "slug": "shuya",
+    "name": "Шуя",
+    "prepositional": "Шуяе",
+    "genitive": "Шуяа",
+    "lat": 56.8486,
+    "lng": 41.3869,
+    "zoom": 12
+  },
+  {
+    "slug": "shchekino",
+    "name": "Щекино",
+    "prepositional": "Щекине",
+    "genitive": "Щекина",
+    "lat": 54.0073,
+    "lng": 37.5065,
+    "zoom": 12
+  },
+  {
+    "slug": "shchyolkovo",
+    "name": "Щёлково",
+    "prepositional": "Щёлкове",
+    "genitive": "Щёлкова",
+    "lat": 55.9239,
+    "lng": 37.9783,
+    "zoom": 12
+  },
+  {
+    "slug": "schelkovo",
+    "name": "Щёлково",
+    "prepositional": "Щёлкове",
+    "genitive": "Щёлкова",
+    "lat": 55.9047,
+    "lng": 38.0607,
+    "zoom": 12
+  },
+  {
+    "slug": "elektrostal",
+    "name": "Электросталь",
+    "prepositional": "Электростали",
+    "genitive": "Электростали",
+    "lat": 55.7842,
+    "lng": 38.4467,
+    "zoom": 12
+  },
+  {
+    "slug": "elista",
+    "name": "Элиста",
+    "prepositional": "Элисте",
+    "genitive": "Элисты",
+    "lat": 46.3083,
+    "lng": 44.2702,
+    "zoom": 13
+  },
+  {
+    "slug": "engels",
+    "name": "Энгельс",
+    "prepositional": "Энгельсе",
+    "genitive": "Энгельса",
+    "lat": 51.4854,
+    "lng": 46.1267,
+    "zoom": 12
+  },
+  {
+    "slug": "yuzhno-sakhalinsk",
+    "name": "Южно-Сахалинск",
+    "prepositional": "Южно-Сахалинске",
+    "genitive": "Южно-Сахалинска",
+    "lat": 46.9592,
+    "lng": 142.738,
+    "zoom": 13
+  },
+  {
+    "slug": "yuzhnouralsk",
+    "name": "Южноуральск",
+    "prepositional": "Южноуральске",
+    "genitive": "Южноуральска",
+    "lat": 54.4425,
+    "lng": 61.2683,
+    "zoom": 12
+  },
+  {
+    "slug": "yurga",
+    "name": "Юрга",
+    "prepositional": "Юрге",
+    "genitive": "Юрги",
+    "lat": 55.7136,
+    "lng": 84.898,
+    "zoom": 12
+  },
+  {
+    "slug": "yakutsk",
+    "name": "Якутск",
+    "prepositional": "Якутске",
+    "genitive": "Якутска",
+    "lat": 62.0281,
+    "lng": 129.7326,
+    "zoom": 12
+  },
+  {
+    "slug": "yalta",
+    "name": "Ялта",
+    "prepositional": "Ялте",
+    "genitive": "Ялты",
+    "lat": 44.4952,
+    "lng": 34.1663,
+    "zoom": 13
+  },
+  {
+    "slug": "yalutorovsk",
+    "name": "Ялуторовск",
+    "prepositional": "Ялуторовске",
+    "genitive": "Ялуторовска",
+    "lat": 56.6532,
+    "lng": 66.3005,
+    "zoom": 12
+  },
+  {
+    "slug": "yaroslavl",
+    "name": "Ярославль",
+    "prepositional": "Ярославле",
+    "genitive": "Ярославля",
+    "lat": 57.6215,
+    "lng": 39.8977,
+    "zoom": 12
+  },
+  {
+    "slug": "yartsevo",
+    "name": "Ярцево",
+    "prepositional": "Ярцеве",
+    "genitive": "Ярцева",
+    "lat": 55.0649,
+    "lng": 32.6969,
+    "zoom": 12
+  },
+  {
+    "slug": "volsk",
+    "name": "Volsk",
+    "prepositional": "Volskе",
+    "genitive": "Volskа",
+    "lat": 52.0302,
+    "lng": 47.3226,
+    "zoom": 12
+  }
+]

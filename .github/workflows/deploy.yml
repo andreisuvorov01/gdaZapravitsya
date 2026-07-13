@@ -1,0 +1,78 @@
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: {}
+
+concurrency:
+  group: benzin-deploy
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: SSH_HOST
+    timeout-minutes: 45
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+
+      # Сборка на раннере GitHub (7 ГБ RAM), не на VPS 2 ГБ — иначе таймаут SSH.
+      # NEXT_PUBLIC_* встраиваются в бандл на этом шаге, а раннер не видит .env
+      # с VPS (он в .gitignore) — self-host тайлы (см. docs/TILES.md) нужно
+      # задавать явно здесь же, иначе сборка молча откатывается на OpenFreeMap
+      # даже когда self-host на сервере настроен и работает.
+      - name: Build
+        env:
+          NEXT_PUBLIC_SITE_URL: https://benzryadom.ru
+          NEXT_TELEMETRY_DISABLED: 1
+          NEXT_PUBLIC_TILES_URL: /tiles/russia/{z}/{x}/{y}.mvt
+          NEXT_PUBLIC_TILES_MAXZOOM: "14"
+          NEXT_PUBLIC_WORLD_TILES_URL: /tiles/world/{z}/{x}/{y}.mvt
+          NEXT_PUBLIC_YANDEX_RTB_BLOCK_TOP: R-A-19584676-1
+          NEXT_PUBLIC_YANDEX_RTB_BLOCK_INARTICLE: R-A-19584676-2
+          NEXT_PUBLIC_YANDEX_RTB_BLOCK_FOOTER: R-A-19584676-3
+        run: |
+          npm ci --no-audit --no-fund
+          npm run build
+
+      - name: Pack standalone
+        run: tar czf deploy-standalone.tar.gz -C .next standalone
+
+      - name: Upload artifact to server
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          port: ${{ secrets.SSH_PORT }}
+          source: deploy-standalone.tar.gz
+          target: ${{ secrets.DEPLOY_PATH }}
+
+      - name: Deploy on server
+        uses: appleboy/ssh-action@v1.0.3
+        env:
+          INDEXNOW_KEY: ${{ secrets.INDEXNOW_KEY }}
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          port: ${{ secrets.SSH_PORT }}
+          command_timeout: 15m
+          envs: INDEXNOW_KEY
+          script: |
+            cd ${{ secrets.DEPLOY_PATH }}
+            rm -f .deploy.lock
+            git pull --ff-only
+            if [ -n "${INDEXNOW_KEY:-}" ]; then
+              bash scripts/ensure-indexnow-env.sh .env
+            fi
+            bash scripts/deploy-from-artifact.sh
+            curl -fsS -o /dev/null http://127.0.0.1:3000/ || (echo "ОШИБКА: :3000 не отвечает" && exit 1)

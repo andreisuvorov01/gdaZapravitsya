@@ -1,0 +1,51 @@
+# dependencies
+/node_modules
+/.pnp
+.pnp.js
+
+# next.js
+/.next/
+/out/
+
+# production
+/build
+
+# misc
+.DS_Store
+*.pem
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+*.log
+
+# local env files
+.env
+.env*.local
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
+
+# лок-файл scripts/deploy.sh (защита от параллельного деплоя, см. deploy.sh)
+.deploy.lock
+
+# data dumps
+/data/*.json
+
+# срочный бэкап данных Supabase (NDJSON) — большие, не для git
+/backup/
+
+# self-hosted map tiles (см. docs/TILES.md) — большие бинарники, не для git
+/tiles/
+
+# benzbot (Telegram/VK боты) — venv и локальные данные создаются на сервере
+# при деплое (см. scripts/deploy.sh), сам код бота коммитится
+benzbot/venv/
+benzbot/__pycache__/
+**/__pycache__/
+*.pyc
+benzbot/data/*.db
+benzbot/data/*.db-shm
+benzbot/data/*.db-wal

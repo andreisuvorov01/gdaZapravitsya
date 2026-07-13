@@ -1,0 +1,28 @@
+name: Fix production
+
+# Без сборки: nginx CSS + .env в standalone + pm2 restart. Запуск вручную в Actions.
+on:
+  workflow_dispatch: {}
+
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    environment: SSH_HOST
+    timeout-minutes: 5
+    steps:
+      - name: Fix nginx and restart app
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          port: ${{ secrets.SSH_PORT }}
+          command_timeout: 5m
+          script: |
+            cd ${{ secrets.DEPLOY_PATH }}
+            git pull --ff-only
+            bash scripts/fix-nginx-static.sh
+            bash scripts/ensure-standalone-env.sh
+            pm2 restart benzin-map
+            curl -fsS -o /dev/null http://127.0.0.1:3000/
+            echo "==> починка завершена"

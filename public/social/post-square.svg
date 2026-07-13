@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1080" fill="none">
+  <defs>
+    <linearGradient id="fuel" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop stop-color="#FFB020"/>
+      <stop offset="1" stop-color="#E69500"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="540" cy="420" r="420" gradientUnits="userSpaceOnUse">
+    <stop stop-color="#FFB020" stop-opacity="0.16"/>
+    <stop offset="1" stop-color="#0A0E12" stop-opacity="0"/>
+  </radialGradient>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="8" stdDeviation="14" flood-color="#FFB020" flood-opacity="0.22"/>
+    </filter>
+  </defs>
+  <rect width="1080" height="1080" fill="#0A0E12"/>
+  <circle cx="540" cy="420" r="420" fill="url(#glow)"/>
+  <g filter="url(#shadow)">
+    <rect x="340" y="220" width="400" height="400" rx="120" fill="url(#fuel)"/>
+    <svg x="440" y="320" width="200" height="200" viewBox="0 0 24 24" fill="none" stroke="#0A0E12" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M3 21h12"/>
+      <path d="M5 21V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v16"/>
+      <path d="M3 9h10"/>
+      <path d="M15 9l2.5 2.5a2 2 0 0 1 .6 1.4V17a1.5 1.5 0 0 0 3 0V8.5L18 6"/>
+    </svg>
+    <circle cx="710" cy="250" r="70" fill="#141A21"/>
+    <circle cx="710" cy="250" r="50" fill="#00C853"/>
+  </g>
+  <text x="540" y="760" text-anchor="middle" font-family="Unbounded, Arial Black, sans-serif" font-weight="700" font-size="108" fill="#E8ECF0" letter-spacing="-2">&#1073;&#1077;&#1085;&#1079;<tspan fill="#FFB020">&#1088;&#1103;&#1076;&#1086;&#1084;</tspan></text>
+  <text x="540" y="830" text-anchor="middle" font-family="Golos Text, Arial, sans-serif" font-weight="500" font-size="30" fill="#9AA8B5" letter-spacing="8">&#1058;&#1054;&#1055;&#1051;&#1048;&#1042;&#1054; &#1042; &#1056;&#1045;&#1040;&#1051;&#1068;&#1053;&#1054;&#1052; &#1042;&#1056;&#1045;&#1052;&#1045;&#1053;&#1048;</text>
+</svg>

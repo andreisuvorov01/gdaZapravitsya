@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none">
+  <defs>
+    <linearGradient id="fuel" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop stop-color="#FFB020"/>
+      <stop offset="1" stop-color="#E69500"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="256" cy="248" r="220" gradientUnits="userSpaceOnUse">
+    <stop stop-color="#FFB020" stop-opacity="0.18"/>
+    <stop offset="1" stop-color="#0A0E12" stop-opacity="0"/>
+  </radialGradient>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="8" stdDeviation="14" flood-color="#FFB020" flood-opacity="0.22"/>
+    </filter>
+  </defs>
+  <rect width="512" height="512" fill="#0A0E12"/>
+  <circle cx="256" cy="248" r="220" fill="url(#glow)"/>
+  <g filter="url(#shadow)">
+    <rect x="116" y="108" width="280" height="280" rx="84" fill="url(#fuel)"/>
+    <svg x="186" y="178" width="140" height="140" viewBox="0 0 24 24" fill="none" stroke="#0A0E12" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M3 21h12"/>
+      <path d="M5 21V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v16"/>
+      <path d="M3 9h10"/>
+      <path d="M15 9l2.5 2.5a2 2 0 0 1 .6 1.4V17a1.5 1.5 0 0 0 3 0V8.5L18 6"/>
+    </svg>
+    <circle cx="375" cy="129" r="49" fill="#141A21"/>
+    <circle cx="375" cy="129" r="35" fill="#00C853"/>
+  </g>
+</svg>

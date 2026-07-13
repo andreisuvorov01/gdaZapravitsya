@@ -1,0 +1,40 @@
+{
+  "name": "бензрядом — наличие топлива на карте АЗС",
+  "short_name": "бензрядом",
+  "description": "Краудсорсинговая карта заправок России: где есть бензин, лимиты на руки и очереди рядом с АЗС в реальном времени.",
+  "lang": "ru",
+  "dir": "ltr",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#0A0E12",
+  "theme_color": "#0A0E12",
+  "categories": ["navigation", "travel", "utilities"],
+  "icons": [
+    {
+      "src": "/icons/favicon-120.png",
+      "sizes": "120x120",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
