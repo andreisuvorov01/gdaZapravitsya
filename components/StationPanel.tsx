@@ -50,6 +50,7 @@ import StatusTimeline from "./StatusTimeline";
 import ShareButton from "./ShareButton";
 import { shareStationUrl } from "@/lib/navigation";
 
+
 interface StationPanelProps {
   station: StationStatus;
   onClose: () => void;
@@ -427,6 +428,7 @@ export default function StationPanel({
             <span className="ticket-serial" title="Код станции">
               №{ticketSerial}
             </span>
+            {station.conflicting && <span className="station-conflict-badge">спорно</span>}
             <div className="flex gap-0.5">
               <button
                 type="button"
@@ -460,6 +462,7 @@ export default function StationPanel({
         <div className="station-sheet__content space-y-3">
           <div>
             <VerdictBadge verdict={verdict} />
+            {station.conflicting && <span className="station-conflict-badge station-conflict-badge--inline">спорно</span>}
             <div className="report-count">
               <ClockIcon className="h-3.5 w-3.5" />
               {station.reports_count} отчётов · {freshConfirms} подтверждений

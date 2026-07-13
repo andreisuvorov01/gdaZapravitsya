@@ -543,8 +543,9 @@ export async function createUserStation(
     name: string;
     brand: string | null;
   },
-  _clientId: string
+  clientId: string
 ): Promise<Station> {
+  void clientId;
   const name = input.name.trim().slice(0, 120) || "Заправка";
   const brand = input.brand?.trim().slice(0, 80) || null;
 

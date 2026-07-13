@@ -133,8 +133,6 @@ export default function AppShell({ demoMode }: { demoMode: boolean }) {
   } | null>(null);
   const [offlineBanner, setOfflineBanner] = useState(false);
   const [demoDismissed, setDemoDismissed] = useState(false);
-  const [favLoading, setFavLoading] = useState(false);
-
   const bboxRef = useRef<BBox | null>(null);
   const pendingStationId = useRef<string | null>(null);
   const emergencyPrevFilters = useRef<FilterState | null>(null);
@@ -164,11 +162,9 @@ export default function AppShell({ demoMode }: { demoMode: boolean }) {
   useEffect(() => {
     if (favoriteIds.length === 0) {
       setFavoriteStations([]);
-      setFavLoading(false);
       return;
     }
     let cancelled = false;
-    setFavLoading(true);
     fetch(`/api/stations?ids=${encodeURIComponent(favoriteIds.join(","))}`, {
       headers: { "x-client-id": getClientId() },
     })
@@ -176,13 +172,11 @@ export default function AppShell({ demoMode }: { demoMode: boolean }) {
       .then((j) => {
         if (!cancelled) {
           setFavoriteStations(j.stations ?? []);
-          setFavLoading(false);
         }
       })
       .catch(() => {
         if (!cancelled) {
           setFavoriteStations([]);
-          setFavLoading(false);
         }
       });
     return () => {
@@ -818,7 +812,7 @@ export default function AppShell({ demoMode }: { demoMode: boolean }) {
 
       {!demoDismissed && demoMode && (
         <div className="flex shrink-0 items-center justify-center gap-2 bg-brand-fuel/10 px-4 py-1.5 text-center text-sm text-brand-fuel">
-          <span>Демо-режим — на сервере не задан DATABASE_URL (Postgres на этом же VPS).</span>
+          <span>Демо-режим: данные не сохраняются, часть отметок показана для примера.</span>
           <button
             type="button"
             onClick={() => setDemoDismissed(true)}
