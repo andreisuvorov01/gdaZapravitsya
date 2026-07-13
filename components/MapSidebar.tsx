@@ -7,6 +7,7 @@ import Filters, { type FilterState } from "./Filters";
 import RoutePlanner from "./RoutePlanner";
 import ShareButton from "./ShareButton";
 import StatsBar from "./StatsBar";
+import StationRecommendations from "./StationRecommendations";
 import StationList, { LIST_MODE_TABS, type ListMode } from "./StationList";
 import { useInstallPrompt } from "./InstallPromptContext";
 import { DONATE_URL, SITE_NAME, SITE_URL } from "@/lib/site";
@@ -166,7 +167,7 @@ export default function MapSidebar({
             type="button"
             onClick={onToggleRoute}
             aria-pressed={routeActive || routeOpen}
-            className={`map-sidebar__route-btn ${
+            className={`map-sidebar__route-btn map-sidebar__route-btn--secondary ${
               routeActive || routeOpen ? "map-sidebar__route-btn--active" : ""
             }`}
           >
@@ -179,7 +180,7 @@ export default function MapSidebar({
             type="button"
             onClick={onEmergencyFuel}
             aria-pressed={emergencyActive}
-            className={`map-sidebar__route-btn ${
+            className={`map-sidebar__route-btn map-sidebar__route-btn--urgent ${
               emergencyActive ? "map-sidebar__route-btn--active" : ""
             }`}
           >
@@ -245,6 +246,17 @@ export default function MapSidebar({
             Поддержать проект
           </a>
         )}
+      </div>
+
+      <div className="map-sidebar__recommendations border-b border-paper-border bg-white">
+        <StationRecommendations
+          stations={stations}
+          userLocation={listUserLocation}
+          mapCenter={mapCenter}
+          onSelect={onSelect}
+          fuelType={filters.fuelType}
+          light
+        />
       </div>
 
       <div className="map-sidebar__tabs shrink-0 border-b border-paper-border bg-white px-4 py-2.5 no-scrollbar">

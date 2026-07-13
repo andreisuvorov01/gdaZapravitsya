@@ -342,7 +342,6 @@ export default function MapLibreMapView({
   zoom,
   selectedId = null,
   hoveredId = null,
-  theme: _mapTheme = "light",
   route = null,
   compact = false,
   onLongPress,
