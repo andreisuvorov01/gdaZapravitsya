@@ -50,6 +50,31 @@ import StatusTimeline from "./StatusTimeline";
 import ShareButton from "./ShareButton";
 import { shareStationUrl } from "@/lib/navigation";
 
+const DECISION_COPY = {
+  yes: { title: "Можно ехать", text: "Есть свежие отметки о топливе." },
+  low: { title: "Ехать с запасом", text: "Топливо есть, но возможны лимиты или остатки." },
+  no: { title: "Лучше выбрать другую", text: "Водители отмечают отсутствие топлива." },
+  unknown: { title: "Нужна проверка", text: "Свежих подтверждений пока мало." },
+} as const;
+
+export function decisionFor(
+  station: StationStatus,
+  confLevel: ReturnType<typeof confidence>["level"]
+) {
+  if (station.conflicting) {
+    return {
+      title: "Данные спорят",
+      text: "Есть противоречивые отчёты — проверьте перед поездкой.",
+    };
+  }
+  if (station.stale || confLevel === "none" || confLevel === "old") {
+    return {
+      title: "Данные устарели",
+      text: "Отметки старые: лучше уточнить или оставить свежий отчёт.",
+    };
+  }
+  return DECISION_COPY[station.status];
+}
 
 interface StationPanelProps {
   station: StationStatus;
