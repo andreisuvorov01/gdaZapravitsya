@@ -30,7 +30,8 @@ export default function Filters({ value, onChange, light = false }: FiltersProps
     ? "border-paper-border bg-[#F7F9FB] text-paper-ink"
     : "filter-pill-idle";
   return (
-    <div className="space-y-2">
+    <div className="filter-panel space-y-3">
+      <div className="filter-group-label">Топливо</div>
       {/* Топливо — все виды чипами в один прокручиваемый ряд */}
       <div className="filter-scroll-row no-scrollbar">
         {FUEL_OPTIONS.map((f) => (
@@ -48,6 +49,7 @@ export default function Filters({ value, onChange, light = false }: FiltersProps
         ))}
       </div>
 
+      <div className="filter-group-label">Наличие, цена и сеть</div>
       {/* Сеть АЗС + быстрый фильтр «есть бензин» */}
       <div className="filter-scroll-row no-scrollbar">
         <select
@@ -96,7 +98,7 @@ export default function Filters({ value, onChange, light = false }: FiltersProps
               : idleCls
           }`}
         >
-          Топ-3 дешевле
+          {value.fuelType === "all" ? "Выберите топливо" : "Топ-3 дешевле"}
         </button>
       </div>
     </div>

@@ -818,7 +818,7 @@ export default function AppShell({ demoMode }: { demoMode: boolean }) {
 
       {!demoDismissed && demoMode && (
         <div className="flex shrink-0 items-center justify-center gap-2 bg-brand-fuel/10 px-4 py-1.5 text-center text-sm text-brand-fuel">
-          <span>Демо-режим — на сервере не задан DATABASE_URL (Postgres на этом же VPS).</span>
+          <span>Демо-режим: данные не сохраняются, часть отметок показана для примера.</span>
           <button
             type="button"
             onClick={() => setDemoDismissed(true)}
