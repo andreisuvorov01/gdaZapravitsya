@@ -311,6 +311,9 @@ export default function StationList({
         const conflictDot = s.conflicting && (
           <span className="station-conflict-dot" title="Данные расходятся" aria-hidden />
         );
+        const conflictBadge = s.conflicting && (
+          <span className="station-conflict-badge station-conflict-badge--list">спорно</span>
+        );
 
         if (light) {
           return (
@@ -355,6 +358,7 @@ export default function StationList({
                       </span>
                       {STATUS_SHORT[s.status]}
                     </span>
+                    {conflictBadge}
                     <span className="shrink-0 text-xs font-semibold tabular-nums text-paper-muted">
                       {formatDistance(s.dist)}
                     </span>
@@ -426,6 +430,7 @@ export default function StationList({
               </div>
               <div className="mt-2 flex flex-wrap items-center gap-2">
                 <StatusBadge status={s.status} compact />
+                {conflictBadge}
                 {emergencyActive &&
                   s.last_report_at &&
                   Date.now() - new Date(s.last_report_at).getTime() < 3600_000 && (
