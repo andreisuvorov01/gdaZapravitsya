@@ -143,7 +143,9 @@ async function viaDirectIndexNow(siteUrl, key) {
 
 loadEnv();
 
-const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL || "https://benzryadom.ru").replace(/\/$/, "");
+const siteUrl = (
+  process.env.NEXT_PUBLIC_SITE_URL || "https://xn----8sbaibghrm1elpm4lxb.xn--p1ai"
+).replace(/\/$/, "");
 const indexNowKey = process.env.INDEXNOW_KEY?.trim();
 
 log("--- trigger-indexnow-prod start ---");

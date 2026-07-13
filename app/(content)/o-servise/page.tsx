@@ -3,13 +3,13 @@ import Link from "next/link";
 import { absoluteUrl, SITE_NAME } from "@/lib/site";
 
 export const metadata: Metadata = {
-  // Суффикс «| бензрядом» добавляет шаблон title из app/layout.tsx.
+  // Суффикс «| ГдеЗаправиться.рф» добавляет шаблон title из app/layout.tsx.
   title: "О сервисе — народная карта наличия топлива",
   description:
-    "«бензрядом» — бесплатная краудсорсинговая карта наличия топлива на АЗС России. Как работает сервис, откуда данные и кто их добавляет.",
+    "«ГдеЗаправиться.рф» — бесплатная краудсорсинговая карта наличия топлива на АЗС России. Как работает сервис, откуда данные и кто их добавляет.",
   alternates: { canonical: absoluteUrl("/o-servise") },
   openGraph: {
-    title: "О сервисе бензрядом",
+    title: "О сервисе ГдеЗаправиться.рф",
     description: "Народная карта наличия топлива на АЗС России.",
     url: absoluteUrl("/o-servise"),
     type: "website",
@@ -28,12 +28,12 @@ export default function AboutPage() {
       </nav>
 
       <h1 className="font-display text-3xl font-extrabold tracking-tight text-ink sm:text-4xl">
-        О сервисе «бензрядом»
+        О сервисе «ГдеЗаправиться.рф»
       </h1>
 
       <div className="mt-6 space-y-4 text-base leading-relaxed text-ink-muted">
         <p>
-          «бензрядом» — это бесплатная народная карта наличия топлива на
+          «ГдеЗаправиться.рф» — это бесплатная народная карта наличия топлива на
           автозаправочных станциях России. Сервис помогает водителям быстро
           понять, на какой ближайшей АЗС сейчас есть бензин или дизель, какие
           действуют лимиты на руки и насколько большие очереди.

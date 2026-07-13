@@ -6,6 +6,8 @@ interface StatsBarProps {
   total: number;
   activeStatus?: FuelStatus | "all";
   onToggleStatus?: (status: FuelStatus) => void;
+  /** Светлая тема (десктопный сайдбар карты, см. MapSidebar.tsx) — по умолчанию тёмная. */
+  light?: boolean;
 }
 
 const ITEMS: { key: FuelStatus; label: string; chip: string }[] = [
@@ -20,15 +22,26 @@ export default function StatsBar({
   total,
   activeStatus = "all",
   onToggleStatus,
+  light = false,
 }: StatsBarProps) {
   return (
     <div
       className="flex flex-wrap items-center gap-1.5"
       aria-label={`Всего ${total} заправок на карте`}
     >
-      <span className="stat-chip border border-white/10 bg-white/5 text-ink">
-        <span className="font-display text-sm font-bold text-white">{total}</span>
-        <span className="text-ink-muted">АЗС</span>
+      <span
+        className={
+          light
+            ? "stat-chip border border-paper-border bg-[#F7F9FB] text-paper-ink"
+            : "stat-chip border border-white/10 bg-white/5 text-ink"
+        }
+      >
+        <span
+          className={`font-display text-sm font-bold ${light ? "text-paper-ink" : "text-white"}`}
+        >
+          {total}
+        </span>
+        <span className={light ? "text-paper-muted" : "text-ink-muted"}>АЗС</span>
       </span>
       {ITEMS.map(({ key, label, chip }) => {
         if (counts[key] <= 0) return null;
@@ -50,7 +63,7 @@ export default function StatsBar({
               aria-hidden
             />
             <span>{counts[key]}</span>
-            <span className="hidden font-normal opacity-80 sm:inline">{label}</span>
+            <span className="font-normal opacity-80">{label}</span>
           </Tag>
         );
       })}

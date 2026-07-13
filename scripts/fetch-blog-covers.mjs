@@ -73,7 +73,7 @@ for (const [slug, photoId] of Object.entries(COVERS)) {
   const dest = path.join(outDir, `${slug}.jpg`);
   try {
     const res = await fetch(url, {
-      headers: { "User-Agent": "benzryadom-cover-fetch/1.0" },
+      headers: { "User-Agent": "gdezapravitsya-cover-fetch/1.0" },
     });
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const buf = Buffer.from(await res.arrayBuffer());

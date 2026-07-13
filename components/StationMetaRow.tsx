@@ -5,8 +5,16 @@ import type { StationStatus } from "@/lib/types";
 
 // Компактная строка свежести/конфликта для строки списка (не дубль VerdictBadge:
 // та же шкала через computeVerdict()/VERDICT_HEX, но в одну строку под карточкой АЗС.
-export default function StationMetaRow({ station }: { station: StationStatus }) {
+export default function StationMetaRow({
+  station,
+  light = false,
+}: {
+  station: StationStatus;
+  /** Светлая тема (десктопный сайдбар карты, см. MapSidebar.tsx) — по умолчанию тёмная. */
+  light?: boolean;
+}) {
   const verdict = computeVerdict(station, 0);
+  const mutedCls = light ? "text-paper-muted" : "text-ink-muted";
 
   return (
     <div className="mt-1.5 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs">
@@ -18,17 +26,16 @@ export default function StationMetaRow({ station }: { station: StationStatus }) 
       <span className="font-medium tabular-nums">
         {station.last_report_at ? (
           <>
-            <span className="text-ink-muted">обновлено </span>
-            <span className="text-ink">{timeAgo(station.last_report_at)}</span>
+            <span className={mutedCls}>обновлено </span>
+            <span className={light ? "text-paper-ink" : "text-ink"}>
+              {timeAgo(station.last_report_at)}
+            </span>
             {station.reports_count > 0 && (
-              <span className="text-ink-muted">
-                {" "}
-                · {station.reports_count} отметок за 3 ч
-              </span>
+              <span className={mutedCls}> · {station.reports_count} отметок за 3 ч</span>
             )}
           </>
         ) : (
-          <span className="text-ink-muted">нет свежих отчётов</span>
+          <span className={mutedCls}>нет свежих отчётов</span>
         )}
       </span>
       {station.conflicting && (
@@ -40,7 +47,7 @@ export default function StationMetaRow({ station }: { station: StationStatus }) 
         </span>
       )}
       {station.stale && station.last_report_at && (
-        <span className="text-ink-muted">устарело</span>
+        <span className={mutedCls}>устарело</span>
       )}
     </div>
   );

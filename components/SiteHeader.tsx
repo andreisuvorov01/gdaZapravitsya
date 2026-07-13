@@ -1,7 +1,6 @@
 "use client";
 
 import BrandLogo from "./BrandLogo";
-import BotLinksClient from "./BotLinksClient";
 import HeaderMenu from "./HeaderMenu";
 
 interface SiteHeaderProps {
@@ -17,7 +16,6 @@ export default function SiteHeader({ tools }: SiteHeaderProps) {
         <BrandLogo className="min-w-0 shrink" size="sm" href="/" showTagline />
 
         <div className="app-header__tools">
-          <BotLinksClient variant="header" className="shrink-0" />
           {tools}
           <HeaderMenu />
         </div>

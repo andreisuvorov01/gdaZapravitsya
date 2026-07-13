@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Обновление и перезапуск benzin-map на сервере: git pull -> build -> pm2.
+# Обновление и перезапуск этого сайта на сервере: git pull -> build -> pm2.
 # Идемпотентен: одинаково подходит для первого запуска и для обновлений.
 # Запуск: npm run deploy (или напрямую bash scripts/deploy.sh)
 set -euo pipefail
@@ -111,27 +111,6 @@ echo "==> перезапуск через pm2 (без даунтайма, есл
 # ещё не запущен (первый деплой), иначе перезапускает. pm2 restart <имя>
 # ломался бы, если имя тут разойдётся с ecosystem.config.js (так уже было).
 pm2 startOrRestart ecosystem.config.js
-
-echo "==> удаляем старые процессы ботов (были подняты вручную из /home/benzbot,"
-echo "    теперь боты живут внутри самого проекта — см. benzbot/ecosystem.config.js)"
-pm2 delete benzbot-telegram benzbot-vk 2>/dev/null || true
-
-echo "==> venv для ботов (создаём при первом деплое, иначе — обновляем зависимости)"
-if [ ! -x "benzbot/venv/bin/python" ]; then
-  if ! command -v python3 >/dev/null 2>&1; then
-    echo "ОШИБКА: python3 не найден. Установите: apt install -y python3 python3-venv python3-pip" >&2
-    exit 1
-  fi
-  if ! python3 -m venv benzbot/venv; then
-    echo "ОШИБКА: не удалось создать venv — вероятно, не установлен python3-venv." >&2
-    echo "Установите: apt install -y python3-venv && rm -rf benzbot/venv && повторите деплой." >&2
-    exit 1
-  fi
-fi
-benzbot/venv/bin/pip install --no-input -q -r benzbot/requirements.txt
-
-echo "==> запуск ботов (Telegram/VK) через pm2"
-pm2 startOrRestart benzbot/ecosystem.config.js
 pm2 save
 
 echo "==> прогрев ISR-кэша остальных SEO-страниц в фоне (не блокирует деплой)"

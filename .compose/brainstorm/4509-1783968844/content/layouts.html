@@ -1,0 +1,492 @@
+<h2>Новый дизайн карточки заправки</h2>
+<p class="subtitle">Три принципиально разных подхода к компоновке. Нажмите на вариант, чтобы выбрать.</p>
+
+<style>
+  .mock-phone {
+    width: 280px;
+    min-height: 500px;
+    border-radius: 24px;
+    background: linear-gradient(165deg, #1c2142 0%, #171a35 45%, #12152a 100%);
+    border: 1px solid rgba(255,255,255,0.08);
+    overflow: hidden;
+    font-family: 'Golos Text', system-ui, sans-serif;
+    color: #E8ECF0;
+    font-size: 11px;
+    line-height: 1.4;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+  }
+  .mock-phone * { box-sizing: border-box; }
+  .m-glow {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(56,189,248,0.6) 45%, rgba(0,212,170,0.4) 55%, transparent);
+  }
+  .m-handle {
+    width: 40px; height: 3px; border-radius: 99px;
+    background: rgba(56,189,248,0.5);
+    margin: 6px auto 0;
+  }
+  .m-pad { padding: 10px 12px; }
+  .m-brand-badge {
+    width: 36px; height: 36px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 11px; color: #0a0d1f;
+    flex-shrink: 0;
+  }
+  .m-status-pill {
+    display: inline-flex; align-items: center; gap: 4px;
+    padding: 3px 8px; border-radius: 6px; font-size: 9px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.04em;
+  }
+  .m-card {
+    border-radius: 8px; background: rgba(0,0,0,0.16);
+    border: 1px solid rgba(255,255,255,0.06);
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.35);
+  }
+  .m-btn-primary {
+    display: flex; align-items: center; justify-content: center; gap: 4px;
+    width: 100%; padding: 8px; border-radius: 10px; border: none;
+    background: linear-gradient(180deg, #4dd0fb 0%, #38bdf8 55%, #0ea5e9 100%);
+    color: #0a0d1f; font-weight: 700; font-size: 11px; cursor: pointer;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.4), 0 4px 14px rgba(56,189,248,0.35);
+  }
+  .m-btn-secondary {
+    display: flex; align-items: center; justify-content: center; gap: 3px;
+    padding: 6px 8px; border-radius: 8px; border: 1px solid rgba(0,212,170,0.3);
+    background: rgba(0,212,170,0.08); color: #00d4aa;
+    font-weight: 600; font-size: 10px; cursor: pointer;
+  }
+  .m-icon-btn {
+    width: 28px; height: 28px; border-radius: 6px;
+    border: 1px solid rgba(255,255,255,0.06); background: rgba(0,0,0,0.18);
+    color: #9aa8b5; display: flex; align-items: center; justify-content: center;
+    font-size: 12px; cursor: pointer;
+  }
+  .m-fuel-row {
+    display: flex; align-items: baseline; gap: 4px; padding: 3px 0;
+  }
+  .m-fuel-name { font-size: 10px; font-weight: 600; color: #fff; white-space: nowrap; }
+  .m-fuel-dots { flex: 1; border-bottom: 1px dotted rgba(255,255,255,0.2); min-width: 8px; }
+  .m-fuel-price { font-family: monospace; font-size: 10px; font-weight: 700; color: #fff; white-space: nowrap; }
+  .m-fuel-na { font-size: 9px; color: #5c6a85; }
+  .m-tag {
+    display: inline-flex; align-items: center; gap: 3px;
+    padding: 2px 6px; border-radius: 4px; font-size: 8px; font-weight: 600;
+    background: rgba(255,255,255,0.06); color: #9aa8b5;
+  }
+  .m-progress {
+    height: 4px; border-radius: 99px; background: rgba(255,255,255,0.1); overflow: hidden;
+  }
+  .m-progress-fill { height: 100%; border-radius: 99px; }
+  .m-section-title {
+    font-size: 8px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.1em; color: #5c6a85; margin-bottom: 4px;
+  }
+  .m-report-item {
+    border-radius: 6px; background: rgba(255,255,255,0.04);
+    padding: 6px 8px; border-left: 2px solid rgba(255,255,255,0.15);
+  }
+  .m-divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.14) 15%, rgba(255,255,255,0.14) 85%, transparent);
+  }
+
+  /* Option A specific */
+  .hero-status-bar {
+    display: flex; gap: 6px; padding: 8px 0;
+  }
+  .hero-stat {
+    flex: 1; text-align: center; padding: 6px 4px;
+    border-radius: 8px; background: rgba(0,0,0,0.2);
+    border: 1px solid rgba(255,255,255,0.06);
+  }
+  .hero-stat-num {
+    font-family: monospace; font-size: 16px; font-weight: 800; color: #fff;
+    line-height: 1.1;
+  }
+  .hero-stat-label {
+    font-size: 7px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.08em; color: #5c6a85; margin-top: 2px;
+  }
+  .hero-verdict {
+    padding: 8px 10px; border-radius: 8px; border-left: 3px solid;
+    margin: 8px 0;
+  }
+  .hero-verdict-title { font-weight: 700; font-size: 11px; }
+  .hero-verdict-sub { font-size: 9px; color: #9aa8b5; margin-top: 1px; }
+
+  /* Option B specific */
+  .b-metrics {
+    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 4px;
+    margin: 6px 0;
+  }
+  .b-metric {
+    text-align: center; padding: 8px 4px;
+    border-radius: 8px; background: rgba(0,0,0,0.2);
+    border: 1px solid rgba(255,255,255,0.06);
+  }
+  .b-metric-circle {
+    width: 40px; height: 40px; border-radius: 50%; margin: 0 auto 4px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: monospace; font-size: 11px; font-weight: 800; color: #fff;
+  }
+  .b-fuel-scroll {
+    display: flex; gap: 6px; overflow-x: auto; padding: 4px 0;
+    -webkit-overflow-scrolling: touch;
+  }
+  .b-fuel-card {
+    min-width: 80px; padding: 8px; border-radius: 8px;
+    background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.06);
+    text-align: center; flex-shrink: 0;
+  }
+  .b-fuel-card-name { font-size: 9px; font-weight: 700; color: #9aa8b5; text-transform: uppercase; }
+  .b-fuel-card-price { font-family: monospace; font-size: 14px; font-weight: 800; color: #fff; margin: 2px 0; }
+  .b-fuel-card-status { font-size: 8px; font-weight: 600; }
+
+  /* Option C specific */
+  .c-split {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 6px;
+  }
+  .c-info-block {
+    padding: 8px; border-radius: 8px; background: rgba(0,0,0,0.16);
+    border: 1px solid rgba(255,255,255,0.06);
+  }
+  .c-info-label { font-size: 8px; font-weight: 700; text-transform: uppercase; color: #5c6a85; letter-spacing: 0.08em; }
+  .c-info-value { font-family: monospace; font-size: 14px; font-weight: 800; color: #fff; margin-top: 2px; }
+  .c-info-sub { font-size: 9px; color: #9aa8b5; margin-top: 1px; }
+  .c-actions-row {
+    display: flex; gap: 4px;
+  }
+  .c-action-pill {
+    flex: 1; display: flex; align-items: center; justify-content: center; gap: 3px;
+    padding: 6px; border-radius: 8px; font-size: 10px; font-weight: 600;
+    cursor: pointer; border: none;
+  }
+  .c-service-chip {
+    display: inline-flex; align-items: center; gap: 3px;
+    padding: 3px 7px; border-radius: 6px; font-size: 9px; font-weight: 600;
+    background: rgba(0,212,170,0.1); color: #00d4aa;
+    border: 1px solid rgba(0,212,170,0.2);
+  }
+
+  .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 16px 0; }
+  @media (max-width: 900px) { .cards { grid-template-columns: 1fr; } }
+  .card { cursor: pointer; transition: transform 0.15s, box-shadow 0.15s; }
+  .card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.3); }
+  .card.selected { outline: 2px solid #38bdf8; outline-offset: 4px; border-radius: 28px; }
+  .card-body { padding: 12px 0; }
+  .card-body h3 { margin: 0 0 4px; font-size: 15px; }
+  .card-body p { margin: 0; font-size: 12px; color: #9aa8b5; }
+</style>
+
+<div class="cards">
+  <!-- Option A: Hero Dashboard -->
+  <div class="card" data-choice="a" onclick="toggleSelect(this)">
+    <div class="mock-phone">
+      <div class="m-glow"></div>
+      <div class="m-handle"></div>
+      <div class="m-pad">
+        <!-- Compact header -->
+        <div style="display:flex;align-items:center;gap:8px;margin-top:6px">
+          <div class="m-brand-badge" style="background:#00953B">Л</div>
+          <div style="flex:1;min-width:0">
+            <div style="font-weight:700;font-size:12px;line-height:1.2">Лукойл</div>
+            <div style="font-size:9px;color:#9aa8b5;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">ул. Ленина, 42</div>
+          </div>
+          <div class="m-icon-btn">★</div>
+          <div class="m-icon-btn">✕</div>
+        </div>
+        <!-- Verdict banner -->
+        <div class="hero-verdict" style="border-color:#00C85340;background:#00C85314">
+          <div class="hero-verdict-title" style="color:#00C853">Топливо есть — можно ехать</div>
+          <div class="hero-verdict-sub">3 подтверждения за последний час</div>
+        </div>
+        <!-- Three big metric cards -->
+        <div class="hero-status-bar">
+          <div class="hero-stat">
+            <div class="hero-stat-num" style="color:#38bdf8">47.89</div>
+            <div class="hero-stat-label">АИ-95 ₽/л</div>
+          </div>
+          <div class="hero-stat">
+            <div class="hero-stat-num" style="color:#00C853">12%</div>
+            <div class="hero-stat-label">Очередь</div>
+          </div>
+          <div class="hero-stat">
+            <div class="hero-stat-num" style="color:#00C853">85</div>
+            <div class="hero-stat-label">Свежесть</div>
+          </div>
+        </div>
+        <!-- Quick report -->
+        <div class="m-card m-pad" style="margin:6px 0">
+          <div style="font-size:9px;font-weight:700;color:#5c6a85;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:4px">Быстрый отчёт</div>
+          <div style="display:flex;gap:4px">
+            <div style="flex:1;padding:5px;border-radius:6px;background:rgba(0,200,83,0.15);border:1px solid rgba(0,200,83,0.3);text-align:center;font-size:9px;font-weight:700;color:#00C853">Есть</div>
+            <div style="flex:1;padding:5px;border-radius:6px;background:rgba(255,145,0,0.1);border:1px solid rgba(255,145,0,0.2);text-align:center;font-size:9px;font-weight:600;color:#FF9100">Мало</div>
+            <div style="flex:1;padding:5px;border-radius:6px;background:rgba(255,61,0,0.1);border:1px solid rgba(255,61,0,0.2);text-align:center;font-size:9px;font-weight:600;color:#FF3D00">Нет</div>
+          </div>
+        </div>
+        <!-- Fuel prices -->
+        <div class="m-card m-pad" style="margin:6px 0">
+          <div class="m-section-title">Цены на топливо</div>
+          <div class="m-fuel-row"><span class="m-fuel-name">АИ-92</span><span class="m-fuel-dots"></span><span class="m-fuel-price">44.50 ₽</span></div>
+          <div class="m-fuel-row"><span class="m-fuel-name">АИ-95</span><span class="m-fuel-dots"></span><span class="m-fuel-price">47.89 ₽</span></div>
+          <div class="m-fuel-row"><span class="m-fuel-name">ДТ</span><span class="m-fuel-dots"></span><span class="m-fuel-price">52.10 ₽</span></div>
+          <div class="m-fuel-row"><span class="m-fuel-name" style="color:#5c6a85">АИ-98</span><span class="m-fuel-dots"></span><span class="m-fuel-na">нет данных</span></div>
+          <div style="margin-top:6px;display:flex;align-items:center;gap:4px">
+            <span style="font-size:8px;color:#5c6a85">Лимит: 20 л/чел</span>
+            <span style="font-size:8px;color:#9aa8b5">· дёшево на 3%</span>
+          </div>
+        </div>
+        <!-- Route + actions -->
+        <div style="display:flex;gap:4px;margin:6px 0">
+          <div class="m-btn-secondary" style="flex:1">📍 Маршрут</div>
+          <div class="m-btn-secondary" style="flex:1">📤 Поделиться</div>
+        </div>
+        <div style="text-align:center;font-size:9px;color:#9aa8b5;margin:2px 0">
+          <span style="color:#00d4aa;font-weight:700">2.3 км</span> · ≈ 7 мин
+        </div>
+        <!-- Reports -->
+        <div style="margin-top:6px">
+          <div class="m-section-title">Последние отчёты</div>
+          <div class="m-report-item" style="margin-bottom:4px">
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <span class="m-status-pill" style="background:rgba(0,200,83,0.15);color:#00C853;border:1px solid rgba(0,200,83,0.3)">✓ Есть</span>
+              <span style="font-size:9px;color:#9aa8b5">23 мин назад</span>
+            </div>
+            <div style="font-size:9px;color:#9aa8b5;margin-top:3px">Без очереди · АИ-92, АИ-95</div>
+          </div>
+          <div class="m-report-item" style="opacity:0.6">
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <span class="m-status-pill" style="background:rgba(0,200,83,0.15);color:#00C853;border:1px solid rgba(0,200,83,0.3)">✓ Есть</span>
+              <span style="font-size:9px;color:#9aa8b5">1 ч назад</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Sticky footer -->
+      <div style="padding:8px 12px 10px;background:rgba(12,16,22,0.97)">
+        <div class="m-divider" style="margin-bottom:8px"></div>
+        <div class="m-btn-primary">＋ Сообщить ситуацию</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>A. Hero Dashboard</h3>
+      <p>Крупные цифры вверху, вердикт-баннер, карточки топлива, компактные отчёты. Фокус на главных метриках.</p>
+    </div>
+  </div>
+
+  <!-- Option B: Compact Instrument Panel -->
+  <div class="card" data-choice="b" onclick="toggleSelect(this)">
+    <div class="mock-phone">
+      <div class="m-glow"></div>
+      <div class="m-handle"></div>
+      <div class="m-pad">
+        <!-- Header with status inline -->
+        <div style="display:flex;align-items:center;gap:8px;margin-top:6px">
+          <div class="m-brand-badge" style="background:#00953B">Л</div>
+          <div style="flex:1;min-width:0">
+            <div style="display:flex;align-items:center;gap:6px">
+              <span style="font-weight:700;font-size:12px">Лукойл</span>
+              <span class="m-status-pill" style="background:rgba(0,200,83,0.15);color:#00C853;border:1px solid rgba(0,200,83,0.3)">✓ Есть</span>
+            </div>
+            <div style="font-size:9px;color:#9aa8b5;margin-top:1px">ул. Ленина, 42 · 2.3 км · ≈ 7 мин</div>
+          </div>
+          <div class="m-icon-btn">★</div>
+          <div class="m-icon-btn">✕</div>
+        </div>
+        <!-- Circular gauges -->
+        <div class="b-metrics">
+          <div class="b-metric">
+            <div class="b-metric-circle" style="background:conic-gradient(#38bdf8 75%, rgba(255,255,255,0.08) 0)">
+              <div style="width:32px;height:32px;border-radius:50%;background:#12152a;display:flex;align-items:center;justify-content:center;box-shadow:inset 0 1px 2px rgba(0,0,0,0.5)">47.89</div>
+            </div>
+            <div style="font-size:8px;font-weight:700;color:#5c6a85;text-transform:uppercase">Цена</div>
+            <div style="font-size:8px;color:#9aa8b5">АИ-95</div>
+          </div>
+          <div class="b-metric">
+            <div class="b-metric-circle" style="background:conic-gradient(#00C853 12%, rgba(255,255,255,0.08) 0)">
+              <div style="width:32px;height:32px;border-radius:50%;background:#12152a;display:flex;align-items:center;justify-content:center;box-shadow:inset 0 1px 2px rgba(0,0,0,0.5)">12%</div>
+            </div>
+            <div style="font-size:8px;font-weight:700;color:#5c6a85;text-transform:uppercase">Очередь</div>
+            <div style="font-size:8px;color:#00C853">Нет</div>
+          </div>
+          <div class="b-metric">
+            <div class="b-metric-circle" style="background:conic-gradient(#00C853 85%, rgba(255,255,255,0.08) 0)">
+              <div style="width:32px;height:32px;border-radius:50%;background:#12152a;display:flex;align-items:center;justify-content:center;box-shadow:inset 0 1px 2px rgba(0,0,0,0.5)">85</div>
+            </div>
+            <div style="font-size:8px;font-weight:700;color:#5c6a85;text-transform:uppercase">Свежесть</div>
+            <div style="font-size:8px;color:#00C853">Свежо</div>
+          </div>
+        </div>
+        <!-- Horizontal fuel scroll -->
+        <div class="m-section-title" style="margin-top:6px">Топливо и цены</div>
+        <div class="b-fuel-scroll">
+          <div class="b-fuel-card">
+            <div class="b-fuel-card-name">АИ-92</div>
+            <div class="b-fuel-card-price">44.50</div>
+            <div class="b-fuel-card-status" style="color:#00C853">✓ Есть</div>
+          </div>
+          <div class="b-fuel-card" style="border-color:rgba(56,189,248,0.3)">
+            <div class="b-fuel-card-name">АИ-95</div>
+            <div class="b-fuel-card-price">47.89</div>
+            <div class="b-fuel-card-status" style="color:#00C853">✓ Есть</div>
+          </div>
+          <div class="b-fuel-card">
+            <div class="b-fuel-card-name">ДТ</div>
+            <div class="b-fuel-card-price">52.10</div>
+            <div class="b-fuel-card-status" style="color:#00C853">✓ Есть</div>
+          </div>
+          <div class="b-fuel-card" style="opacity:0.5">
+            <div class="b-fuel-card-name">АИ-98</div>
+            <div class="b-fuel-card-price" style="color:#5c6a85">—</div>
+            <div class="b-fuel-card-status" style="color:#5c6a85">нет данных</div>
+          </div>
+        </div>
+        <!-- Quick report inline -->
+        <div style="display:flex;gap:4px;margin:8px 0">
+          <div style="flex:1;padding:5px;border-radius:6px;background:rgba(0,200,83,0.15);border:1px solid rgba(0,200,83,0.3);text-align:center;font-size:9px;font-weight:700;color:#00C853">✓ Есть</div>
+          <div style="flex:1;padding:5px;border-radius:6px;background:rgba(255,145,0,0.1);border:1px solid rgba(255,145,0,0.2);text-align:center;font-size:9px;font-weight:600;color:#FF9100">! Мало</div>
+          <div style="flex:1;padding:5px;border-radius:6px;background:rgba(255,61,0,0.1);border:1px solid rgba(255,61,0,0.2);text-align:center;font-size:9px;font-weight:600;color:#FF3D00">✕ Нет</div>
+        </div>
+        <!-- Action buttons -->
+        <div style="display:flex;gap:4px;margin:4px 0">
+          <div class="m-btn-secondary" style="flex:1">📍 Маршрут</div>
+          <div class="m-btn-secondary" style="flex:1">📤 Поделиться</div>
+        </div>
+        <!-- Navigator links -->
+        <div style="display:flex;gap:4px;margin:4px 0;flex-wrap:wrap">
+          <span class="m-tag">Яндекс</span>
+          <span class="m-tag">2ГИС</span>
+          <span class="m-tag">Google</span>
+        </div>
+        <!-- Reports compact -->
+        <div style="margin-top:6px">
+          <div class="m-section-title">Отчёты</div>
+          <div class="m-report-item" style="margin-bottom:3px">
+            <div style="display:flex;gap:4px;align-items:center">
+              <span style="font-size:9px;font-weight:700;color:#00C853">✓</span>
+              <span style="font-size:9px;color:#fff">Есть бензин</span>
+              <span style="font-size:8px;color:#5c6a85;margin-left:auto">23 мин</span>
+            </div>
+          </div>
+          <div class="m-report-item" style="margin-bottom:3px;opacity:0.6">
+            <div style="display:flex;gap:4px;align-items:center">
+              <span style="font-size:9px;font-weight:700;color:#00C853">✓</span>
+              <span style="font-size:9px;color:#fff">Есть</span>
+              <span style="font-size:8px;color:#5c6a85;margin-left:auto">1 ч</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Sticky footer -->
+      <div style="padding:8px 12px 10px;background:rgba(12,16,22,0.97)">
+        <div class="m-divider" style="margin-bottom:8px"></div>
+        <div class="m-btn-primary">＋ Сообщить ситуацию</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>B. Instrument Panel</h3>
+      <p>Круглые циферблаты-индикаторы, горизонтальный скролл топлива, компактный header. Приборная панель автомобиля.</p>
+    </div>
+  </div>
+
+  <!-- Option C: Split Card Layout -->
+  <div class="card" data-choice="c" onclick="toggleSelect(this)">
+    <div class="mock-phone">
+      <div class="m-glow"></div>
+      <div class="m-handle"></div>
+      <div class="m-pad">
+        <!-- Hero header with gradient -->
+        <div style="margin-top:6px;padding:12px 10px;border-radius:12px;background:linear-gradient(135deg, rgba(0,200,83,0.12) 0%, rgba(56,189,248,0.08) 100%);border:1px solid rgba(0,200,83,0.15)">
+          <div style="display:flex;align-items:center;gap:8px">
+            <div class="m-brand-badge" style="background:#00953B;width:40px;height:40px">Л</div>
+            <div style="flex:1;min-width:0">
+              <div style="font-weight:700;font-size:13px">Лукойл</div>
+              <div style="font-size:9px;color:#9aa8b5">ул. Ленина, 42</div>
+            </div>
+            <div style="text-align:right">
+              <div class="m-status-pill" style="background:rgba(0,200,83,0.15);color:#00C853;border:1px solid rgba(0,200,83,0.3)">✓ Есть</div>
+              <div style="font-size:9px;color:#00d4aa;font-weight:600;margin-top:3px">2.3 км · 7 мин</div>
+            </div>
+          </div>
+        </div>
+        <!-- Split info cards -->
+        <div class="c-split" style="margin:6px 0">
+          <div class="c-info-block">
+            <div class="c-info-label">Лучшая цена</div>
+            <div class="c-info-value" style="color:#38bdf8">47.89 ₽</div>
+            <div class="c-info-sub">АИ-95 · дёшево</div>
+          </div>
+          <div class="c-info-block">
+            <div class="c-info-label">Очередь</div>
+            <div class="c-info-value" style="color:#00C853">Нет</div>
+            <div class="c-info-sub">12% вероятность</div>
+          </div>
+          <div class="c-info-block">
+            <div class="c-info-label">Свежесть</div>
+            <div class="c-info-value" style="color:#00C853">85</div>
+            <div class="c-info-sub">23 мин назад</div>
+          </div>
+          <div class="c-info-block">
+            <div class="c-info-label">Лимит</div>
+            <div class="c-info-value">20 л</div>
+            <div class="c-info-sub">на человека</div>
+          </div>
+        </div>
+        <!-- Services chips -->
+        <div class="m-section-title" style="margin-top:6px">Услуги</div>
+        <div style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:6px">
+          <span class="c-service-chip">🏪 Магазин</span>
+          <span class="c-service-chip">☕ Кафе</span>
+          <span class="c-service-chip">🚿 Мойка</span>
+          <span class="c-service-chip">🔧 Шиномонтаж</span>
+        </div>
+        <!-- Quick report -->
+        <div style="display:flex;gap:4px;margin:4px 0">
+          <div style="flex:1;padding:5px;border-radius:6px;background:rgba(0,200,83,0.15);border:1px solid rgba(0,200,83,0.3);text-align:center;font-size:9px;font-weight:700;color:#00C853">✓ Есть</div>
+          <div style="flex:1;padding:5px;border-radius:6px;background:rgba(255,145,0,0.1);border:1px solid rgba(255,145,0,0.2);text-align:center;font-size:9px;font-weight:600;color:#FF9100">! Мало</div>
+          <div style="flex:1;padding:5px;border-radius:6px;background:rgba(255,61,0,0.1);border:1px solid rgba(255,61,0,0.2);text-align:center;font-size:9px;font-weight:600;color:#FF3D00">✕ Нет</div>
+        </div>
+        <!-- Action pills row -->
+        <div class="c-actions-row" style="margin:6px 0">
+          <div class="c-action-pill" style="background:linear-gradient(180deg, #4dd0fb, #38bdf8);color:#0a0d1f;font-weight:700">📍 Маршрут</div>
+          <div class="c-action-pill" style="background:rgba(0,212,170,0.1);color:#00d4aa;border:1px solid rgba(0,212,170,0.3)">★ Избранное</div>
+          <div class="c-action-pill" style="background:rgba(255,255,255,0.06);color:#9aa8b5;border:1px solid rgba(255,255,255,0.08)">📤</div>
+        </div>
+        <!-- Navigator -->
+        <div style="display:flex;gap:4px;margin:4px 0">
+          <span class="m-tag">Яндекс</span>
+          <span class="m-tag">2ГИС</span>
+          <span class="m-tag">Google</span>
+          <span class="m-tag">Waze</span>
+        </div>
+        <!-- Reports -->
+        <div style="margin-top:6px">
+          <div class="m-section-title">Последние отчёты</div>
+          <div class="m-report-item" style="margin-bottom:3px">
+            <div style="display:flex;gap:4px;align-items:center">
+              <span style="font-size:9px;font-weight:700;color:#00C853">✓</span>
+              <span style="font-size:9px;color:#fff;flex:1">Есть бензин · без очереди</span>
+              <span style="font-size:8px;color:#5c6a85">23 мин</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Sticky footer -->
+      <div style="padding:8px 12px 10px;background:rgba(12,16,22,0.97)">
+        <div class="m-divider" style="margin-bottom:8px"></div>
+        <div class="m-btn-primary">＋ Сообщить ситуацию</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>C. Split Cards</h3>
+      <p>Hero-баннер с градиентом, 2×2 карточки метрик, чипы услуг, тройная кнопка действий. Информативно и компактно.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+function toggleSelect(el) {
+  document.querySelectorAll('.card').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+}
+</script>

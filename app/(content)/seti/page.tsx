@@ -5,13 +5,13 @@ import { getTrafficWinnerBrands, getTrafficWinnerCities } from "@/lib/seo-growth
 import { absoluteUrl, SITE_NAME } from "@/lib/site";
 
 export const metadata: Metadata = {
-  // Суффикс «| бензрядом» добавляет шаблон title из app/layout.tsx.
+  // Суффикс «| ГдеЗаправиться.рф» добавляет шаблон title из app/layout.tsx.
   title: "Сети АЗС России: наличие топлива на карте",
   description:
     "Лукойл, Роснефть, Газпромнефть, Татнефть и другие сети АЗС. Узнайте, где сейчас есть бензин и дизель, на народной карте заправок.",
   alternates: { canonical: absoluteUrl("/seti") },
   openGraph: {
-    title: "Сети АЗС России — бензрядом",
+    title: "Сети АЗС России — ГдеЗаправиться.рф",
     description:
       "Наличие топлива по сетям АЗС: Лукойл, Роснефть, Газпромнефть и другие.",
     url: absoluteUrl("/seti"),
@@ -50,7 +50,7 @@ export default function SetiPage() {
               <Link
                 key={`${b.slug}-${c.slug}`}
                 href={`/seti/${b.slug}/${c.slug}`}
-                className="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-ink transition hover:border-brand-fuel/40 hover:text-brand-fuel"
+                className="rounded-lg border border-white/10 bg-white/5 px-4 py-2 text-sm text-ink transition hover:border-brand-fuel/40 hover:text-brand-fuel"
               >
                 {b.name} — {c.name}
               </Link>

@@ -18,7 +18,6 @@ import {
   type StationStatus,
 } from "@/lib/types";
 import { clampBBoxSpan } from "@/lib/bbox";
-import { resolveBrandBadge, brandLogoUrl } from "@/lib/brand-logos";
 import { buildClusterMarkerEl, type ClusterCounts } from "@/lib/clusterIcon";
 import { STATUS_GLYPH } from "./StatusBadge";
 import { CrosshairIcon, MinusIcon, PlusIcon } from "./Icons";
@@ -36,6 +35,9 @@ interface MapViewProps {
   center: [number, number];
   zoom: number;
   selectedId?: string | null;
+  /** Станция, подсвеченная наведением/прокруткой в списке (см. StationList.tsx) —
+      подсвечивает маркер без перецентровки карты, в отличие от selectedId. */
+  hoveredId?: string | null;
   theme?: MapTheme;
   route?: GeoJSON.LineString | null;
   /** Компактный режим (вкладка «Ситуация»): без кнопок zoom. */
@@ -256,7 +258,34 @@ const QUEUE_BADGE_HEX: Partial<Record<QueueLevel, string>> = {
   hours: "#FF3D00",
 };
 
-// Создаёт DOM-маркер заправки: логотип сети в кружке + кольцо цвета статуса.
+const MARKER_PUMP_PATHS = [
+  "M3 21h12",
+  "M5 21V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v16",
+  "M3 9h10",
+  "M15 9l2.5 2.5a2 2 0 0 1 .6 1.4V17a1.5 1.5 0 0 0 3 0V8.5L18 6",
+];
+const SVG_NS = "http://www.w3.org/2000/svg";
+
+function buildPumpIcon(): SVGSVGElement {
+  const svg = document.createElementNS(SVG_NS, "svg");
+  svg.setAttribute("class", "azs-marker__pump");
+  svg.setAttribute("viewBox", "0 0 24 24");
+  svg.setAttribute("fill", "none");
+  svg.setAttribute("stroke", "currentColor");
+  svg.setAttribute("stroke-width", "2");
+  svg.setAttribute("stroke-linecap", "round");
+  svg.setAttribute("stroke-linejoin", "round");
+  for (const d of MARKER_PUMP_PATHS) {
+    const path = document.createElementNS(SVG_NS, "path");
+    path.setAttribute("d", d);
+    svg.appendChild(path);
+  }
+  return svg;
+}
+
+// Создаёт DOM-маркер заправки: светящийся кружок цвета статуса со значком
+// колонки (брендинг сети виден в карточке станции и в списке через
+// BrandBadge, на самой карте статус важнее логотипа — их за раз до сотни).
 // queue/price — опциональные детали, видимые только при достаточном зуме
 // (см. data-zoom-tier на контейнере карты и .azs-marker__queue/__price в CSS).
 function buildMarkerEl(
@@ -266,39 +295,14 @@ function buildMarkerEl(
   queue: QueueLevel | null,
   price: { fuel: FuelType; price: number } | null
 ): HTMLDivElement {
-  const meta = resolveBrandBadge(brand || null, name);
-  const logo = brandLogoUrl(meta);
-
   const root = document.createElement("div");
   root.className = "azs-marker";
+  root.title = brand || name;
   root.style.setProperty("--st", STATUS_HEX[status]);
 
   const badge = document.createElement("div");
-  badge.className = "azs-marker__badge" + (logo && meta.darkBg ? " azs-marker__badge--dark" : "");
-
-  if (logo) {
-    const img = document.createElement("img");
-    img.src = logo;
-    img.alt = brand || name;
-    img.draggable = false;
-    img.loading = "lazy";
-    img.decoding = "async";
-    // Явные intrinsic-размеры (CSS всё равно переопределяет их в 76%
-    // .azs-marker__badge через object-fit: contain) — дают браузеру размер
-    // до декодирования картинки, без него декодер на мобильных телефонах
-    // тратит лишнее время, угадывая целевой размер для даунскейла, на
-    // сотне маркеров разом при первой отрисовке региона.
-    img.width = 29;
-    img.height = 29;
-    badge.appendChild(img);
-  } else {
-    const mono = document.createElement("span");
-    mono.className = "azs-marker__mono";
-    mono.textContent = meta.label;
-    badge.style.background = meta.bg;
-    mono.style.color = meta.fg;
-    badge.appendChild(mono);
-  }
+  badge.className = "azs-marker__badge";
+  badge.appendChild(buildPumpIcon());
 
   // Маленький значок статуса с символом (✓ ! ✕ ?) — статус читается без опоры на цвет.
   const dot = document.createElement("span");
@@ -337,6 +341,7 @@ export default function MapLibreMapView({
   center,
   zoom,
   selectedId = null,
+  hoveredId = null,
   theme: _mapTheme = "light",
   route = null,
   compact = false,
@@ -354,6 +359,7 @@ export default function MapLibreMapView({
   const pointsPausedRef = useRef(false);
   const stationsRef = useRef(stations);
   const selectedIdRef = useRef(selectedId);
+  const hoveredIdRef = useRef(hoveredId);
   const onSelectRef = useRef(onSelect);
   const onBoundsRef = useRef(onBoundsChange);
   const onCenterRef = useRef(onCenterChange);
@@ -372,6 +378,7 @@ export default function MapLibreMapView({
 
   stationsRef.current = stations;
   selectedIdRef.current = selectedId;
+  hoveredIdRef.current = hoveredId;
   onSelectRef.current = onSelect;
   onBoundsRef.current = onBoundsChange;
   onCenterRef.current = onCenterChange;
@@ -555,7 +562,7 @@ export default function MapLibreMapView({
           source: "route",
           layout: { "line-cap": "round", "line-join": "round" },
           paint: {
-            "line-color": "#0A0E12",
+            "line-color": "#0A0D1F",
             "line-width": ["interpolate", ["linear"], ["zoom"], 8, 6, 16, 12],
             "line-opacity": 0.5,
           },
@@ -724,6 +731,9 @@ export default function MapLibreMapView({
             marker.setLngLat(coords);
           }
           marker.getElement().classList.toggle("azs-marker--selected", isSelected);
+          marker
+            .getElement()
+            .classList.toggle("azs-marker--hovered", hoveredIdRef.current === id);
           marker
             .getElement()
             .classList.toggle("azs-marker--conflict", Boolean(station.conflicting));
@@ -941,6 +951,10 @@ export default function MapLibreMapView({
       setMapReady(true);
       installClusters();
       installRoute();
+
+      const mapCanvas = map.getCanvas();
+      mapCanvas.setAttribute("role", "img");
+      mapCanvas.setAttribute("aria-label", "Интерактивная карта заправок");
 
       map.on("click", "station-points", (e) => {
         const feature = e.features?.[0];
@@ -1202,6 +1216,16 @@ export default function MapLibreMapView({
     (map as unknown as { __sync?: () => void }).__sync?.();
   }, [selectedId]);
 
+  // Подсветка станции, наведённой/прокрученной в списке — только класс на
+  // маркере, без перецентровки карты (в отличие от selectedId выше).
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!map || !readyRef.current) return;
+    for (const [id, marker] of markersRef.current) {
+      marker.getElement().classList.toggle("azs-marker--hovered", id === hoveredId);
+    }
+  }, [hoveredId]);
+
   const handleZoomIn = () => {
     (mapRef.current as unknown as { __zoomIn?: () => void })?.__zoomIn?.();
   };
@@ -1223,7 +1247,11 @@ export default function MapLibreMapView({
         )}
       </div>
       {!compact && (
-        <div className="map-zoom-controls glass-dock" role="group" aria-label="Масштаб и геолокация">
+        <div
+          className="map-zoom-controls map-zoom-controls--paper glass-dock"
+          role="group"
+          aria-label="Масштаб и геолокация"
+        >
           {onLocate && (
             <>
               <button

@@ -40,12 +40,5 @@ next-env.d.ts
 # self-hosted map tiles (см. docs/TILES.md) — большие бинарники, не для git
 /tiles/
 
-# benzbot (Telegram/VK боты) — venv и локальные данные создаются на сервере
-# при деплое (см. scripts/deploy.sh), сам код бота коммитится
-benzbot/venv/
-benzbot/__pycache__/
 **/__pycache__/
 *.pyc
-benzbot/data/*.db
-benzbot/data/*.db-shm
-benzbot/data/*.db-wal

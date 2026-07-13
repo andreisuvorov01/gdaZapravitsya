@@ -24,7 +24,6 @@ import {
   SESSION_MIN_MS,
   wasInstallDismissedRecently,
 } from "@/lib/installPrompt";
-import { channelBlocksInstallThisSession } from "@/lib/channelPrompt";
 import { isOnboardingComplete } from "@/lib/onboarding";
 import { writeTimestamp } from "@/lib/clientStorage";
 
@@ -172,12 +171,7 @@ export function InstallPromptProvider({ children }: { children: ReactNode }) {
     }
 
     const tryOpenBanner = (variant: InstallBannerVariant = "default") => {
-      if (
-        bannerTriggered.current ||
-        wasInstallDismissedRecently() ||
-        isStandalone() ||
-        channelBlocksInstallThisSession()
-      ) {
+      if (bannerTriggered.current || wasInstallDismissedRecently() || isStandalone()) {
         return;
       }
       bannerTriggered.current = true;
@@ -186,11 +180,7 @@ export function InstallPromptProvider({ children }: { children: ReactNode }) {
     };
 
     const tick = window.setInterval(() => {
-      if (
-        bannerTriggered.current ||
-        wasInstallDismissedRecently() ||
-        channelBlocksInstallThisSession()
-      ) {
+      if (bannerTriggered.current || wasInstallDismissedRecently()) {
         return;
       }
 
@@ -215,8 +205,7 @@ export function InstallPromptProvider({ children }: { children: ReactNode }) {
         exitIntentUsed.current ||
         bannerTriggered.current ||
         isMobileViewport() ||
-        e.clientY > 12 ||
-        channelBlocksInstallThisSession()
+        e.clientY > 12
       ) {
         return;
       }
@@ -241,8 +230,7 @@ export function InstallPromptProvider({ children }: { children: ReactNode }) {
         document.visibilityState === "visible" &&
         leavePending.current &&
         !bannerTriggered.current &&
-        !wasInstallDismissedRecently() &&
-        !channelBlocksInstallThisSession()
+        !wasInstallDismissedRecently()
       ) {
         leavePending.current = false;
         exitIntentUsed.current = true;

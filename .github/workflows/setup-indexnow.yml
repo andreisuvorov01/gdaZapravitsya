@@ -36,5 +36,5 @@ jobs:
             if [ -d .next/standalone ]; then
               cp -f .env .next/standalone/.env
             fi
-            pm2 restart benzin-map
-            echo "Done. Verify: curl -sS https://benzryadom.ru/${INDEXNOW_KEY}.txt | head -c 40"
+            pm2 restart gde-zapravitsya
+            echo "Done. Verify: curl -sS https://xn----8sbaibghrm1elpm4lxb.xn--p1ai/${INDEXNOW_KEY}.txt | head -c 40"

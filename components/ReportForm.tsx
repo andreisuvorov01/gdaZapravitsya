@@ -1,8 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { getClientId } from "@/lib/clientId";
-import { dispatchChannelPrompt } from "@/lib/channelPrompt";
 import {
   FUEL_TYPES,
   QUEUE_LABELS,
@@ -72,6 +71,7 @@ export default function ReportForm({
   const [website, setWebsite] = useState(""); // honeypot
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const dialogRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -80,6 +80,34 @@ export default function ReportForm({
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, [onClose]);
+
+  useEffect(() => {
+    const el = dialogRef.current;
+    if (!el) return;
+    const focusable = el.querySelectorAll<HTMLElement>(
+      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+    );
+    if (focusable.length === 0) return;
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    const trap = (e: KeyboardEvent) => {
+      if (e.key !== "Tab") return;
+      if (e.shiftKey) {
+        if (document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        }
+      } else {
+        if (document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
+    };
+    el.addEventListener("keydown", trap);
+    first.focus();
+    return () => el.removeEventListener("keydown", trap);
+  }, []);
 
   const toggleFuel = (f: FuelType) =>
     setFuelTypes((prev) =>
@@ -124,7 +152,6 @@ export default function ReportForm({
         throw new Error(j.error ?? "Не удалось отправить отчёт");
       }
       onSubmitted();
-      dispatchChannelPrompt("report");
     } catch (err) {
       setError(err instanceof Error ? err.message : "Ошибка отправки");
     } finally {
@@ -141,6 +168,7 @@ export default function ReportForm({
       onClick={onClose}
     >
       <div
+        ref={dialogRef}
         role="dialog"
         aria-modal="true"
         aria-labelledby="report-title"
@@ -298,6 +326,7 @@ export default function ReportForm({
               placeholder="напр. отпускают по 30 л, очередь на час"
               className="w-full resize-none rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-base text-ink placeholder:text-ink-muted focus:border-brand-fuel/50 focus:outline-none focus:ring-2 focus:ring-brand-fuel/20"
             />
+            <p className="mt-1 text-right text-xs text-ink-muted">{comment.length} / 300</p>
           </div>
 
           {error && (

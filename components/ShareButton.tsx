@@ -4,7 +4,7 @@ import { useCallback, useState } from "react";
 import { copyOrShare } from "@/lib/share";
 import { ShareIcon } from "./Icons";
 
-type ShareVariant = "chip" | "menu" | "compact" | "station";
+type ShareVariant = "chip" | "menu" | "compact" | "station" | "sidebar";
 
 interface ShareButtonProps {
   url: string;
@@ -67,6 +67,19 @@ export default function ShareButton({
         className={`share-btn share-btn--icon ${className}`}
       >
         <ShareIcon className="h-[18px] w-[18px]" />
+      </button>
+    );
+  }
+
+  if (variant === "sidebar") {
+    return (
+      <button
+        type="button"
+        onClick={() => void share()}
+        className={`map-sidebar__action ${className}`}
+      >
+        <ShareIcon className="h-4 w-4 shrink-0" />
+        <span>{shown}</span>
       </button>
     );
   }

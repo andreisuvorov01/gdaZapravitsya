@@ -49,10 +49,10 @@ export async function generateMetadata({
   const { brand: slug } = await params;
   const brand = findBrandBySlug(slug);
   if (!brand) {
-    // Без суффикса — «| бензрядом» добавит шаблон title из app/layout.tsx.
+    // Без суффикса — «| ГдеЗаправиться.рф» добавит шаблон title из app/layout.tsx.
     return { title: "Сеть не найдена" };
   }
-  // Суффикс «| бензрядом» добавляется шаблоном из app/layout.tsx.
+  // Суффикс «| ГдеЗаправиться.рф» добавляется шаблоном из app/layout.tsx.
   const title = `АЗС ${brand.name}: где есть топливо — карта наличия`;
   const description = `Где на заправках ${brand.name} сейчас есть бензин и дизель. Народная карта наличия топлива в реальном времени, бесплатно и без регистрации.`;
   return {
@@ -60,7 +60,7 @@ export async function generateMetadata({
     description,
     alternates: { canonical: absoluteUrl(`/seti/${brand.slug}`) },
     openGraph: {
-      title: `АЗС ${brand.name}: где есть топливо — бензрядом`,
+      title: `АЗС ${brand.name}: где есть топливо — ГдеЗаправиться.рф`,
       description,
       url: absoluteUrl(`/seti/${brand.slug}`),
       type: "website",
@@ -129,7 +129,7 @@ export default async function BrandPage({
         {intro}
       </p>
       <p className="mt-3 max-w-2xl text-base leading-relaxed text-ink-muted">
-        На народной карте «бензрядом» вы можете посмотреть, на каких заправках{" "}
+        На народной карте «ГдеЗаправиться.рф» вы можете посмотреть, на каких заправках{" "}
         {brand.name} прямо сейчас есть бензин и дизель. Статусы обновляют сами
         автомобилисты, поэтому актуальное наличие лучше уточнять на самой АЗС.
       </p>
@@ -156,14 +156,14 @@ export default async function BrandPage({
             <Link
               key={c.slug}
               href={`/seti/${brand.slug}/${c.slug}`}
-              className="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-ink transition hover:border-brand-fuel/40 hover:text-brand-fuel"
+              className="rounded-lg border border-white/10 bg-white/5 px-4 py-2 text-sm text-ink transition hover:border-brand-fuel/40 hover:text-brand-fuel"
             >
               {c.name}
             </Link>
           ))}
           <Link
             href="/goroda"
-            className="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-brand-fuel transition hover:bg-white/10"
+            className="rounded-lg border border-white/10 bg-white/5 px-4 py-2 text-sm text-brand-fuel transition hover:bg-white/10"
           >
             Все города →
           </Link>
@@ -178,14 +178,14 @@ export default async function BrandPage({
             <Link
               key={b.slug}
               href={`/seti/${b.slug}`}
-              className="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-ink transition hover:border-brand-fuel/40 hover:text-brand-fuel"
+              className="rounded-lg border border-white/10 bg-white/5 px-4 py-2 text-sm text-ink transition hover:border-brand-fuel/40 hover:text-brand-fuel"
             >
               {b.name}
             </Link>
           ))}
           <Link
             href="/seti"
-            className="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-brand-fuel transition hover:bg-white/10"
+            className="rounded-lg border border-white/10 bg-white/5 px-4 py-2 text-sm text-brand-fuel transition hover:bg-white/10"
           >
             Все сети →
           </Link>

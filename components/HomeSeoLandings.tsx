@@ -5,7 +5,6 @@ import { homeSearchFaq } from "@/lib/seo-faq";
 import { findSeoIntent } from "@/lib/seo-intents";
 import { FUEL_SLUG_ENTRIES } from "@/lib/fuel-slugs";
 import { getTrafficWinnerBrands, PRIORITY_INTENT_SLUGS } from "@/lib/seo-growth";
-import { maxBotTrackUrl, telegramChannelUrl, vkCommunityTrackUrl } from "@/lib/site";
 import FaqList from "@/components/FaqList";
 
 /**
@@ -162,45 +161,14 @@ export default function HomeSeoLandings() {
         </section>
 
         <section className="mt-10">
-          <h2 className="text-xl font-bold text-white sm:text-2xl">
-            Не потеряйте связь с сервисом
-          </h2>
-          <p className="mt-2 text-sm leading-relaxed text-ink-muted">
-            Каналы в Telegram и MAX — новости «бензрядом» и ссылка на карту. MAX
-            часто работает, когда сайт тормозит.
-          </p>
           <div className="mt-4 flex flex-wrap gap-3">
-            <a
-              href={telegramChannelUrl("home_seo")}
-              className="home-landings__cta"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Telegram
-            </a>
-            <a
-              href={maxBotTrackUrl("home_seo")}
-              className="home-landings__cta home-landings__cta--ghost"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              MAX
-            </a>
-            <a
-              href={vkCommunityTrackUrl("home_seo")}
-              className="home-landings__cta home-landings__cta--ghost text-xs sm:text-sm"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              ВК — запасной
-            </a>
             <Link href="/faq" className="home-landings__cta home-landings__cta--ghost">
               Вопросы и ответы
             </Link>
           </div>
         </section>
 
-        <h2 className="sr-only">Разделы карты бензрядом</h2>
+        <h2 className="sr-only">Разделы карты ГдеЗаправиться.рф</h2>
         <h3 className="sr-only">Города и регионы</h3>
         <h3 className="sr-only">Статьи и справка</h3>
       </div>

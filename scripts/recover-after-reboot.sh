@@ -24,11 +24,8 @@ if [ -f .next/standalone/server.js ] && [ -d .next/standalone/.next/static/css ]
   echo "==> поднимаем существующий standalone"
   cp -f .env .next/standalone/.env
   pm2 startOrRestart ecosystem.config.js
-  if [ -f benzbot/ecosystem.config.js ]; then
-    pm2 startOrRestart benzbot/ecosystem.config.js || true
-  fi
   pm2 save
-  echo "==> готово — проверьте https://benzryadom.ru"
+  echo "==> готово — проверьте https://xn----8sbaibghrm1elpm4lxb.xn--p1ai"
   exit 0
 fi
 

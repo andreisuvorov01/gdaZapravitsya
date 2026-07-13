@@ -1,9 +1,9 @@
 // Правовые константы и даты документов (152-ФЗ, пользовательское соглашение).
 
-import { SITE_NAME, SITE_URL, TELEGRAM_URL } from "./site";
+import { SITE_NAME, SITE_URL } from "./site";
 
 /** Домен продакшена. */
-export const SITE_DOMAIN = "benzryadom.ru";
+export const SITE_DOMAIN = "где-заправиться.рф";
 
 /** Дата актуальной редакции правовых документов. */
 export const LEGAL_UPDATED = "30 июня 2026 г.";
@@ -18,9 +18,6 @@ export const YANDEX_METRIKA_ID = 110340642;
 export const LEGAL_OPERATOR =
   process.env.NEXT_PUBLIC_LEGAL_OPERATOR?.trim() ||
   `Администратор сервиса «${SITE_NAME}»`;
-
-/** Канал связи по вопросам персональных данных. */
-export const LEGAL_CONTACT_URL = TELEGRAM_URL;
 
 export const LEGAL_PAGES = [
   { href: "/polzovatelskoe-soglashenie", label: "Пользовательское соглашение" },

@@ -1,13 +1,16 @@
 "use client";
 
 import { useEffect, useMemo, useRef } from "react";
+import dynamic from "next/dynamic";
 import StationList, { LIST_MODE_TABS, type ListMode } from "./StationList";
 import SortControl from "./SortControl";
 import RadiusSelect from "./RadiusSelect";
 import type { SortBy } from "./Filters";
 import { useNearRadius } from "@/lib/useNearRadius";
-import type { FuelStatus, FuelType, StationStatus } from "@/lib/types";
+import type { FuelPrices, FuelStatus, FuelType, StationStatus } from "@/lib/types";
 import { ChevronDownIcon, ChevronUpIcon, FuelPumpIcon, StarIcon } from "./Icons";
+
+const StationPanel = dynamic(() => import("./StationPanel"));
 
 export type NearbySheetSnap = "peek" | "expanded";
 
@@ -35,12 +38,19 @@ interface MobileNearbySheetProps {
   stations: StationStatus[];
   favoriteStations: StationStatus[];
   userLocation: [number, number] | null;
+  /** "Замороженная" на время открытой карточки станции точка отсчёта для
+      сортировки списка по расстоянию — см. AppShell.tsx. userLocation
+      (выше) остаётся живым: он ещё нужен StationPanel для построения
+      маршрута, пока список её не использует. */
+  listUserLocation?: [number, number] | null;
   mapCenter: [number, number];
   listMode: ListMode;
   onListModeChange: (mode: ListMode) => void;
   snap: NearbySheetSnap;
   onSnapChange: (snap: NearbySheetSnap) => void;
   onSelect: (s: StationStatus) => void;
+  /** Наведение/прокрутка списка до станции — подсвечивает её маркер на карте, см. AppShell.tsx. */
+  onHighlightStation?: (id: string | null) => void;
   favoriteCount: number;
   hidden?: boolean;
   statusCounts: Record<FuelStatus, number>;
@@ -50,6 +60,19 @@ interface MobileNearbySheetProps {
   cheapestOnly?: boolean;
   fuelType?: FuelType | "all";
   emergencyActive?: boolean;
+  /** Выбранная станция — если задана, лист вместо списка АЗС показывает её
+      карточку (см. AppShell.tsx: раньше это была отдельная панель поверх
+      карты, теперь она встроена в тот же лист «Рядом»). */
+  selectedStation?: StationStatus | null;
+  onCloseStation?: () => void;
+  onReportStation?: () => void;
+  stationRefreshKey?: number;
+  onStationChanged?: () => void;
+  onRouteGeometry?: (geom: GeoJSON.LineString | null) => void;
+  onRequestLocation?: () => void;
+  isStationFavorite?: boolean;
+  onToggleStationFavorite?: () => void;
+  priceReference?: FuelPrices[];
 }
 
 /** Выдвижной лист «Рядом» — карта всегда на экране, список по запросу. */
@@ -57,12 +80,14 @@ export default function MobileNearbySheet({
   stations,
   favoriteStations,
   userLocation,
+  listUserLocation = userLocation,
   mapCenter,
   listMode,
   onListModeChange,
   snap,
   onSnapChange,
   onSelect,
+  onHighlightStation,
   favoriteCount,
   hidden = false,
   statusCounts,
@@ -72,8 +97,21 @@ export default function MobileNearbySheet({
   cheapestOnly = false,
   fuelType = "all",
   emergencyActive = false,
+  selectedStation = null,
+  onCloseStation,
+  onReportStation,
+  stationRefreshKey = 0,
+  onStationChanged,
+  onRouteGeometry,
+  onRequestLocation,
+  isStationFavorite = false,
+  onToggleStationFavorite,
+  priceReference = [],
 }: MobileNearbySheetProps) {
-  const expanded = snap === "expanded";
+  // Карточка станции всегда показывается развёрнутой — как раньше
+  // отдельная панель поверх карты, так теперь тот же лист «Рядом».
+  const effectiveSnap: NearbySheetSnap = selectedStation ? "expanded" : snap;
+  const expanded = effectiveSnap === "expanded";
   const source = listMode === "favorites" ? favoriteStations : stations;
   const [radiusKm, setRadiusKm] = useNearRadius();
 
@@ -279,49 +317,72 @@ export default function MobileNearbySheet({
           type="button"
           aria-label="Свернуть список"
           className="overlay-backdrop-in fixed inset-0 z-[500] bg-black/45 sm:hidden"
-          onClick={() => onSnapChange("peek")}
+          onClick={() => (selectedStation ? onCloseStation?.() : onSnapChange("peek"))}
         />
       )}
 
       <section
         ref={sheetRef}
-        className={`nearby-sheet nearby-sheet--${snap} sm:hidden`}
+        className={`nearby-sheet nearby-sheet--${effectiveSnap} sm:hidden`}
         aria-label="Заправки рядом"
       >
         <span className="nearby-sheet__glow" aria-hidden />
 
-        <button
-          type="button"
-          onClick={handlePeekClick}
-          onPointerDown={onPeekPointerDown}
-          onPointerMove={onPeekPointerMove}
-          onPointerUp={onPeekPointerUp}
-          onPointerCancel={onPeekPointerUp}
-          aria-expanded={expanded}
-          className="nearby-sheet__peek"
-        >
-          <span className="nearby-sheet__handle" aria-hidden />
-          <span className="nearby-sheet__peek-icon" aria-hidden>
-            {listMode === "favorites" ? (
-              <StarIcon className="h-5 w-5" filled={favoriteCount > 0} />
-            ) : (
-              <FuelPumpIcon className="h-5 w-5" />
-            )}
-          </span>
-          <span className="min-w-0 flex-1 text-left">
-            <span className="block truncate text-sm font-bold text-white">
-              {peekTitle}
-            </span>
-            <span className="block truncate text-xs text-ink-muted">{peekHint}</span>
-          </span>
-          <span className="nearby-sheet__chevron" aria-hidden>
-            {expanded ? (
-              <ChevronDownIcon className="h-5 w-5" />
-            ) : (
-              <ChevronUpIcon className="h-5 w-5" />
-            )}
-          </span>
-        </button>
+        {selectedStation && (
+          <div className="nearby-sheet__body flex min-h-0 flex-1 flex-col">
+            <StationPanel
+              station={selectedStation}
+              onClose={onCloseStation ?? (() => {})}
+              onReport={onReportStation ?? (() => {})}
+              refreshKey={stationRefreshKey}
+              onChanged={onStationChanged ?? (() => {})}
+              userLocation={userLocation}
+              onRouteGeometry={onRouteGeometry ?? (() => {})}
+              onRequestLocation={onRequestLocation ?? (() => {})}
+              isFavorite={isStationFavorite}
+              onToggleFavorite={onToggleStationFavorite ?? (() => {})}
+              priceReference={priceReference}
+              embedded
+            />
+          </div>
+        )}
+
+        {/* Список остаётся смонтированным (просто скрыт через display:contents
+            → hidden), а не размонтируется при выборе станции — иначе его
+            скролл всегда сбрасывался бы к началу при закрытии карточки. */}
+        <div className={selectedStation ? "hidden" : "contents"}>
+            <button
+              type="button"
+              onClick={handlePeekClick}
+              onPointerDown={onPeekPointerDown}
+              onPointerMove={onPeekPointerMove}
+              onPointerUp={onPeekPointerUp}
+              onPointerCancel={onPeekPointerUp}
+              aria-expanded={expanded}
+              className="nearby-sheet__peek"
+            >
+              <span className="nearby-sheet__handle" aria-hidden />
+              <span className="nearby-sheet__peek-icon" aria-hidden>
+                {listMode === "favorites" ? (
+                  <StarIcon className="h-5 w-5" filled={favoriteCount > 0} />
+                ) : (
+                  <FuelPumpIcon className="h-5 w-5" />
+                )}
+              </span>
+              <span className="min-w-0 flex-1 text-left">
+                <span className="block truncate text-sm font-bold text-white">
+                  {peekTitle}
+                </span>
+                <span className="block truncate text-xs text-ink-muted">{peekHint}</span>
+              </span>
+              <span className="nearby-sheet__chevron" aria-hidden>
+                {expanded ? (
+                  <ChevronDownIcon className="h-5 w-5" />
+                ) : (
+                  <ChevronUpIcon className="h-5 w-5" />
+                )}
+              </span>
+            </button>
 
         <div className="nearby-sheet__body" aria-hidden={!expanded}>
             <div
@@ -364,9 +425,10 @@ export default function MobileNearbySheet({
 
             <StationList
               stations={source}
-              userLocation={userLocation}
+              userLocation={listUserLocation}
               mapCenter={mapCenter}
               onSelect={onSelect}
+              onHighlight={onHighlightStation}
               mode={listMode}
               embedded
               radiusKm={radiusKm}
@@ -374,7 +436,9 @@ export default function MobileNearbySheet({
               cheapestOnly={cheapestOnly}
               fuelType={fuelType}
               emergencyActive={emergencyActive}
+              frozen={Boolean(selectedStation)}
             />
+            </div>
         </div>
       </section>
     </>

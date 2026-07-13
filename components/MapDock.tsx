@@ -61,7 +61,8 @@ function activeFilterLabels(filters: FilterState): string[] {
   return labels;
 }
 
-/** Плавающая панель поиска и фильтров над картой. */
+/** Плавающая панель поиска и фильтров над картой — только мобильная версия,
+    на десктопе те же функции есть в постоянном сайдбаре (см. MapSidebar.tsx). */
 export default function MapDock({
   onFly,
   filters,
@@ -87,7 +88,7 @@ export default function MapDock({
   const availableCount = statusCounts.yes + statusCounts.low;
 
   return (
-    <div className="animate-fade-up pointer-events-none absolute left-0 right-0 top-0 z-[600] p-2 sm:p-3">
+    <div className="animate-fade-up pointer-events-none absolute left-0 right-0 top-0 z-[600] p-2 sm:hidden">
       <section
         className="map-dock glass-dock pointer-events-auto mx-auto max-w-5xl"
         aria-label="Поиск и фильтры на карте"

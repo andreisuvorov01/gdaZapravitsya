@@ -5,7 +5,6 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { getClientId } from "@/lib/clientId";
 import { brandMatches } from "@/lib/brands";
 import { findCityBySlug, CITY_PRESETS } from "@/lib/cities";
-import { maxBotTrackUrl, telegramChannelUrl } from "@/lib/site";
 import {
   bboxAroundPoint,
   bboxNearlyEqual,
@@ -18,7 +17,6 @@ import { mergeStationLists } from "@/lib/stationMap";
 import { readUserLocation, saveUserLocation } from "@/lib/userLocation";
 import { dedupeStationsByLocation } from "@/lib/stationDedup";
 import { GEO_FAIL_HINT, getCurrentPositionWithCallbacks } from "@/lib/geolocation";
-import { initVkBridge, isVkEnvironment } from "@/lib/vkBridge";
 import { fetchOsrmRoute } from "@/lib/route";
 import { stationsAlongRoute } from "@/lib/routeCorridor";
 import {
@@ -30,11 +28,11 @@ import { checkFavoriteStatusChanges } from "@/lib/favoriteAlerts";
 import type { BBox, FuelPrices, FuelStatus, StationStatus } from "@/lib/types";
 import { type FilterState } from "./Filters";
 import MapDock from "./MapDock";
+import MapSidebar from "./MapSidebar";
 import { type ListMode } from "./StationList";
 import Legend from "./Legend";
 import SiteHeader from "./SiteHeader";
 import { MapLoadFallback } from "./MapSlowLoadHint";
-import InstallChip from "./InstallChip";
 import LegalBar from "./LegalBar";
 import {
   getFavoriteIds,
@@ -42,11 +40,7 @@ import {
   subscribeFavorites,
   toggleFavorite,
 } from "@/lib/favorites";
-import {
-  ListIcon,
-  MapIcon,
-  StarIcon,
-} from "./Icons";
+import { StarIcon } from "./Icons";
 import type { MapTheme } from "./MapLibreMapView";
 import MobileNearbySheet, {
   type NearbySheetSnap,
@@ -60,15 +54,6 @@ const MapView = dynamic(() => import("./MapLibreMapView"), {
   loading: () => <MapLoadFallback />,
 });
 
-const ListView = dynamic(() => import("./ListView"), {
-  loading: () => (
-    <div className="flex min-h-0 flex-1 items-center justify-center text-sm text-ink-muted">
-      Загрузка списка…
-    </div>
-  ),
-});
-
-const StationPanel = dynamic(() => import("./StationPanel"));
 
 const ReportForm = dynamic(() => import("./ReportForm"), { ssr: false });
 
@@ -88,13 +73,12 @@ const LIST_RADIUS_KM = 15;
 const STATION_CACHE_MAX_AGE_MS = 90_000;
 const STATION_CACHE_MAX_ENTRIES = 200;
 
-type ViewMode = "map" | "list";
-
 export default function AppShell({ demoMode }: { demoMode: boolean }) {
   const [stations, setStations] = useState<StationStatus[]>([]);
   const [selected, setSelected] = useState<StationStatus | null>(null);
   const [showForm, setShowForm] = useState(false);
-  const [viewMode, setViewMode] = useState<ViewMode>("map");
+  /** Станция, подсвеченная наведением/прокруткой в списке (см. StationList/MapSidebar/MobileNearbySheet) — подсвечивает соответствующий маркер на карте. */
+  const [hoveredStationId, setHoveredStationId] = useState<string | null>(null);
   const [listMode, setListMode] = useState<ListMode>("near");
   const [mobileListMode, setMobileListMode] = useState<ListMode>("near");
   const [mobileSheetSnap, setMobileSheetSnap] = useState<NearbySheetSnap>("peek");
@@ -108,6 +92,21 @@ export default function AppShell({ demoMode }: { demoMode: boolean }) {
   });
   const [userLocation, setUserLocation] = useState<[number, number] | null>(null);
   const [mapCenter, setMapCenter] = useState<[number, number]>(DEFAULT_CENTER);
+  // Снимок списка станций + точки отсчёта на момент выбора станции — снимается
+  // явно внутри selectStation/closeSelected (не реактивным эффектом от
+  // mapCenter/listSource): перелёт карты к выбранной станции запускает
+  // фоновую перезагрузку stations по новому bbox (см. fetchStations), и её
+  // ответ может прийти как раз в момент закрытия карточки — эффект,
+  // завязанный на изменение этих данных, в этот момент уже не защищён
+  // условием "пока выбрана станция" и подхватил бы свежие данные раньше
+  // пользователя. Явный снимок, который трогают только эти два места,
+  // исключает такую гонку: показывать список ровно таким, каким его увидели.
+  const [listSnapshot, setListSnapshot] = useState<{
+    source: StationStatus[];
+    stations: StationStatus[];
+    mapCenter: [number, number];
+    userLocation: [number, number] | null;
+  } | null>(null);
   const [flyTarget, setFlyTarget] = useState<[number, number] | null>(null);
   const [panelRefresh, setPanelRefresh] = useState(0);
   const [loading, setLoading] = useState(false);
@@ -133,6 +132,8 @@ export default function AppShell({ demoMode }: { demoMode: boolean }) {
     lng: number;
   } | null>(null);
   const [offlineBanner, setOfflineBanner] = useState(false);
+  const [demoDismissed, setDemoDismissed] = useState(false);
+  const [favLoading, setFavLoading] = useState(false);
 
   const bboxRef = useRef<BBox | null>(null);
   const pendingStationId = useRef<string | null>(null);
@@ -163,18 +164,26 @@ export default function AppShell({ demoMode }: { demoMode: boolean }) {
   useEffect(() => {
     if (favoriteIds.length === 0) {
       setFavoriteStations([]);
+      setFavLoading(false);
       return;
     }
     let cancelled = false;
+    setFavLoading(true);
     fetch(`/api/stations?ids=${encodeURIComponent(favoriteIds.join(","))}`, {
       headers: { "x-client-id": getClientId() },
     })
       .then((r) => r.json())
       .then((j) => {
-        if (!cancelled) setFavoriteStations(j.stations ?? []);
+        if (!cancelled) {
+          setFavoriteStations(j.stations ?? []);
+          setFavLoading(false);
+        }
       })
       .catch(() => {
-        if (!cancelled) setFavoriteStations([]);
+        if (!cancelled) {
+          setFavoriteStations([]);
+          setFavLoading(false);
+        }
       });
     return () => {
       cancelled = true;
@@ -214,9 +223,7 @@ export default function AppShell({ demoMode }: { demoMode: boolean }) {
   }, [loadError]);
 
   // Живое и точное отслеживание местоположения устройства.
-  // В VK webview watchPosition не работает — используем разовое получение.
   const startWatch = useCallback(() => {
-    if (isVkEnvironment()) return; // VK webview не поддерживает watchPosition
     if (typeof navigator === "undefined" || !navigator.geolocation) return;
     if (watchIdRef.current != null) return;
     watchIdRef.current = navigator.geolocation.watchPosition(
@@ -266,11 +273,6 @@ export default function AppShell({ demoMode }: { demoMode: boolean }) {
     if (stationId) pendingStationId.current = stationId;
     // Переход со страниц сетей (/?brand=…) сразу применяет фильтр по сети.
     if (brand) setFilters((f) => ({ ...f, brand }));
-  }, []);
-
-  // Инициализация VK Bridge (только внутри VK Mini App, безопасный no-op вне ВК).
-  useEffect(() => {
-    initVkBridge();
   }, []);
 
   useEffect(() => {
@@ -435,8 +437,6 @@ export default function AppShell({ demoMode }: { demoMode: boolean }) {
       startWatch();
     }
 
-    // Внутри VK используем VK Bridge геолокацию (работает в webview),
-    // иначе — браузерный API.
     getCurrentPositionWithCallbacks(
       (lat, lng) => {
         applyUserPosition(lat, lng, true);
@@ -450,9 +450,12 @@ export default function AppShell({ demoMode }: { demoMode: boolean }) {
     return () => fetchAbortRef.current?.abort();
   }, [applyUserPosition, fetchStations, startWatch]);
 
+  // Сайдбар со списком станций виден на десктопе постоянно (см. MapSidebar.tsx) —
+  // подгружаем станции рядом с пользователем сразу, не дожидаясь панорамирования карты.
   useEffect(() => {
-    if (viewMode === "list") fetchNearUser();
-  }, [viewMode, fetchNearUser]);
+    fetchNearUser();
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- один раз при монтировании
+  }, []);
 
   useEffect(() => {
     if (mobileSheetSnap === "expanded") fetchNearUser();
@@ -551,6 +554,28 @@ export default function AppShell({ demoMode }: { demoMode: boolean }) {
 
   const listSource = listMode === "favorites" ? favoriteVisible : visible;
 
+  // Пока открыта карточка станции (см. selectStation/closeSelected ниже),
+  // список и точка отсчёта для сортировки берутся из явного снимка, а не из
+  // живых значений — перелёт карты к выбранной станции переподгружает
+  // stations по новому bbox, и без снимка список переупорядочился бы под
+  // открытой карточкой, а после закрытия выглядел бы уже не так, как в
+  // момент выбора.
+  const effectiveListSource = listSnapshot ? listSnapshot.source : listSource;
+  const effectiveListStations = listSnapshot ? listSnapshot.stations : listStations;
+  const listMapCenter = listSnapshot ? listSnapshot.mapCenter : mapCenter;
+  const listUserLocation = listSnapshot ? listSnapshot.userLocation : userLocation;
+
+  // Избранные заправки грузятся отдельным запросом по id и не входят в
+  // stations (тот наполняется только по bbox карты) — без объединения здесь
+  // избранная АЗС вне текущей области карты присутствовала бы в списке
+  // "Избранные", но не имела бы маркера на карте.
+  const mapStations = useMemo(() => {
+    if (favoriteVisible.length === 0) return visible;
+    const byId = new Map(visible.map((s) => [s.id, s] as const));
+    for (const s of favoriteVisible) if (!byId.has(s.id)) byId.set(s.id, s);
+    return Array.from(byId.values());
+  }, [visible, favoriteVisible]);
+
   const activeFilterCount =
     (filters.fuelType !== "all" ? 1 : 0) +
     (filters.brand !== "all" ? 1 : 0) +
@@ -585,15 +610,15 @@ export default function AppShell({ demoMode }: { demoMode: boolean }) {
   const flyTo = (lat: number, lng: number) => {
     setFlyTarget([lat, lng]);
     setMapCenter([lat, lng]);
-    setViewMode("map");
     setMobileSheetSnap("peek");
+    // Осознанный переход в новое место (поиск города и т.п.) — списку пора
+    // обновиться, в отличие от перелёта к уже выбранной станции ниже.
+    setListSnapshot(null);
   };
 
   const locate = () => {
     setGeoError(null);
     setLocating(true);
-    // Внутри VK используем VK Bridge геолокацию (работает в webview),
-    // иначе — браузерный API.
     getCurrentPositionWithCallbacks(
       (lat, lng) => {
         const loc: [number, number] = [lat, lng];
@@ -613,15 +638,46 @@ export default function AppShell({ demoMode }: { demoMode: boolean }) {
   };
 
   const selectStation = (s: StationStatus) => {
+    // Снимок списка снимается только при первом выборе (не при смене
+    // выбранной станции без закрытия — например, клик по другому маркеру
+    // карты при уже открытой карточке): список уже скрыт, и его "исходное"
+    // состояние — то, что было до самого первого выбора в этой сессии.
+    if (!selected) {
+      setListSnapshot({
+        source: listSource,
+        stations: listStations,
+        mapCenter,
+        userLocation,
+      });
+    }
     setSelected(s);
     setShowForm(false);
-    setViewMode("map");
-    setMobileSheetSnap("peek");
+    setHoveredStationId(null);
+    // Карточка станции теперь встроена в лист «Рядом» вместо отдельной
+    // панели поверх карты — раскрываем лист, чтобы её было видно.
+    setMobileSheetSnap("expanded");
     setFlyTarget([s.lat, s.lng]);
   };
 
   const closeSelected = () => {
     setSelected(null);
+    // Снимок списка намеренно не сбрасывается здесь: фоновая перезагрузка
+    // stations, вызванная перелётом к выбранной станции, к этому моменту
+    // почти наверняка уже пришла, и live-список выглядел бы иначе, чем в
+    // момент выбора. Список возвращается к живым данным только при явном
+    // новом действии пользователя (поиск города — см. flyTo, смена вкладки
+    // списка — см. changeListMode/changeMobileListMode ниже).
+    setMobileSheetSnap("peek");
+  };
+
+  const changeListMode = (mode: ListMode) => {
+    setListMode(mode);
+    setListSnapshot(null);
+  };
+
+  const changeMobileListMode = (mode: ListMode) => {
+    setMobileListMode(mode);
+    setListSnapshot(null);
   };
 
   const clearRoute = () => {
@@ -654,7 +710,7 @@ export default function AppShell({ demoMode }: { demoMode: boolean }) {
       cheapestOnly: false,
     });
     setEmergencyActive(true);
-    setMobileListMode("fuel");
+    changeMobileListMode("fuel");
     setMobileSheetSnap("peek");
     setRouteOpen(false);
     clearRoute();
@@ -696,7 +752,7 @@ export default function AppShell({ demoMode }: { demoMode: boolean }) {
         const along = stationsAlongRoute(loaded, result.geometry);
         setRouteStations(along);
         setFlyTarget([destLat, destLng]);
-        setMobileListMode("near");
+        changeMobileListMode("near");
         setMobileSheetSnap("expanded");
       } catch {
         setLoadError("Маршрут временно недоступен");
@@ -718,23 +774,10 @@ export default function AppShell({ demoMode }: { demoMode: boolean }) {
   };
 
   const openMobileFavorites = () => {
-    setMobileListMode("favorites");
+    changeMobileListMode("favorites");
     setMobileSheetSnap("expanded");
     fetchNearUser();
   };
-
-  const viewSwitch = (mode: ViewMode, Icon: typeof MapIcon, label: string) => (
-    <button
-      type="button"
-      aria-pressed={viewMode === mode}
-      aria-label={label}
-      onClick={() => setViewMode(mode)}
-      className={`view-switch__btn ${viewMode === mode ? "view-switch__btn--active" : ""}`}
-    >
-      <Icon className="h-[18px] w-[18px] shrink-0" />
-      <span className="hidden sm:inline">{label}</span>
-    </button>
-  );
 
   return (
     <div className="flex h-full flex-col bg-surface-map">
@@ -753,52 +796,45 @@ export default function AppShell({ demoMode }: { demoMode: boolean }) {
 
       <SiteHeader
         tools={
-          <>
-            <div
-              className="view-switch hidden sm:flex"
-              role="group"
-              aria-label="Режим просмотра"
-            >
-              {viewSwitch("map", MapIcon, "Карта")}
-              {viewSwitch("list", ListIcon, "Список")}
-            </div>
-            <button
-              type="button"
-              onClick={openMobileFavorites}
-              aria-label={
-                favoriteIds.length > 0
-                  ? `Избранные заправки: ${favoriteIds.length}`
-                  : "Избранные заправки"
-              }
-              className="header-icon-btn relative sm:hidden"
-            >
-              <StarIcon
-                className="h-[18px] w-[18px]"
-                filled={favoriteIds.length > 0}
-              />
-              {favoriteIds.length > 0 && (
-                <span className="header-icon-btn__badge" aria-hidden>
-                  {favoriteIds.length > 9 ? "9+" : favoriteIds.length}
-                </span>
-              )}
-            </button>
-            <div className="hidden sm:block">
-              <InstallChip />
-            </div>
-          </>
+          <button
+            type="button"
+            onClick={openMobileFavorites}
+            aria-label={
+              favoriteIds.length > 0
+                ? `Избранные заправки: ${favoriteIds.length}`
+                : "Избранные заправки"
+            }
+            className="header-icon-btn relative sm:hidden"
+          >
+            <StarIcon className="h-[18px] w-[18px]" filled={favoriteIds.length > 0} />
+            {favoriteIds.length > 0 && (
+              <span className="header-icon-btn__badge" aria-hidden>
+                {favoriteIds.length > 9 ? "9+" : favoriteIds.length}
+              </span>
+            )}
+          </button>
         }
       />
 
-      {demoMode && (
-        <div className="shrink-0 bg-brand-fuel/10 px-4 py-1.5 text-center text-sm text-brand-fuel">
-          Демо-режим — на сервере не задан DATABASE_URL (Postgres на этом же VPS).
+      {!demoDismissed && demoMode && (
+        <div className="flex shrink-0 items-center justify-center gap-2 bg-brand-fuel/10 px-4 py-1.5 text-center text-sm text-brand-fuel">
+          <span>Демо-режим — на сервере не задан DATABASE_URL (Postgres на этом же VPS).</span>
+          <button
+            type="button"
+            onClick={() => setDemoDismissed(true)}
+            aria-label="Закрыть"
+            className="ml-1 shrink-0 rounded p-0.5 text-brand-fuel/70 transition-colors hover:bg-brand-fuel/20 hover:text-brand-fuel"
+          >
+            ✕
+          </button>
         </div>
       )}
 
       {loadError && (
         <div
           className="shrink-0 bg-brand-fuel/10 px-4 py-2 text-center text-sm text-ink"
-          role="status"
+          role="alert"
+          aria-live="assertive"
         >
           <span>
             {loadError}. Попробуйте изменить масштаб карты или обновить страницу.
@@ -816,7 +852,8 @@ export default function AppShell({ demoMode }: { demoMode: boolean }) {
       {geoError && (
         <div
           className="shrink-0 bg-fuel-no/10 px-4 py-2 text-center text-sm text-fuel-no"
-          role="status"
+          role="alert"
+          aria-live="assertive"
         >
           <span>{geoError}</span>
           <button
@@ -832,21 +869,52 @@ export default function AppShell({ demoMode }: { demoMode: boolean }) {
       {offlineBanner && (
         <div
           className="shrink-0 bg-brand-accent/10 px-4 py-2 text-center text-sm text-brand-accent"
-          role="status"
+          role="alert"
+          aria-live="assertive"
         >
           Офлайн — показаны сохранённые статусы избранных заправок
         </div>
       )}
 
       <div className="relative flex min-h-0 flex-1 sm:pb-0">
-        <main
-          id="map-region"
-          className={`relative min-h-0 min-w-0 flex-1 ${
-            viewMode === "list" ? "hidden sm:block" : ""
-          }`}
-        >
+        <MapSidebar
+          onFly={flyTo}
+          filters={filters}
+          onFiltersChange={setFilters}
+          activeFilterCount={activeFilterCount}
+          statusCounts={statusCounts}
+          total={visible.length}
+          emergencyActive={emergencyActive}
+          onEmergencyFuel={activateEmergencyFuel}
+          routeOpen={routeOpen}
+          routeActive={Boolean(routeGeometry)}
+          onToggleRoute={toggleRoutePlanner}
+          onPlanRoute={planRoute}
+          routeLoading={routeLoading}
+          routeStationCount={routeStations.length}
+          listMode={listMode}
+          onListModeChange={changeListMode}
+          stations={effectiveListSource}
+          userLocation={userLocation}
+          listUserLocation={listUserLocation}
+          mapCenter={listMapCenter}
+          onSelect={selectStation}
+          onHighlightStation={setHoveredStationId}
+          favoriteCount={favoriteIds.length}
+          selectedStation={selected}
+          onCloseStation={closeSelected}
+          onReportStation={() => setShowForm(true)}
+          stationRefreshKey={panelRefresh}
+          onStationChanged={refresh}
+          onRouteGeometry={setRouteGeometry}
+          onRequestLocation={locate}
+          isStationFavorite={selected ? checkFavorite(selected.id) : false}
+          onToggleStationFavorite={() => selected && handleToggleFavorite(selected.id)}
+          priceReference={priceReference}
+        />
+        <main id="map-region" className="relative min-h-0 min-w-0 flex-1">
           <MapView
-            stations={visible}
+            stations={mapStations}
             onBoundsChange={fetchStations}
             onSelect={selectStation}
             onCenterChange={setMapCenter}
@@ -856,6 +924,7 @@ export default function AppShell({ demoMode }: { demoMode: boolean }) {
             center={DEFAULT_CENTER}
             zoom={DEFAULT_ZOOM}
             selectedId={selected?.id ?? null}
+            hoveredId={hoveredStationId}
             theme={MAP_THEME}
             route={routeGeometry}
             onLocate={locate}
@@ -923,28 +992,12 @@ export default function AppShell({ demoMode }: { demoMode: boolean }) {
                           key={slug}
                           type="button"
                           onClick={() => flyTo(city.lat, city.lng)}
-                          className="rounded-full border border-white/15 bg-white/5 px-3 py-1.5 text-sm font-medium text-white transition-colors hover:bg-white/10"
+                          className="rounded-xl border border-white/15 bg-white/5 px-3 py-1.5 text-sm font-medium text-white transition-colors hover:bg-white/10"
                         >
                           {city.name}
                         </button>
                       );
                     })}
-                    <a
-                      href={telegramChannelUrl("empty_region")}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="rounded-full border border-brand-fuel/40 bg-brand-fuel/10 px-3 py-1.5 text-sm font-medium text-brand-fuel transition-colors hover:bg-brand-fuel/20"
-                    >
-                      Telegram
-                    </a>
-                    <a
-                      href={maxBotTrackUrl("empty_region")}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="rounded-full border border-white/15 bg-white/5 px-3 py-1.5 text-sm font-medium text-white transition-colors hover:bg-white/10"
-                    >
-                      MAX
-                    </a>
                   </div>
                 </div>
               </div>
@@ -953,42 +1006,6 @@ export default function AppShell({ demoMode }: { demoMode: boolean }) {
           <Legend />
           <LegalBar />
         </main>
-
-        {viewMode === "list" && (
-          <div className="hidden min-h-0 min-w-0 flex-1 sm:flex sm:w-[30rem] sm:max-w-[30rem] sm:flex-none lg:w-[34rem] lg:max-w-[34rem]">
-            <ListView
-              stations={listSource}
-              userLocation={userLocation}
-              mapCenter={mapCenter}
-              listMode={listMode}
-              filters={filters}
-              onFiltersChange={setFilters}
-              onListModeChange={setListMode}
-              onFly={flyTo}
-              onSelect={selectStation}
-              favoriteCount={favoriteIds.length}
-              emergencyActive={emergencyActive}
-            />
-          </div>
-        )}
-
-        {selected && (
-          <aside className="station-sheet-aside overlay-sheet-up">
-            <StationPanel
-              station={selected}
-              onClose={closeSelected}
-              onReport={() => setShowForm(true)}
-              refreshKey={panelRefresh}
-              onChanged={refresh}
-              userLocation={userLocation}
-              onRouteGeometry={setRouteGeometry}
-              onRequestLocation={locate}
-              isFavorite={checkFavorite(selected.id)}
-              onToggleFavorite={() => handleToggleFavorite(selected.id)}
-              priceReference={priceReference}
-            />
-          </aside>
-        )}
       </div>
 
       {showForm && selected && (
@@ -1003,21 +1020,17 @@ export default function AppShell({ demoMode }: { demoMode: boolean }) {
       )}
 
       <MobileNearbySheet
-        stations={listStations}
+        stations={effectiveListStations}
         favoriteStations={favoriteVisible}
         userLocation={userLocation}
-        mapCenter={mapCenter}
+        listUserLocation={listUserLocation}
+        mapCenter={listMapCenter}
         listMode={mobileListMode}
-        onListModeChange={setMobileListMode}
+        onListModeChange={changeMobileListMode}
         snap={mobileSheetSnap}
-        onSnapChange={(next) => {
-          // Пока открыта карточка станции, лист «Рядом» виден только как
-          // узкая полоса снизу — раскрыть его поверх карточки нельзя (он
-          // всё равно окажется скрыт за ней по z-index).
-          if (selected && next === "expanded") return;
-          setMobileSheetSnap(next);
-        }}
+        onSnapChange={setMobileSheetSnap}
         onSelect={selectStation}
+        onHighlightStation={setHoveredStationId}
         favoriteCount={favoriteIds.length}
         hidden={showForm}
         statusCounts={statusCounts}
@@ -1031,6 +1044,16 @@ export default function AppShell({ demoMode }: { demoMode: boolean }) {
         cheapestOnly={filters.cheapestOnly}
         fuelType={filters.fuelType}
         emergencyActive={emergencyActive}
+        selectedStation={selected}
+        onCloseStation={closeSelected}
+        onReportStation={() => setShowForm(true)}
+        stationRefreshKey={panelRefresh}
+        onStationChanged={refresh}
+        onRouteGeometry={setRouteGeometry}
+        onRequestLocation={locate}
+        isStationFavorite={selected ? checkFavorite(selected.id) : false}
+        onToggleStationFavorite={() => selected && handleToggleFavorite(selected.id)}
+        priceReference={priceReference}
       />
 
       {addStationPin && (

@@ -309,6 +309,17 @@ export function LightbulbIcon(props: IconProps) {
   );
 }
 
+export function HeartIcon({
+  filled = false,
+  ...props
+}: IconProps & { filled?: boolean }) {
+  return (
+    <svg {...base(props)} fill={filled ? "currentColor" : "none"}>
+      <path d="M19 14c1.25-1.25 2-2.75 2-4.5A4.5 4.5 0 0 0 16.5 5c-1.61 0-3.09.85-4.5 2.5C10.59 5.85 9.11 5 7.5 5A4.5 4.5 0 0 0 3 9.5c0 1.75.75 3.25 2 4.5l7 7Z" />
+    </svg>
+  );
+}
+
 export function BellIcon(props: IconProps) {
   return (
     <svg {...base(props)}>

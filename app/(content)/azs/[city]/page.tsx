@@ -177,7 +177,7 @@ export default async function CityPage({
             <Link
               key={f.slug}
               href={`/azs/${city.slug}/${f.slug}`}
-              className="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-ink transition hover:border-brand-fuel/40 hover:text-brand-fuel"
+              className="rounded-lg border border-white/10 bg-white/5 px-4 py-2 text-sm text-ink transition hover:border-brand-fuel/40 hover:text-brand-fuel"
             >
               {f.label}
             </Link>
@@ -192,7 +192,7 @@ export default async function CityPage({
             <Link
               key={intent.slug}
               href={`/${intent.slug}/${city.slug}`}
-              className="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-ink transition hover:border-brand-fuel/40 hover:text-brand-fuel"
+              className="rounded-lg border border-white/10 bg-white/5 px-4 py-2 text-sm text-ink transition hover:border-brand-fuel/40 hover:text-brand-fuel"
             >
               {intent.breadcrumb}
             </Link>
@@ -207,14 +207,14 @@ export default async function CityPage({
             <Link
               key={c.slug}
               href={`/azs/${c.slug}`}
-              className="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-ink transition hover:border-brand-fuel/40 hover:text-brand-fuel"
+              className="rounded-lg border border-white/10 bg-white/5 px-4 py-2 text-sm text-ink transition hover:border-brand-fuel/40 hover:text-brand-fuel"
             >
               {c.name}
             </Link>
           ))}
           <Link
             href="/goroda"
-            className="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-brand-fuel transition hover:bg-white/10"
+            className="rounded-lg border border-white/10 bg-white/5 px-4 py-2 text-sm text-brand-fuel transition hover:bg-white/10"
           >
             Все города →
           </Link>
@@ -228,14 +228,14 @@ export default async function CityPage({
             <Link
               key={b.slug}
               href={`/seti/${b.slug}/${city.slug}`}
-              className="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-ink transition hover:border-brand-fuel/40 hover:text-brand-fuel"
+              className="rounded-lg border border-white/10 bg-white/5 px-4 py-2 text-sm text-ink transition hover:border-brand-fuel/40 hover:text-brand-fuel"
             >
               {b.name}
             </Link>
           ))}
           <Link
             href="/seti"
-            className="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-brand-fuel transition hover:bg-white/10"
+            className="rounded-lg border border-white/10 bg-white/5 px-4 py-2 text-sm text-brand-fuel transition hover:bg-white/10"
           >
             Все сети →
           </Link>

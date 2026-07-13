@@ -2,17 +2,12 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import LegalDocLayout from "@/components/LegalDocLayout";
 import { absoluteUrl, SITE_NAME } from "@/lib/site";
-import {
-  LEGAL_CONTACT_URL,
-  LEGAL_OPERATOR,
-  LEGAL_UPDATED,
-  SITE_DOMAIN,
-} from "@/lib/legal";
+import { LEGAL_OPERATOR, LEGAL_UPDATED, SITE_DOMAIN } from "@/lib/legal";
 
 export const metadata: Metadata = {
   title: "Пользовательское соглашение",
   description:
-    "Условия использования краудсорсинговой карты «бензрядом»: права, обязанности, отказ от гарантий, ответственность.",
+    "Условия использования краудсорсинговой карты «ГдеЗаправиться.рф»: права, обязанности, отказ от гарантий, ответственность.",
   alternates: { canonical: absoluteUrl("/polzovatelskoe-soglashenie") },
   openGraph: {
     title: `Пользовательское соглашение — ${SITE_NAME}`,
@@ -132,12 +127,7 @@ export default function TermsPage() {
 
       <h2>12. Контакты</h2>
       <p>
-        Вопросы по Соглашению:{" "}
-        <Link href="/kontakty">контакты</Link>,{" "}
-        <a href={LEGAL_CONTACT_URL} target="_blank" rel="noopener noreferrer">
-          Telegram
-        </a>
-        .
+        Вопросы по Соглашению: <Link href="/kontakty">контакты</Link>.
       </p>
     </LegalDocLayout>
   );

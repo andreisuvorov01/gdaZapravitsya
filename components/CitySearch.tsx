@@ -15,9 +15,11 @@ interface CitySearchProps {
   onFly: (lat: number, lng: number, zoom?: number) => void;
   /** Подпись для истории (город из пресета или введённый текст). */
   historyLabel?: (raw: string) => string;
+  /** Светлая тема (десктопный сайдбар карты, см. MapSidebar.tsx) — по умолчанию тёмная. */
+  light?: boolean;
 }
 
-export default function CitySearch({ onFly, historyLabel }: CitySearchProps) {
+export default function CitySearch({ onFly, historyLabel, light = false }: CitySearchProps) {
   const [query, setQuery] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -68,7 +70,11 @@ export default function CitySearch({ onFly, historyLabel }: CitySearchProps) {
           Поиск города или адреса
         </label>
         <div className="relative min-w-0 flex-1">
-          <SearchIcon className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-ink-muted" />
+          <SearchIcon
+            className={`pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 ${
+              light ? "text-paper-muted" : "text-ink-muted"
+            }`}
+          />
           <input
             id="city-search"
             list="city-suggestions"
@@ -89,7 +95,11 @@ export default function CitySearch({ onFly, historyLabel }: CitySearchProps) {
             }}
             placeholder="Город или адрес"
             autoComplete="off"
-            className="city-search-input min-h-[44px] w-full rounded-full border border-white/10 bg-white/5 py-2 pl-10 pr-3 text-base text-ink placeholder:text-ink-muted focus:border-brand-fuel/50 focus:outline-none focus:ring-2 focus:ring-brand-fuel/30"
+            className={`city-search-input min-h-[44px] w-full rounded-xl py-2 pl-10 pr-3 text-base focus:outline-none focus:ring-2 ${
+              light
+                ? "border border-paper-border bg-[#F7F9FB] text-paper-ink placeholder:text-paper-muted focus:border-brand-fuel/60 focus:ring-brand-fuel/20"
+                : "border border-white/10 bg-white/5 text-ink placeholder:text-ink-muted focus:border-brand-fuel/50 focus:ring-brand-fuel/30"
+            }`}
           />
           <datalist id="city-suggestions">
             {CITY_PRESETS.map((c) => (
@@ -101,7 +111,7 @@ export default function CitySearch({ onFly, historyLabel }: CitySearchProps) {
           type="submit"
           disabled={loading}
           aria-label={loading ? "Поиск…" : "Найти"}
-          className="city-search-submit inline-flex min-h-[44px] min-w-[44px] shrink-0 items-center justify-center rounded-full bg-brand-fuel text-sm font-bold text-ink-dark transition-transform active:scale-[0.96] hover:bg-brand-fuelDim disabled:opacity-50 sm:min-w-0 sm:px-4 sm:font-semibold"
+          className="city-search-submit inline-flex min-h-[44px] min-w-[44px] shrink-0 items-center justify-center rounded-xl bg-brand-fuel text-sm font-bold text-ink-dark transition-transform active:scale-[0.96] hover:bg-brand-fuelDim disabled:opacity-50 sm:min-w-0 sm:px-4 sm:font-semibold"
         >
           {loading ? (
             "…"

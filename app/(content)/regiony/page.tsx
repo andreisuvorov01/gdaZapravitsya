@@ -4,13 +4,13 @@ import { REGIONS } from "@/lib/regions";
 import { absoluteUrl, SITE_NAME } from "@/lib/site";
 
 export const metadata: Metadata = {
-  // Суффикс «| бензрядом» добавляет шаблон title из app/layout.tsx.
+  // Суффикс «| ГдеЗаправиться.рф» добавляет шаблон title из app/layout.tsx.
   title: "Наличие топлива по регионам России — карта АЗС",
   description:
     "Регионы России на народной карте заправок: где сейчас есть бензин и дизель. Выберите свой субъект РФ и откройте карту АЗС.",
   alternates: { canonical: absoluteUrl("/regiony") },
   openGraph: {
-    title: "Топливо по регионам России — бензрядом",
+    title: "Топливо по регионам России — ГдеЗаправиться.рф",
     description: "Наличие бензина и дизеля на АЗС по регионам России.",
     url: absoluteUrl("/regiony"),
     type: "website",
@@ -32,7 +32,7 @@ export default function RegionyPage() {
         Наличие топлива по регионам России
       </h1>
       <p className="mt-4 max-w-2xl text-base leading-relaxed text-ink-muted">
-        «бензрядом» работает по всей России. Выберите регион, чтобы перейти к
+        «ГдеЗаправиться.рф» работает по всей России. Выберите регион, чтобы перейти к
         карте наличия топлива. Для крупных городов доступны подробные страницы с
         актуальными статусами заправок.
       </p>
@@ -79,13 +79,13 @@ export default function RegionyPage() {
         <div className="mt-3 flex flex-wrap gap-2">
           <Link
             href="/goroda"
-            className="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-brand-fuel transition hover:bg-white/10"
+            className="rounded-lg border border-white/10 bg-white/5 px-4 py-2 text-sm text-brand-fuel transition hover:bg-white/10"
           >
             Все города
           </Link>
           <Link
             href="/seti"
-            className="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-brand-fuel transition hover:bg-white/10"
+            className="rounded-lg border border-white/10 bg-white/5 px-4 py-2 text-sm text-brand-fuel transition hover:bg-white/10"
           >
             Сети АЗС
           </Link>

@@ -11,19 +11,19 @@ const config: Config = {
         ink: {
           DEFAULT: "#E8ECF0",
           muted: "#9AA8B5",
-          dark: "#0A0E12",
+          dark: "#0A0D1F",
         },
         brand: {
-          DEFAULT: "#0A0E12",
-          fuel: "#FFB020",
-          fuelDim: "#E69500",
+          DEFAULT: "#0A0D1F",
+          fuel: "#38BDF8",
+          fuelDim: "#0EA5E9",
           accent: "#00D4AA",
         },
         surface: {
-          DEFAULT: "#141A21",
-          raised: "#1C2430",
-          glass: "rgba(20, 26, 33, 0.88)",
-          map: "#0D1117",
+          DEFAULT: "#161A33",
+          raised: "#1F2444",
+          glass: "rgba(22, 26, 51, 0.88)",
+          map: "#0C0F22",
         },
         fuel: {
           yes: "#00C853",
@@ -36,6 +36,15 @@ const config: Config = {
           slow: "#FF9100",
           jam: "#FF3D00",
         },
+        // Светлая тема десктопного сайдбара карты (см. MapSidebar.tsx) —
+        // остальной интерфейс (мобильный, контентные страницы) остаётся тёмным.
+        paper: {
+          bg: "#F2F4F8",
+          card: "#FFFFFF",
+          border: "#E6EAF0",
+          ink: "#121722",
+          muted: "#6B7480",
+        },
       },
       fontFamily: {
         display: ["var(--font-unbounded)", "system-ui", "sans-serif"],
@@ -43,7 +52,7 @@ const config: Config = {
       },
       boxShadow: {
         dock: "0 8px 32px rgba(0,0,0,0.45), 0 0 0 1px rgba(255,255,255,0.06)",
-        glow: "0 0 24px rgba(255, 176, 32, 0.25)",
+        glow: "0 0 24px rgba(56, 189, 248, 0.25)",
       },
       animation: {
         "fade-up": "fade-up 0.5s ease-out both",

@@ -4,7 +4,7 @@ import { SITE_URL } from "./site";
 
 const NOMINATIM = "https://nominatim.openstreetmap.org";
 // User-Agent только ASCII — иначе fetch в Node падает на кириллице.
-const USER_AGENT = `benzryadom/1.0 (+${SITE_URL})`;
+const USER_AGENT = `gdezapravitsya/1.0 (+${SITE_URL})`;
 
 async function nominatimFetch(path: string): Promise<Response> {
   return fetch(`${NOMINATIM}${path}`, {

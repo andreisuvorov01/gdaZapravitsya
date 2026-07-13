@@ -50,7 +50,7 @@ export async function generateMetadata({
       canonical: absoluteUrl(`/seti/${brand.slug}/${city.slug}`),
     },
     openGraph: {
-      title: `${brand.name} в ${prep} — бензрядом`,
+      title: `${brand.name} в ${prep} — ГдеЗаправиться.рф`,
       description,
       url: absoluteUrl(`/seti/${brand.slug}/${city.slug}`),
       type: "website",
@@ -84,7 +84,7 @@ export default async function BrandCityPage({
   const faq = brandCityFaq(brand, city, prep, gen, statsFromCounts(counts, stations.length));
   const pageUrl = absoluteUrl(`/seti/${brand.slug}/${city.slug}`);
   const pageName = `${brand.name} в ${prep}: где есть топливо`;
-  const description = `Заправки ${brand.name} в ${prep} — наличие бензина и дизеля по отчётам водителей. Карта «бензрядом», очереди и лимиты.`;
+  const description = `Заправки ${brand.name} в ${prep} — наличие бензина и дизеля по отчётам водителей. Карта «ГдеЗаправиться.рф», очереди и лимиты.`;
 
   const jsonLd = buildProgrammaticSeoGraph({
     pageUrl,
@@ -127,7 +127,7 @@ export default async function BrandCityPage({
       </h1>
 
       <p className="seo-page-lead mt-3 max-w-2xl text-base leading-relaxed text-ink-muted">
-        Заправки {brand.name} в {prep} на народной карте «бензрядом». Статусы
+        Заправки {brand.name} в {prep} на народной карте «ГдеЗаправиться.рф». Статусы
         ставят водители — не официальные данные сети, перед заездом лучше
         перепроверить на месте.
         {stations.length > 0 && (
@@ -180,7 +180,7 @@ export default async function BrandCityPage({
             <Link
               key={f.slug}
               href={`/azs/${city.slug}/${f.slug}`}
-              className="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-ink transition hover:border-brand-fuel/40 hover:text-brand-fuel"
+              className="rounded-lg border border-white/10 bg-white/5 px-4 py-2 text-sm text-ink transition hover:border-brand-fuel/40 hover:text-brand-fuel"
             >
               {f.label}
             </Link>
@@ -195,7 +195,7 @@ export default async function BrandCityPage({
             <Link
               key={b.slug}
               href={`/seti/${b.slug}/${city.slug}`}
-              className="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-ink transition hover:border-brand-fuel/40 hover:text-brand-fuel"
+              className="rounded-lg border border-white/10 bg-white/5 px-4 py-2 text-sm text-ink transition hover:border-brand-fuel/40 hover:text-brand-fuel"
             >
               {b.name}
             </Link>

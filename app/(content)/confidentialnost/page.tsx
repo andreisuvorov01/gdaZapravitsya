@@ -3,7 +3,6 @@ import Link from "next/link";
 import LegalDocLayout from "@/components/LegalDocLayout";
 import { absoluteUrl, SITE_NAME } from "@/lib/site";
 import {
-  LEGAL_CONTACT_URL,
   LEGAL_OPERATOR,
   LEGAL_UPDATED,
   SITE_DOMAIN,
@@ -15,7 +14,7 @@ import {
 export const metadata: Metadata = {
   title: "Политика конфиденциальности",
   description:
-    "Как «бензрядом» обрабатывает данные: без регистрации, анонимные отчёты, геолокация, cookie и Яндекс.Метрика.",
+    "Как «ГдеЗаправиться.рф» обрабатывает данные: без регистрации, анонимные отчёты, геолокация, cookie и Яндекс.Метрика.",
   alternates: { canonical: absoluteUrl("/confidentialnost") },
   openGraph: {
     title: `Политика конфиденциальности — ${SITE_NAME}`,
@@ -48,11 +47,7 @@ export default function PrivacyPage() {
         <br />
         По вопросам обработки данных и реализации прав субъекта персональных данных
         обращайтесь через{" "}
-        <Link href="/kontakty">страницу контактов</Link> или{" "}
-        <a href={LEGAL_CONTACT_URL} target="_blank" rel="noopener noreferrer">
-          Telegram
-        </a>
-        .
+        <Link href="/kontakty">страницу контактов</Link>.
       </p>
 
       <h2>2. Общие принципы</h2>

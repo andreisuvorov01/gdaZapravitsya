@@ -5,11 +5,11 @@ export const benzryadomVsGdebenz: ArticleBlock[] = [
   lead(
     "В России несколько народных ",
     mapLink("карт наличия топлива"),
-    " — среди них gdebenz.ru и «бензрядом». Это ",
+    " — среди них gdebenz.ru и «ГдеЗаправиться.рф». Это ",
     { href: "/o-servise", children: "разные независимые проекты" },
     "; при дефиците полезно открыть оба и сверить статусы."
   ),
-  h2("бензрядом"),
+  h2("ГдеЗаправиться.рф"),
   ul(
     ["Бесплатная ", mapLink("карта"), " без регистрации."],
     ["Режим «По пути», избранное, подтверждение отчётов."],
@@ -23,12 +23,12 @@ export const benzryadomVsGdebenz: ArticleBlock[] = [
     ["Данные тоже краудсорсинговые — не официальные АЗС."],
   ),
   h2("Что выбрать"),
-  p("Не обязательно выбирать один сервис: при дефиците сверяйте оба и ", blogLink("krowdsorsing-vs-oficial", "не полагайтесь только на один источник"), ". «бензрядом» ", blogLink("besplatnyy-servis", "бесплатен"), " и не связан с gdebenz.ru."),
-  cta({ primaryLabel: "Открыть бензрядом", secondaryLabel: "Инструкция", secondaryHref: "/blog/kak-polzovatsya-kartoy" }),
+  p("Не обязательно выбирать один сервис: при дефиците сверяйте оба и ", blogLink("krowdsorsing-vs-oficial", "не полагайтесь только на один источник"), ". «ГдеЗаправиться.рф» ", blogLink("besplatnyy-servis", "бесплатен"), " и не связан с gdebenz.ru."),
+  cta({ primaryLabel: "Открыть ГдеЗаправиться.рф", secondaryLabel: "Инструкция", secondaryHref: "/blog/kak-polzovatsya-kartoy" }),
 ];
 
 export const kakSchitaetsyaStatus: ArticleBlock[] = [
-  lead("Почему на ", mapLink("карте"), " «Есть», а на табло «Нет»? Разбираем ", { href: "/", children: "алгоритм статуса" }, " «бензрядом» прозрачно."),
+  lead("Почему на ", mapLink("карте"), " «Есть», а на табло «Нет»? Разбираем ", { href: "/", children: "алгоритм статуса" }, " «ГдеЗаправиться.рф» прозрачно."),
   h2("Источник — отчёты пользователей"),
   p("Каждая отметка «Есть / Мало / Нет» — от водителя. Чем свежее отчёт, тем больше его вес в расчёте."),
   h2("Формула веса"),
@@ -47,7 +47,7 @@ export const kakSchitaetsyaStatus: ArticleBlock[] = [
 ];
 
 export const besplatnyyServis: ArticleBlock[] = [
-  lead("«бензрядом» — ", mapLink("бесплатная карта бензина"), " для всех водителей России. Без подписок, без рекламы сетей АЗС, без обязательной регистрации."),
+  lead("«ГдеЗаправиться.рф» — ", mapLink("бесплатная карта бензина"), " для всех водителей России. Без подписок, без рекламы сетей АЗС, без обязательной регистрации."),
   h2("Что вы получаете"),
   ul(
     [mapLink("Карту"), " с наличием топлива, лимитами и очередями."],
@@ -64,5 +64,5 @@ export const besplatnyyServis: ArticleBlock[] = [
     ["Предложения — ", { href: "/kontakty", children: "Telegram" }, "."],
   ),
   cta({ title: "Бесплатно и без регистрации", primaryLabel: "Открыть карту", secondaryLabel: "О сервисе", secondaryHref: "/o-servise" }),
-  p("Сравнение: ", blogLink("benzryadom-vs-gdebenz", "бензрядом vs gdebenz"), "."),
+  p("Сравнение: ", blogLink("benzryadom-vs-gdebenz", "ГдеЗаправиться.рф vs gdebenz"), "."),
 ];

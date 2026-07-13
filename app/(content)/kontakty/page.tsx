@@ -1,17 +1,16 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import BotLinks from "@/components/BotLinks";
 import { absoluteUrl, SITE_NAME } from "@/lib/site";
 
 export const metadata: Metadata = {
-  // Суффикс «| бензрядом» добавляет шаблон title из app/layout.tsx.
+  // Суффикс «| ГдеЗаправиться.рф» добавляет шаблон title из app/layout.tsx.
   title: "Контакты",
   description:
-    "Боты «бензрядом» в Telegram, ВКонтакте и MAX: где рабочие заправки, даже при ограничениях интернета.",
+    "Карта наличия топлива «ГдеЗаправиться.рф» — как устроен сервис и куда обращаться по вопросам.",
   alternates: { canonical: absoluteUrl("/kontakty") },
   openGraph: {
-    title: "Контакты — бензрядом",
-    description: "Telegram-, VK- и MAX-боты сервиса бензрядом.",
+    title: "Контакты — ГдеЗаправиться.рф",
+    description: "Как устроен сервис ГдеЗаправиться.рф и куда обращаться по вопросам.",
     url: absoluteUrl("/kontakty"),
     type: "website",
     siteName: SITE_NAME,
@@ -29,15 +28,13 @@ export default function ContactsPage() {
       </nav>
 
       <h1 className="font-display text-3xl font-extrabold tracking-tight text-ink sm:text-4xl">
-        Контакты и боты
+        Контакты
       </h1>
       <p className="mt-4 text-base leading-relaxed text-ink-muted">
-        Карта на сайте — основной способ. Если удобнее в мессенджере: боты в
-        Telegram, ВКонтакте и MAX подскажут рабочие заправки, а бот
-        ВКонтакте отвечает даже при ограничениях интернета.
+        Карта на сайте — единственный и основной способ пользоваться сервисом.
+        Регистрация не требуется: любой может отметить статус заправки прямо
+        на карте.
       </p>
-
-      <BotLinks variant="cards" className="mt-8" />
 
       <div className="mt-8 rounded-2xl border border-brand-fuel/30 bg-brand-fuel/10 p-5">
         <p className="text-sm leading-relaxed text-ink-muted">

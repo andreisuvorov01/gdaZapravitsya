@@ -8,7 +8,7 @@ import { coverSrc } from "../covers";
 export const protivorechivyeDannyeNaKarte: ArticleBlock[] = [
   lead(
     "На ",
-    mapLink("карте бензрядом"),
+    mapLink("карте ГдеЗаправиться.рф"),
     " иногда появляется пометка о ",
     blogLink("kak-schitaetsya-status", "противоречивых данных"),
     " — это не сбой, а честное предупреждение: водители видят на одной АЗС разное."
@@ -269,7 +269,7 @@ export const limit20LitrovDozapravka: ArticleBlock[] = [
 export const ai95VManual: ArticleBlock[] = [
   lead(
     "В manual — минимум АИ-95, а на карте везде «есть» без деталей? Включите фильтр марки на ",
-    mapLink("карте бензрядом"),
+    mapLink("карте ГдеЗаправиться.рф"),
     "."
   ),
   fig(coverSrc("ai-95-v-manual"), "Марка АИ-95 на колонке"),
@@ -438,7 +438,7 @@ export const kartaIZdravyySmysl: ArticleBlock[] = [
   ),
   h2("Замкнутый круг пользы"),
   p("Проверили на месте → ", blogLink("kak-ostavit-otchet", "отчёт"), " → карта точнее → следующий водитель едет увереннее."),
-  cta({ title: "Начните с карты", primaryLabel: "Открыть бензрядом" }),
+  cta({ title: "Начните с карты", primaryLabel: "Открыть ГдеЗаправиться.рф" }),
 ];
 
 export const vezdeKrasnoeVGorode: ArticleBlock[] = [

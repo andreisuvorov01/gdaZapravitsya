@@ -7,7 +7,7 @@ import { LEGAL_DISCLAIMER, LEGAL_OPERATOR, LEGAL_PAGES, LEGAL_UPDATED, SITE_DOMA
 export const metadata: Metadata = {
   title: "Правовая информация",
   description:
-    "Правовые документы сервиса «бензрядом»: соглашение, конфиденциальность, cookie, отказ от ответственности.",
+    "Правовые документы сервиса «ГдеЗаправиться.рф»: соглашение, конфиденциальность, cookie, отказ от ответственности.",
   alternates: { canonical: absoluteUrl("/pravovaya-informaciya") },
   openGraph: {
     title: `Правовая информация — ${SITE_NAME}`,

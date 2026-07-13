@@ -92,7 +92,7 @@ export default function SeoStationList({
                   <StatusChip status={s.status} />
                   <Link
                     href={`/?city=${citySlug}&station=${s.id}`}
-                    className="cursor-pointer rounded-full border border-white/10 px-3 py-1.5 text-xs font-semibold text-brand-fuel transition-colors duration-200 hover:border-brand-fuel/40 hover:bg-brand-fuel/10"
+                    className="cursor-pointer rounded-lg border border-white/10 px-3 py-1.5 text-xs font-semibold text-brand-fuel transition-colors duration-200 hover:border-brand-fuel/40 hover:bg-brand-fuel/10"
                   >
                     На карте
                   </Link>

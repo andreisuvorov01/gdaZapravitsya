@@ -7,7 +7,7 @@ import { LEGAL_UPDATED, YANDEX_METRIKA_ID, YANDEX_PRIVACY_URL } from "@/lib/lega
 export const metadata: Metadata = {
   title: "Политика использования cookie",
   description:
-    "Какие cookie и локальные данные использует «бензрядом»: технические файлы, Яндекс.Метрика, реклама РСЯ, localStorage.",
+    "Какие cookie и локальные данные использует «ГдеЗаправиться.рф»: технические файлы, Яндекс.Метрика, реклама РСЯ, localStorage.",
   alternates: { canonical: absoluteUrl("/cookies") },
   openGraph: {
     title: `Политика cookie — ${SITE_NAME}`,

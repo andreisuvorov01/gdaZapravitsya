@@ -32,6 +32,16 @@ h3 {
   --fuel-unknown: #90a4ae;
   --brand-fuel: #38bdf8;
   --surface-glass: rgba(22, 26, 51, 0.92);
+  --z-map: 0;
+  --z-sheet-backdrop: 500;
+  --z-dock: 600;
+  --z-header: 700;
+  --z-nearby-sheet: 1050;
+  --z-station-detail: 1200;
+  --z-menu-backdrop: 1350;
+  --z-menu: 1400;
+  --z-install: 1850;
+  --z-onboarding: 2000;
 }
 
 *:focus-visible {
@@ -303,7 +313,7 @@ h3 {
   position: absolute;
   left: 0.625rem;
   bottom: calc(0.625rem + env(safe-area-inset-bottom, 0px));
-  z-index: 500;
+  z-index: var(--z-sheet-backdrop);
   max-width: calc(100% - 4.5rem);
   pointer-events: none;
 }
@@ -804,7 +814,7 @@ h3 {
   left: 0;
   right: 0;
   bottom: calc(var(--mobile-sheet-peek) + 0.75rem + env(safe-area-inset-bottom, 0px));
-  z-index: 1850;
+  z-index: var(--z-install);
   display: flex;
   justify-content: center;
   padding: 0 0.75rem;
@@ -2041,7 +2051,7 @@ h3 {
 
 /* Онбординг — поверх cookie */
 .onboarding-overlay {
-  z-index: 2000;
+  z-index: var(--z-onboarding);
 }
 
 /* Правовая строка на карте (десктоп) */
@@ -2075,7 +2085,7 @@ h3 {
   left: 0;
   right: 0;
   bottom: 0;
-  z-index: 1050;
+  z-index: var(--z-nearby-sheet);
   display: flex;
   flex-direction: column;
   overflow: hidden;

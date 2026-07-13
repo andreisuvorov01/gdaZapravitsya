@@ -1,7 +1,5 @@
 /** Нативное «Поделиться» или копирование ссылки в буфер. */
 
-import { isVkEnvironment, shareVk } from "./vkBridge";
-
 export type ShareResult = "shared" | "copied" | "failed";
 
 export async function copyOrShare(opts: {
@@ -9,13 +7,6 @@ export async function copyOrShare(opts: {
   text?: string;
   url: string;
 }): Promise<ShareResult> {
-  // Внутри VK Mini App — используем VKWebAppShare
-  if (isVkEnvironment()) {
-    const vkShared = await shareVk(opts.url);
-    if (vkShared) return "shared";
-    // Если VK Share не сработал — пробуем Web Share API / clipboard
-  }
-
   if (typeof navigator !== "undefined" && navigator.share) {
     try {
       await navigator.share({

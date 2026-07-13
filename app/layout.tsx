@@ -1,13 +1,13 @@
 import type { Metadata, Viewport } from "next";
 import { Suspense } from "react";
-import { Golos_Text, Unbounded } from "next/font/google";
+import { Golos_Text, Manrope } from "next/font/google";
 import "./globals.css";
 import PWARegister from "@/components/PWARegister";
 import YandexMetrika from "@/components/YandexMetrika";
 import YandexMetrikaHit from "@/components/YandexMetrikaHit";
 import CookieNotice from "@/components/CookieNotice";
 import InstallPromptShell from "@/components/InstallPromptShell";
-import { SITE_DESCRIPTION, SITE_NAME, SITE_URL, OG_IMAGE_PATH, OG_IMAGE_WIDTH, OG_IMAGE_HEIGHT, OG_IMAGE_ALT, VK_APP_ID } from "@/lib/site";
+import { SITE_DESCRIPTION, SITE_NAME, SITE_URL, OG_IMAGE_PATH, OG_IMAGE_WIDTH, OG_IMAGE_HEIGHT, OG_IMAGE_ALT } from "@/lib/site";
 import { DEFAULT_OG_IMAGE } from "@/lib/seo-metadata";
 
 const golos = Golos_Text({
@@ -17,20 +17,20 @@ const golos = Golos_Text({
   weight: ["400", "600", "700"],
 });
 
-const unbounded = Unbounded({
+const unbounded = Manrope({
   subsets: ["latin", "cyrillic"],
   display: "swap",
   variable: "--font-unbounded",
-  weight: ["600", "700"],
+  weight: ["600", "700", "800"],
 });
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "бензрядом — наличие топлива на карте АЗС",
-    template: "%s | бензрядом",
+    default: "ГдеЗаправиться.рф — наличие топлива на карте АЗС",
+    template: "%s | ГдеЗаправиться.рф",
   },
-  description: `${SITE_DESCRIPTION} benzryadom.ru · бензрядом.рф`,
+  description: SITE_DESCRIPTION,
   applicationName: SITE_NAME,
   manifest: "/manifest.webmanifest",
   keywords: [
@@ -39,11 +39,10 @@ export const metadata: Metadata = {
     "АЗС",
     "наличие топлива",
     "очереди",
-    "бензрядом",
-    "benzryadom",
+    "гдезаправиться",
   ],
   openGraph: {
-    title: "бензрядом — наличие топлива на АЗС",
+    title: "ГдеЗаправиться.рф — наличие топлива на АЗС",
     description: "Карта АЗС с актуальным наличием топлива, лимитами и очередями.",
     type: "website",
     siteName: SITE_NAME,
@@ -60,13 +59,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "бензрядом — наличие топлива на АЗС",
+    title: "ГдеЗаправиться.рф — наличие топлива на АЗС",
     description: "Карта АЗС с актуальным наличием топлива, лимитами и очередями.",
     images: [DEFAULT_OG_IMAGE.url],
-  },
-  // VK Meta Tags для корректного отображения при шеринге внутри ВКонтакте
-  other: {
-    "vk:app_id": VK_APP_ID,
   },
   icons: {
     icon: [
@@ -98,7 +93,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0A0E12",
+  themeColor: "#0A0D1F",
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",

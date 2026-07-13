@@ -1,5 +1,5 @@
 {
-  "name": "benzin-map",
+  "name": "gde-zapravitsya",
   "version": "0.1.0",
   "private": true,
   "description": "Краудсорсинговая карта заправок РФ: наличие топлива, лимиты на руки и очереди в реальном времени",
@@ -30,7 +30,6 @@
     "social:export": "node scripts/export-social-logo.mjs"
   },
   "dependencies": {
-    "@vkontakte/vk-bridge": "^3.0.2",
     "https-proxy-agent": "^9.1.0",
     "maplibre-gl": "^5.24.0",
     "next": "^15.1.6",

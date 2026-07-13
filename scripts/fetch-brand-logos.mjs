@@ -14,7 +14,7 @@ import { fileURLToPath } from "node:url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const OUT_DIR = join(__dirname, "..", "public", "brands");
-const UA = "benzin-map-logo-fetch/1.0 (educational; +https://example.local)";
+const UA = "gde-zapravitsya-logo-fetch/1.0 (educational; +https://example.local)";
 
 // slug → параметры поиска:
 //   wikidata — Q-ID компании (берём P154 как кандидата),

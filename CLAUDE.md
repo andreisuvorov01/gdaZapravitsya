@@ -2,6 +2,15 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+> **This is a second, independently-designed site forked from benzryadom.ru**,
+> sharing the same Postgres database and the same self-hosted map-tile server
+> on the same VPS, with no bots. Before touching ports, `DATABASE_URL`, tile
+> config, or deploy/pm2 setup, read **[docs/SHARED-INFRA.md](docs/SHARED-INFRA.md)**
+> — it covers what's shared vs. must-differ from the original site, and a
+> known domain-redirect blocker that has to be fixed on the original site
+> before this one can go live. Everything else below (architecture, data
+> model, aggregation algorithm) still describes this codebase accurately.
+
 ## Project overview
 
 **benzin-map** (benzryadom.ru) — a crowdsourced map of fuel stations in Russia: fuel

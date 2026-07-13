@@ -16,7 +16,7 @@ export default function FooterFeaturedCities() {
           <li key={city.slug}>
             <Link
               href={`/azs/${city.slug}`}
-              className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-ink/90 transition hover:border-brand-fuel/40 hover:text-brand-fuel"
+              className="rounded-lg border border-white/10 bg-white/5 px-3 py-1 text-ink/90 transition hover:border-brand-fuel/40 hover:text-brand-fuel"
             >
               {city.name}
             </Link>
@@ -25,7 +25,7 @@ export default function FooterFeaturedCities() {
         <li>
           <Link
             href="/goroda"
-            className="rounded-full border border-white/10 px-3 py-1 font-medium text-brand-fuel transition hover:bg-white/5"
+            className="rounded-lg border border-white/10 px-3 py-1 font-medium text-brand-fuel transition hover:bg-white/5"
           >
             Все города →
           </Link>

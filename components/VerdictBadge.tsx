@@ -7,6 +7,7 @@ export default function VerdictBadge({ verdict }: { verdict: Verdict }) {
   return (
     <div
       className="verdict-badge"
+      role="status"
       style={{
         borderColor: `${VERDICT_HEX[verdict.level]}40`,
         background: `${VERDICT_HEX[verdict.level]}14`,

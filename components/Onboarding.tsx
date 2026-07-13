@@ -1,10 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { STATUS_HEX, STATUS_LABELS, type FuelStatus } from "@/lib/types";
 import { STATUS_GLYPH } from "./StatusBadge";
 import { CloseIcon, PlusIcon, ThumbsUpIcon } from "./Icons";
-import BotLinksClient from "./BotLinksClient";
 import { isDismissed, markDismissed } from "@/lib/clientStorage";
 import { ONBOARDING_STORAGE_KEY } from "@/lib/onboarding";
 
@@ -14,6 +13,7 @@ const STEP_COUNT = 2;
 export default function Onboarding() {
   const [open, setOpen] = useState(false);
   const [step, setStep] = useState<0 | 1>(0);
+  const dialogRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!isDismissed(ONBOARDING_STORAGE_KEY)) setOpen(true);
@@ -29,6 +29,35 @@ export default function Onboarding() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open]);
 
+  useEffect(() => {
+    if (!open) return;
+    const el = dialogRef.current;
+    if (!el) return;
+    const focusable = el.querySelectorAll<HTMLElement>(
+      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+    );
+    if (focusable.length === 0) return;
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    const trap = (e: KeyboardEvent) => {
+      if (e.key !== "Tab") return;
+      if (e.shiftKey) {
+        if (document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        }
+      } else {
+        if (document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
+    };
+    el.addEventListener("keydown", trap);
+    first.focus();
+    return () => el.removeEventListener("keydown", trap);
+  }, [open]);
+
   const dismiss = () => {
     markDismissed(ONBOARDING_STORAGE_KEY);
     setOpen(false);
@@ -38,6 +67,7 @@ export default function Onboarding() {
 
   return (
     <div
+      ref={dialogRef}
       className="overlay-backdrop-in onboarding-overlay pointer-events-none fixed inset-0 flex items-end justify-center bg-black/60 p-3 pb-[calc(0.75rem+var(--mobile-sheet-peek)+env(safe-area-inset-bottom,0px))] backdrop-blur-sm sm:items-center sm:pb-3"
       role="dialog"
       aria-modal="true"
@@ -56,14 +86,14 @@ export default function Onboarding() {
               id="onboarding-title"
               className="mt-1 font-display text-xl font-bold text-white"
             >
-              Как читать карту «бензрядом»
+              Как читать карту «ГдеЗаправиться.рф»
             </h2>
           </div>
           <button
             type="button"
             onClick={dismiss}
             aria-label="Закрыть подсказку"
-            className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-ink-muted transition-colors hover:bg-white/10"
+            className="relative flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-ink-muted transition-colors after:absolute after:left-1/2 after:top-1/2 after:h-10 after:w-10 after:-translate-x-1/2 after:-translate-y-1/2 hover:bg-white/10"
           >
             <CloseIcon className="h-5 w-5" />
           </button>
@@ -138,16 +168,6 @@ export default function Onboarding() {
                 водителей.
               </p>
             </div>
-
-            <div className="mt-4">
-              <p className="text-xs font-semibold uppercase tracking-widest text-brand-fuel">
-                Каналы в мессенджерах
-              </p>
-              <p className="mt-1 text-sm text-ink-muted">
-                Подпишитесь, чтобы не потерять связь — новости и ссылка на карту:
-              </p>
-              <BotLinksClient variant="cards" medium="onboarding" className="mt-2" />
-            </div>
           </>
         )}
 
@@ -174,7 +194,7 @@ export default function Onboarding() {
           )}
           <button
             type="button"
-            onClick={() => (step < STEP_COUNT - 1 ? setStep(1) : dismiss())}
+            onClick={() => (step < STEP_COUNT - 1 ? setStep((step + 1) as 0 | 1) : dismiss())}
             className="inline-flex min-h-[48px] flex-1 items-center justify-center rounded-xl bg-brand-fuel px-4 text-base font-bold text-ink-dark transition-colors hover:bg-brand-fuelDim"
           >
             {step < STEP_COUNT - 1 ? "Далее" : "Понятно, на карту"}

@@ -57,7 +57,7 @@ async function queryOverpass(bbox: BBox): Promise<Station[]> {
       const res = await fetch(endpoint + "?data=" + encodeURIComponent(q), {
         method: "GET",
         headers: {
-          "User-Agent": "benzin-map/1.0",
+          "User-Agent": "gde-zapravitsya/1.0",
         },
         signal: controller.signal,
       });

@@ -1,7 +1,6 @@
 import Link from "next/link";
 import BrandLogo from "@/components/BrandLogo";
 import FooterFeaturedCities from "@/components/FooterFeaturedCities";
-import SocialLinks from "@/components/SocialLinks";
 import { DONATE_URL, SITE_NAME } from "@/lib/site";
 import { LEGAL_PAGES } from "@/lib/legal";
 
@@ -55,9 +54,6 @@ export default function Footer() {
             Народная карта наличия топлива на АЗС России. Данные добавляют
             пользователи — уточняйте наличие на самой заправке.
           </p>
-          <div className="mt-4">
-            <SocialLinks />
-          </div>
         </div>
 
         {sections.map((section) => (

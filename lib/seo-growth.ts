@@ -91,7 +91,7 @@ export const KEYWORD_CLUSTERS: KeywordCluster[] = [
       "где есть бензин в",
       "где бензин киров",
       "где бензин вологда",
-      "где есть бензин в кирове бензрядом",
+      "где есть бензин в кирове гдезаправиться",
     ],
     pageFamily: "intent-city",
     intentSlug: "gde-est-benzin",
@@ -291,6 +291,6 @@ export function getRelatedCitiesForLinking(
 /** Все seed-запросы для импорта в Topvisor. */
 export function collectSeedKeywords(): string[] {
   const base = KEYWORD_CLUSTERS.flatMap((c) => c.seeds);
-  const branded = ["бензрядом", "benzryadom"];
+  const branded = ["гдезаправиться", "gdezapravitsya"];
   return [...new Set([...base, ...branded])];
 }

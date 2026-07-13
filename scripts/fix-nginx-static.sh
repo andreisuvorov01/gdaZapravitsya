@@ -44,5 +44,5 @@ CSS_FILE="$(find "$CORRECT/css" -maxdepth 1 -name '*.css' -print -quit 2>/dev/nu
 if [ -n "$CSS_FILE" ]; then
   NAME="$(basename "$CSS_FILE")"
   echo "==> локально: $(curl -sSI "http://127.0.0.1:3000/_next/static/css/$NAME" | head -1)"
-  echo "==> снаружи:  $(curl -sSI "https://benzryadom.ru/_next/static/css/$NAME" | head -1)"
+  echo "==> снаружи:  $(curl -sSI "https://xn----8sbaibghrm1elpm4lxb.xn--p1ai/_next/static/css/$NAME" | head -1)"
 fi

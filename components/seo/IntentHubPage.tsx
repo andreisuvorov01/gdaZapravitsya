@@ -70,7 +70,7 @@ export default function IntentHubPage({ intentSlug }: IntentHubPageProps) {
         {intent.hubH1}
       </h1>
       <p className="seo-page-lead mt-4 max-w-2xl text-base leading-relaxed text-ink-muted">
-        {intent.hubDescription} Данные от водителей на «бензрядом» — уточняйте
+        {intent.hubDescription} Данные от водителей на «ГдеЗаправиться.рф» — уточняйте
         на самой заправке.
       </p>
 
@@ -93,7 +93,7 @@ export default function IntentHubPage({ intentSlug }: IntentHubPageProps) {
               <Link
                 key={city.slug}
                 href={`/${intent.slug}/${city.slug}`}
-                className="rounded-full border border-brand-fuel/30 bg-brand-fuel/10 px-4 py-2 text-sm font-medium text-brand-fuel transition hover:bg-brand-fuel/20"
+                className="rounded-lg border border-brand-fuel/30 bg-brand-fuel/10 px-4 py-2 text-sm font-medium text-brand-fuel transition hover:bg-brand-fuel/20"
               >
                 {city.name}
               </Link>

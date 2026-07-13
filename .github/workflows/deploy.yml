@@ -31,14 +31,16 @@ jobs:
       # даже когда self-host на сервере настроен и работает.
       - name: Build
         env:
-          NEXT_PUBLIC_SITE_URL: https://benzryadom.ru
+          NEXT_PUBLIC_SITE_URL: https://xn----8sbaibghrm1elpm4lxb.xn--p1ai
           NEXT_TELEMETRY_DISABLED: 1
           NEXT_PUBLIC_TILES_URL: /tiles/russia/{z}/{x}/{y}.mvt
           NEXT_PUBLIC_TILES_MAXZOOM: "14"
           NEXT_PUBLIC_WORLD_TILES_URL: /tiles/world/{z}/{x}/{y}.mvt
-          NEXT_PUBLIC_YANDEX_RTB_BLOCK_TOP: R-A-19584676-1
-          NEXT_PUBLIC_YANDEX_RTB_BLOCK_INARTICLE: R-A-19584676-2
-          NEXT_PUBLIC_YANDEX_RTB_BLOCK_FOOTER: R-A-19584676-3
+          # Пусто, пока у этого сайта нет своего рекламного аккаунта Яндекса —
+          # см. docs/SHARED-INFRA.md (не переиспользуем blockId оригинала).
+          NEXT_PUBLIC_YANDEX_RTB_BLOCK_TOP: ""
+          NEXT_PUBLIC_YANDEX_RTB_BLOCK_INARTICLE: ""
+          NEXT_PUBLIC_YANDEX_RTB_BLOCK_FOOTER: ""
         run: |
           npm ci --no-audit --no-fund
           npm run build
@@ -75,4 +77,4 @@ jobs:
               bash scripts/ensure-indexnow-env.sh .env
             fi
             bash scripts/deploy-from-artifact.sh
-            curl -fsS -o /dev/null http://127.0.0.1:3000/ || (echo "ОШИБКА: :3000 не отвечает" && exit 1)
+            curl -fsS -o /dev/null http://127.0.0.1:3001/ || (echo "ОШИБКА: :3001 не отвечает" && exit 1)

@@ -38,7 +38,7 @@ async function tryFetch() {
         const controller = new AbortController();
         const t = setTimeout(() => controller.abort(), 40000);
         const res = await fetch(endpoint + "?data=" + encodeURIComponent(query), {
-          headers: { "User-Agent": "benzin-map/1.0" },
+          headers: { "User-Agent": "gde-zapravitsya/1.0" },
           signal: controller.signal,
         }).finally(() => clearTimeout(t));
         if (!res.ok) {

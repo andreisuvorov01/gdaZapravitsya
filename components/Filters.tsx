@@ -21,9 +21,14 @@ const FUEL_OPTIONS: (FuelType | "all")[] = ["all", ...FUEL_TYPES];
 interface FiltersProps {
   value: FilterState;
   onChange: (next: FilterState) => void;
+  /** Светлая тема (десктопный сайдбар карты, см. MapSidebar.tsx) — по умолчанию тёмная. */
+  light?: boolean;
 }
 
-export default function Filters({ value, onChange }: FiltersProps) {
+export default function Filters({ value, onChange, light = false }: FiltersProps) {
+  const idleCls = light
+    ? "border-paper-border bg-[#F7F9FB] text-paper-ink"
+    : "filter-pill-idle";
   return (
     <div className="space-y-2">
       {/* Топливо — все виды чипами в один прокручиваемый ряд */}
@@ -35,7 +40,7 @@ export default function Filters({ value, onChange }: FiltersProps) {
             aria-pressed={value.fuelType === f}
             onClick={() => onChange({ ...value, fuelType: f })}
             className={`filter-pill shrink-0 ${
-              value.fuelType === f ? "filter-pill-active" : "filter-pill-idle"
+              value.fuelType === f ? "filter-pill-active" : idleCls
             }`}
           >
             {f === "all" ? "Всё топливо" : f}
@@ -49,13 +54,13 @@ export default function Filters({ value, onChange }: FiltersProps) {
           aria-label="Сеть АЗС"
           value={value.brand}
           onChange={(e) => onChange({ ...value, brand: e.target.value })}
-          className="filter-pill filter-pill-idle max-w-[10rem] shrink-0 cursor-pointer appearance-none"
+          className={`filter-pill max-w-[10rem] shrink-0 cursor-pointer appearance-none ${idleCls}`}
         >
-          <option value="all" className="bg-surface-raised">
+          <option value="all" className={light ? "" : "bg-surface-raised"}>
             Все заправки
           </option>
           {GAS_BRANDS.map((b) => (
-            <option key={b} value={b} className="bg-surface-raised">
+            <option key={b} value={b} className={light ? "" : "bg-surface-raised"}>
               {b}
             </option>
           ))}
@@ -68,7 +73,7 @@ export default function Filters({ value, onChange }: FiltersProps) {
           className={`filter-pill inline-flex shrink-0 items-center gap-1.5 ${
             value.onlyAvailable
               ? "border-fuel-yes bg-fuel-yes/20 text-fuel-yes"
-              : "filter-pill-idle"
+              : idleCls
           }`}
         >
           <CheckIcon className="h-4 w-4" />
@@ -88,7 +93,7 @@ export default function Filters({ value, onChange }: FiltersProps) {
           className={`filter-pill shrink-0 disabled:cursor-not-allowed disabled:opacity-40 ${
             value.cheapestOnly
               ? "border-fuel-yes bg-fuel-yes/20 text-fuel-yes"
-              : "filter-pill-idle"
+              : idleCls
           }`}
         >
           Топ-3 дешевле

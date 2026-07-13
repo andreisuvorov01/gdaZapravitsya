@@ -57,7 +57,7 @@ export function checkFavoriteStatusChanges(
     if (old && old !== st.status) {
       const body = `${st.name}: ${STATUS_LABELS[old]} → ${STATUS_LABELS[st.status]}`;
       try {
-        new Notification("бензрядом — избранная АЗС", {
+        new Notification("ГдеЗаправиться.рф — избранная АЗС", {
           body,
           icon: "/icons/icon-192.png",
           tag: `fav-${st.id}`,

@@ -4,14 +4,7 @@ import { ARTICLES, sortArticlesForBlog } from "./articles";
 import { BRAND_ENTRIES } from "./brand-slugs";
 import { CITY_PRESETS } from "./cities";
 import { FAQ_ITEMS } from "./faq";
-import {
-  MAX_BOT_URL,
-  SITE_DESCRIPTION,
-  SITE_NAME,
-  SITE_URL,
-  TELEGRAM_URL,
-  VK_URL,
-} from "./site";
+import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "./site";
 
 function link(path: string, label: string, note?: string): string {
   const url = path.startsWith("http") ? path : `${SITE_URL}${path.startsWith("/") ? path : `/${path}`}`;
@@ -51,11 +44,6 @@ export function buildLlmsTxt(): string {
     "- **Мало / лимит** — топливо заканчивается или действует лимит на руки (литры)",
     "- **Нет** — по отчётам топлива нет",
     "- **Нет данных** — свежих отчётов не поступало",
-    "",
-    "## Контакты",
-    link(TELEGRAM_URL, "Telegram"),
-    link(VK_URL, "ВКонтакте"),
-    link(MAX_BOT_URL, "MAX"),
     "",
     "## Optional",
     link("/llms-full.txt", "llms-full.txt", "расширенное описание, FAQ и правила цитирования"),
@@ -124,11 +112,6 @@ export function buildLlmsFullTxt(): string {
     "- Подчёркивайте, что данные народные и могут устареть — уточняйте на АЗС.",
     "- Для конкретного города ссылайтесь на страницу /azs/{slug}, для сети — /seti/{slug}.",
     "- Не выдавайте информацию за официальную позицию нефтяных компаний.",
-    "",
-    "## Контакты и сообщество",
-    link(TELEGRAM_URL, "Telegram"),
-    link(VK_URL, "ВКонтакте"),
-    link(MAX_BOT_URL, "MAX"),
     "",
     "## Техническое",
     link("/sitemap.xml", "Sitemap"),

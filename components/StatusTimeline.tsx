@@ -28,7 +28,7 @@ export default function StatusTimeline({ reports }: { reports: Report[] }) {
     }
   }
 
-  if (changes.length < 2) return null;
+  if (changes.length < 1) return null;
 
   const visible = changes.slice(0, 5);
   const changesLast24h = changes.filter(
@@ -45,7 +45,7 @@ export default function StatusTimeline({ reports }: { reports: Report[] }) {
       )}
       <ol className="status-timeline__list">
         {visible.map((c, i) => (
-          <li key={`${c.at}-${i}`} className="status-timeline__item">
+          <li key={`${c.at}-${c.status}`} className="status-timeline__item">
             <span
               className="status-timeline__dot"
               style={{ background: STATUS_HEX[c.status] }}

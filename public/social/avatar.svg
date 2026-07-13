@@ -1,15 +1,15 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none">
   <defs>
     <linearGradient id="fuel" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop stop-color="#FFB020"/>
-      <stop offset="1" stop-color="#E69500"/>
+      <stop stop-color="#38BDF8"/>
+      <stop offset="1" stop-color="#0EA5E9"/>
     </linearGradient>
     <radialGradient id="glow" cx="256" cy="248" r="220" gradientUnits="userSpaceOnUse">
-    <stop stop-color="#FFB020" stop-opacity="0.18"/>
+    <stop stop-color="#38BDF8" stop-opacity="0.18"/>
     <stop offset="1" stop-color="#0A0E12" stop-opacity="0"/>
   </radialGradient>
     <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%">
-      <feDropShadow dx="0" dy="8" stdDeviation="14" flood-color="#FFB020" flood-opacity="0.22"/>
+      <feDropShadow dx="0" dy="8" stdDeviation="14" flood-color="#38BDF8" flood-opacity="0.22"/>
     </filter>
   </defs>
   <rect width="512" height="512" fill="#0A0E12"/>

@@ -7,24 +7,12 @@ import {
   DesktopIcon,
   GiftIcon,
   InstallIcon,
-  LightbulbIcon,
   MoreIcon,
   BellIcon,
 } from "./Icons";
 import { useInstallPrompt } from "./InstallPromptContext";
-import SocialBrandIcon from "./SocialBrandIcon";
 import ShareButton from "./ShareButton";
-import {
-  DONATE_URL,
-  FEEDBACK_TELEGRAM_URL,
-  MAX_BOT_TAGLINE,
-  MAX_HANDLE,
-  maxBotTrackUrl,
-  TELEGRAM_BOT_TAGLINE,
-  TELEGRAM_HANDLE,
-  telegramChannelUrl,
-  vkCommunityTrackUrl,
-} from "@/lib/site";
+import { DONATE_URL, SITE_NAME } from "@/lib/site";
 import { MENU_NAV_LINKS } from "@/lib/nav";
 import { currentPageUrl } from "@/lib/share";
 import {
@@ -41,6 +29,7 @@ export default function HeaderMenu() {
   const [shareUrl, setShareUrl] = useState("");
   const [favAlerts, setFavAlerts] = useState(false);
   const rootRef = useRef<HTMLDivElement>(null);
+  const menuRef = useRef<HTMLDivElement>(null);
   const install = useInstallPrompt();
 
   useEffect(() => {
@@ -76,6 +65,35 @@ export default function HeaderMenu() {
     };
   }, [open]);
 
+  useEffect(() => {
+    if (!open) return;
+    const el = menuRef.current;
+    if (!el) return;
+    const focusable = el.querySelectorAll<HTMLElement>(
+      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+    );
+    if (focusable.length === 0) return;
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    const trap = (e: KeyboardEvent) => {
+      if (e.key !== "Tab") return;
+      if (e.shiftKey) {
+        if (document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        }
+      } else {
+        if (document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
+    };
+    el.addEventListener("keydown", trap);
+    first.focus();
+    return () => el.removeEventListener("keydown", trap);
+  }, [open]);
+
   const close = () => setOpen(false);
 
   return (
@@ -100,6 +118,7 @@ export default function HeaderMenu() {
             onClick={close}
           />
           <div
+            ref={menuRef}
             className="header-menu header-menu--mobile-sheet glass-dock overlay-pop-in z-[1400] sm:absolute sm:z-[800] sm:inset-auto sm:right-0 sm:top-[calc(100%+0.375rem)] sm:max-h-[min(70dvh,calc(100dvh-5rem))] sm:overflow-y-auto"
             role="menu"
           >
@@ -141,87 +160,12 @@ export default function HeaderMenu() {
           </div>
 
           <ul className="header-menu__actions" role="none">
-            <li role="none">
-              <a
-                href={telegramChannelUrl("header_menu")}
-                target="_blank"
-                rel="noopener noreferrer"
-                role="menuitem"
-                className="header-menu__action"
-                onClick={close}
-              >
-                <span className="header-menu__action-icon header-menu__action-icon--tg" aria-hidden>
-                  <SocialBrandIcon brand="telegram" className="h-3.5 w-3.5" />
-                </span>
-                <span className="min-w-0 flex-1">
-                  <span className="block">Telegram</span>
-                  <span className="block text-xs font-normal text-ink-muted">
-                    {TELEGRAM_HANDLE} · {TELEGRAM_BOT_TAGLINE}
-                  </span>
-                </span>
-              </a>
-            </li>
-            <li role="none">
-              <a
-                href={maxBotTrackUrl("header_menu")}
-                target="_blank"
-                rel="noopener noreferrer"
-                role="menuitem"
-                className="header-menu__action"
-                onClick={close}
-              >
-                <span className="header-menu__action-icon" aria-hidden>
-                  <SocialBrandIcon brand="max" className="h-4 w-4" />
-                </span>
-                <span className="min-w-0 flex-1">
-                  <span className="block">MAX</span>
-                  <span className="block text-xs font-normal text-ink-muted">
-                    {MAX_HANDLE} · {MAX_BOT_TAGLINE}
-                  </span>
-                </span>
-              </a>
-            </li>
-            <li role="none">
-              <a
-                href={vkCommunityTrackUrl("header_menu")}
-                target="_blank"
-                rel="noopener noreferrer"
-                role="menuitem"
-                className="header-menu__action header-menu__action--muted"
-                onClick={close}
-              >
-                <span className="header-menu__action-icon header-menu__action-icon--vk" aria-hidden>
-                  <SocialBrandIcon brand="vk" className="h-3.5 w-3.5" />
-                </span>
-                <span className="min-w-0 flex-1">
-                  <span className="block">ВКонтакте</span>
-                  <span className="block text-xs font-normal text-ink-muted">
-                    Запасной канал
-                  </span>
-                </span>
-              </a>
-            </li>
-            <li role="none">
-              <a
-                href={FEEDBACK_TELEGRAM_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                role="menuitem"
-                className="header-menu__action"
-                onClick={close}
-              >
-                <span className="header-menu__action-icon" aria-hidden>
-                  <LightbulbIcon className="h-4 w-4 text-brand-fuel" />
-                </span>
-                <span className="min-w-0 flex-1">Предложение по улучшению</span>
-              </a>
-            </li>
             {shareUrl && (
               <li role="none">
                 <ShareButton
                   variant="menu"
                   url={shareUrl}
-                  title="бензрядом"
+                  title={SITE_NAME}
                   text="Карта наличия топлива на АЗС России"
                   label="Поделиться картой"
                   copiedLabel="Ссылка скопирована"

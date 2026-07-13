@@ -13,7 +13,7 @@ fi
 # Зависший next build с прошлого таймаута — убиваем, иначе VPS в свопе.
 pkill -f "next build" 2>/dev/null || true
 
-echo "==> git pull (скрипты, benzbot, ecosystem.config.js)"
+echo "==> git pull (скрипты, ecosystem.config.js)"
 git pull --ff-only
 
 ARTIFACT="deploy-standalone.tar.gz"
@@ -61,22 +61,8 @@ bash scripts/ensure-standalone-env.sh
 echo "==> nginx: путь к /_next/static"
 bash scripts/fix-nginx-static.sh
 
-echo "==> pm2: benzin-map"
+echo "==> pm2: gde-zapravitsya"
 pm2 startOrRestart ecosystem.config.js
-
-pm2 delete benzbot-telegram benzbot-vk 2>/dev/null || true
-
-if [ ! -x "benzbot/venv/bin/python" ]; then
-  if ! command -v python3 >/dev/null 2>&1; then
-    echo "ОШИБКА: python3 не найден" >&2
-    exit 1
-  fi
-  python3 -m venv benzbot/venv
-fi
-benzbot/venv/bin/pip install --no-input -q -r benzbot/requirements.txt
-
-echo "==> pm2: benzbot"
-pm2 startOrRestart benzbot/ecosystem.config.js
 pm2 save
 
 rm -f "$ARTIFACT"

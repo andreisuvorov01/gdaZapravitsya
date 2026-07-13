@@ -46,13 +46,20 @@ async function main() {
 
   await page.goto(EXPORT_URL, { waitUntil: "networkidle" });
   await page.evaluate(() => document.fonts.ready);
+  // Плашка cookie — глобальный оверлей на всех страницах (см. CookieNotice.tsx),
+  // перекрывает секции экспорта, если не убрать её перед скриншотом.
+  try {
+    await page.getByRole("button", { name: "Принять" }).click({ timeout: 2000 });
+  } catch {
+    /* уже скрыта/не успела появиться — не критично */
+  }
   await page.waitForTimeout(400);
 
   const shots = [
     ["#export-avatar", "avatar-1024.png"],
     ["#export-post", "post-square-1080.png"],
-    ["#export-banner", "banner-vk-1590x400.png"],
-    ["#export-tg-cover", "cover-tg-1280x720.png"],
+    ["#export-banner", "banner-wide-1590x400.png"],
+    ["#export-og", "og-default-1200x628.png"],
   ];
 
   for (const [selector, name] of shots) {
@@ -71,12 +78,6 @@ async function main() {
     await sharp(avatarPath).resize(size, size).png({ compressionLevel: 9 }).toFile(join(SOCIAL, name));
     console.log(`✓ public/social/${name}`);
   }
-
-  await sharp(join(SOCIAL, "banner-vk-1590x400.png"))
-    .resize(1200, 628, { fit: "cover", position: "centre" })
-    .png({ compressionLevel: 9 })
-    .toFile(join(SOCIAL, "banner-vk-1200x628.png"));
-  console.log("✓ public/social/banner-vk-1200x628.png");
 
   for (const [name, size] of [
     ["icon-192.png", 192],

@@ -13,7 +13,7 @@ export default function StatusChip({
   const hex = STATUS_HEX[status];
   return (
     <span
-      className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-semibold ${className}`}
+      className={`inline-flex items-center gap-1.5 rounded-lg px-2.5 py-1 text-xs font-semibold ${className}`}
       style={{
         color: hex,
         backgroundColor: `${hex}1f`,

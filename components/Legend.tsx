@@ -23,7 +23,7 @@ function Legend() {
       className="map-legend"
       aria-label="Легенда статусов заправок"
     >
-      <div className="map-legend__track glass-dock">
+      <div className="map-legend__track map-legend--paper glass-dock">
         {ITEMS.map(({ key, short }) => (
           <span
             key={key}

@@ -1,12 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { dispatchChannelPrompt } from "@/lib/channelPrompt";
 import { submitQuickReport } from "@/lib/quickReport";
-import { maxBotTrackUrl, telegramChannelUrl } from "@/lib/site";
 import { QUEUE_LABELS, type FuelStatus, type FuelType, type QueueLevel } from "@/lib/types";
 import { ChevronDownIcon, PlusIcon } from "./Icons";
-import SocialBrandIcon from "./SocialBrandIcon";
 
 const QUEUE_OPTIONS: QueueLevel[] = ["none", "small", "big", "hours"];
 
@@ -84,7 +81,6 @@ export default function QuickReportBar({
       setPendingQueue(null);
       setPriceInput("");
       onSubmitted?.();
-      dispatchChannelPrompt("report");
       window.setTimeout(() => setSent(false), 8000);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Не удалось отправить");
@@ -113,29 +109,6 @@ export default function QuickReportBar({
     return (
       <div className="quick-report-thanks" role="status">
         <p>Спасибо! Отметка отправлена — помогаете другим водителям.</p>
-        <p className="quick-report-thanks__sub">
-          Подпишитесь, чтобы не потерять связь с нами:
-        </p>
-        <div className="quick-report-channels">
-          <a
-            href={telegramChannelUrl("post_report")}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="quick-report-channels__btn quick-report-channels__btn--tg"
-          >
-            <SocialBrandIcon brand="telegram" className="h-4 w-4" />
-            Telegram
-          </a>
-          <a
-            href={maxBotTrackUrl("post_report")}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="quick-report-channels__btn quick-report-channels__btn--max"
-          >
-            <SocialBrandIcon brand="max" className="h-4 w-4" />
-            MAX
-          </a>
-        </div>
       </div>
     );
   }
@@ -213,7 +186,7 @@ export default function QuickReportBar({
             onChange={(e) => setPriceInput(e.target.value)}
             placeholder="напр. 56.40"
             className="quick-report-price-input"
-            autoFocus
+
           />
           <div className="quick-report-options">
             <button

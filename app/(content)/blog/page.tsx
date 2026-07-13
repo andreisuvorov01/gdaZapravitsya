@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "Статьи — бензрядом",
+    title: "Статьи — ГдеЗаправиться.рф",
     description: "Советы водителям о топливе и автозаправках.",
     url: absoluteUrl("/blog"),
     type: "website",
