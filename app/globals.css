@@ -10,11 +10,17 @@ body {
 }
 
 body {
-  background: #0d1117;
+  background: #0c0f22;
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+h1,
+h2,
+h3 {
+  text-wrap: balance;
 }
 
 :root {
@@ -24,12 +30,12 @@ body {
   --fuel-low: #ff9100;
   --fuel-no: #ff3d00;
   --fuel-unknown: #90a4ae;
-  --brand-fuel: #ffb020;
-  --surface-glass: rgba(20, 26, 33, 0.92);
+  --brand-fuel: #38bdf8;
+  --surface-glass: rgba(22, 26, 51, 0.92);
 }
 
 *:focus-visible {
-  outline: 3px solid #ffb020;
+  outline: 3px solid #38bdf8;
   outline-offset: 2px;
   border-radius: 4px;
 }
@@ -55,7 +61,7 @@ body {
   height: 16px;
   border-radius: 50%;
   border: 2px solid #ffffff;
-  color: #0a0e12;
+  color: #0a0d1f;
   font-family: var(--font-unbounded), system-ui, sans-serif;
   font-weight: 900;
   font-size: 10px;
@@ -66,33 +72,30 @@ body {
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
   pointer-events: none;
 }
+/* Кружок статуса со значком колонки — цвет заливки и внешнее свечение = статус
+   заправки (var(--st) на .azs-marker), а не логотип сети (тот виден в карточке
+   станции и в списке через BrandBadge). */
 .azs-marker__badge {
-  width: 38px;
-  height: 38px;
-  border-radius: 50%;
-  background: #ffffff;
-  border: 3px solid var(--st);
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  background: linear-gradient(160deg, color-mix(in srgb, var(--st) 82%, white) 0%, var(--st) 65%);
+  border: 2px solid rgba(255, 255, 255, 0.92);
+  box-shadow:
+    0 0 0 4px color-mix(in srgb, var(--st) 25%, transparent),
+    0 3px 8px rgba(0, 0, 0, 0.3),
+    0 0 16px color-mix(in srgb, var(--st) 50%, transparent);
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow: hidden;
   transition: transform 0.15s ease;
 }
-.azs-marker__badge--dark {
-  background: #0b0b0b;
-}
-.azs-marker__badge img {
-  width: 76%;
-  height: 76%;
-  object-fit: contain;
+.azs-marker__pump {
+  width: 58%;
+  height: 58%;
+  color: #ffffff;
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.35));
   pointer-events: none;
-}
-.azs-marker__mono {
-  font-family: var(--font-unbounded), system-ui, sans-serif;
-  font-weight: 800;
-  font-size: 13px;
-  line-height: 1;
 }
 .azs-marker:hover .azs-marker__badge {
   transform: scale(1.08);
@@ -101,16 +104,32 @@ body {
   z-index: 10 !important;
 }
 .azs-marker--selected .azs-marker__badge {
-  border-color: #ffb020;
-  box-shadow: 0 0 0 4px rgba(255, 176, 32, 0.55), 0 3px 10px rgba(0, 0, 0, 0.45);
+  border-color: #38bdf8;
+  box-shadow:
+    0 0 0 4px rgba(56, 189, 248, 0.55),
+    0 3px 10px rgba(0, 0, 0, 0.45),
+    0 0 20px rgba(56, 189, 248, 0.5);
   transform: scale(1.15);
   will-change: transform;
 }
-.azs-marker--conflict .azs-marker__badge {
-  border-color: #ffb020;
+/* Подсветка станции, наведённой/прокрученной в списке (см. StationList/
+   MapLibreMapView.tsx: hoveredId) — заметнее обычного маркера, но слабее
+   selected (клик), чтобы сохранялась иерархия "выбрано" > "в фокусе списка". */
+.azs-marker--hovered:not(.azs-marker--selected) {
+  z-index: 9 !important;
+}
+.azs-marker--hovered:not(.azs-marker--selected) .azs-marker__badge {
+  border-color: #ffffff;
   box-shadow:
-    0 0 0 2px rgba(255, 176, 32, 0.45),
-    0 2px 6px rgba(0, 0, 0, 0.35);
+    0 0 0 4px rgba(255, 255, 255, 0.5),
+    0 3px 10px rgba(0, 0, 0, 0.4),
+    0 0 18px color-mix(in srgb, var(--st) 65%, transparent);
+  transform: scale(1.1);
+}
+.azs-marker--conflict .azs-marker__badge {
+  box-shadow:
+    0 0 0 3px rgba(56, 189, 248, 0.55),
+    0 2px 6px rgba(0, 0, 0, 0.3);
 }
 /* Заметный индикатор конфликта — пульсирующая точка поверх кольца, а не только цвет рамки. */
 .azs-marker--conflict::after {
@@ -121,7 +140,7 @@ body {
   width: 12px;
   height: 12px;
   border-radius: 50%;
-  background: #ffb020;
+  background: #38bdf8;
   border: 2px solid #ffffff;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
   animation: azs-marker-conflict-pulse 1.6s ease-in-out infinite;
@@ -153,7 +172,7 @@ body {
   margin-top: 3px;
   padding: 1px 6px;
   border-radius: 999px;
-  background: #0a0e12;
+  background: #0a0d1f;
   color: #ffffff;
   font-family: var(--font-unbounded), system-ui, sans-serif;
   font-weight: 700;
@@ -169,28 +188,26 @@ body {
   display: flex;
 }
 
-/* Донат-кластер: SVG-кольцо по составу статусов + счётчик поверх.
-   will-change снят по той же причине, что у .azs-marker выше — transform
-   реально применяется к дочернему svg на hover, не к контейнеру. */
+/* Кластер станций: тёмная "монета" со счётчиком и тонким кольцом цвета
+   преобладающего статуса в группе (см. buildClusterMarkerEl в lib/clusterIcon.ts). */
 .azs-cluster {
   position: relative;
   cursor: pointer;
-}
-.azs-cluster svg {
-  display: block;
-  filter: drop-shadow(0 6px 14px rgba(15, 23, 42, 0.22));
-  transition: transform 0.15s ease;
-}
-.azs-cluster:hover svg {
-  transform: scale(1.06);
-}
-.azs-cluster__count {
-  position: absolute;
-  inset: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #0f172a;
+  border-radius: 50%;
+  background: #1f2444;
+  box-shadow:
+    0 0 0 var(--ring-w, 3px) var(--ring, #90a4ae),
+    0 6px 14px rgba(15, 23, 42, 0.3);
+  transition: transform 0.15s ease;
+}
+.azs-cluster:hover {
+  transform: scale(1.06);
+}
+.azs-cluster__count {
+  color: #ffffff;
   font-family: var(--font-unbounded), system-ui, sans-serif;
   font-weight: 800;
   font-size: 13px;
@@ -243,14 +260,14 @@ body {
   transition: color 0.2s ease, background-color 0.2s ease;
 }
 .map-zoom-btn:hover {
-  color: #ffb020;
+  color: #38bdf8;
   background: rgba(255, 255, 255, 0.08);
 }
 .map-zoom-btn:active {
-  background: rgba(255, 176, 32, 0.15);
+  background: rgba(56, 189, 248, 0.15);
 }
 .map-zoom-btn--active {
-  color: #ffb020;
+  color: #38bdf8;
 }
 .map-zoom-btn--busy {
   opacity: 0.55;
@@ -323,7 +340,7 @@ body {
   font-size: 0.65rem;
   font-weight: 900;
   line-height: 1;
-  color: #0a0e12;
+  color: #0a0d1f;
   box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.2);
 }
 .map-legend__label {
@@ -372,10 +389,10 @@ body {
     -webkit-backdrop-filter: none;
   }
   .glass-dock {
-    background: rgba(20, 26, 33, 0.98);
+    background: rgba(22, 26, 51, 0.98);
   }
   .glass-card {
-    background: rgba(20, 26, 33, 0.94);
+    background: rgba(22, 26, 51, 0.94);
   }
 }
 
@@ -384,7 +401,7 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 0.375rem;
-  border-radius: 9999px;
+  border-radius: 0.75rem;
   padding: 0.25rem 0.625rem;
   font-size: 0.75rem;
   font-weight: 600;
@@ -429,7 +446,7 @@ body {
 
 .filter-pill {
   min-height: 40px;
-  border-radius: 9999px;
+  border-radius: 0.75rem;
   border-width: 1px;
   padding-left: 0.875rem;
   padding-right: 0.875rem;
@@ -473,7 +490,7 @@ body {
   gap: 0.3125rem;
   min-height: 40px;
   padding: 0 0.875rem;
-  border-radius: 9999px;
+  border-radius: 0.75rem;
   border: 1px solid rgba(255, 255, 255, 0.1);
   background: rgba(255, 255, 255, 0.05);
   font-size: 0.8125rem;
@@ -493,9 +510,9 @@ body {
   transform: scale(0.96);
 }
 .radius-dropdown__trigger[aria-expanded="true"] {
-  border-color: rgba(255, 176, 32, 0.4);
-  background: rgba(255, 176, 32, 0.1);
-  color: #ffb020;
+  border-color: rgba(56, 189, 248, 0.4);
+  background: rgba(56, 189, 248, 0.1);
+  color: #38bdf8;
 }
 /* position: fixed + top/right заданы инлайн из RadiusSelect.tsx
    (getBoundingClientRect триггера) — портал в body, поэтому меню всплывает
@@ -530,22 +547,22 @@ body {
   background: rgba(255, 255, 255, 0.08);
 }
 .radius-dropdown__option--active {
-  background: rgba(255, 176, 32, 0.1);
-  color: #ffb020;
+  background: rgba(56, 189, 248, 0.1);
+  color: #38bdf8;
   font-weight: 700;
 }
 .radius-dropdown__option--active:hover {
-  background: rgba(255, 176, 32, 0.14);
+  background: rgba(56, 189, 248, 0.14);
 }
 /* Плавное раскрытие фильтров на мобильном */
 .dock-filters-reveal {
   animation: overlay-panel-up 0.32s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 .filter-pill-active {
-  border-color: #ffb020;
-  background: #ffb020;
-  color: #0a0e12;
-  box-shadow: 0 0 24px rgba(255, 176, 32, 0.25);
+  border-color: #38bdf8;
+  background: #38bdf8;
+  color: #0a0d1f;
+  box-shadow: 0 0 24px rgba(56, 189, 248, 0.25);
 }
 .filter-pill-idle {
   border-color: rgba(255, 255, 255, 0.1);
@@ -590,8 +607,8 @@ body {
   height: 1rem;
   padding: 0 0.2rem;
   border-radius: 999px;
-  background: #ffb020;
-  color: #0a0e12;
+  background: #38bdf8;
+  color: #0a0d1f;
   font-size: 0.6rem;
   font-weight: 800;
   line-height: 1rem;
@@ -605,7 +622,7 @@ body {
   gap: 0.35rem;
   min-height: 2rem;
   padding: 0 0.625rem;
-  border-radius: 999px;
+  border-radius: 0.75rem;
   font-size: 0.6875rem;
   font-weight: 700;
   letter-spacing: 0.02em;
@@ -641,8 +658,8 @@ body {
   z-index: 9999;
   transform: translateY(-200%);
   border-radius: 0.75rem;
-  background: #ffb020;
-  color: #0a0e12;
+  background: #38bdf8;
+  color: #0a0d1f;
   padding: 0.625rem 1rem;
   font-size: 0.875rem;
   font-weight: 700;
@@ -694,45 +711,6 @@ body {
   }
 }
 
-/* Переключатель «Карта / Список» — только десктоп (на мобиле нижняя навигация) */
-.view-switch {
-  display: none;
-  align-items: center;
-  border-radius: 9999px;
-  padding: 0.125rem;
-  background: rgba(255, 255, 255, 0.05);
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
-}
-@media (min-width: 640px) {
-  .view-switch {
-    display: inline-flex;
-  }
-}
-.view-switch__btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.375rem;
-  min-height: 2.25rem;
-  min-width: 2.25rem;
-  padding: 0 0.625rem;
-  border-radius: 9999px;
-  font-size: 0.8125rem;
-  font-weight: 600;
-  cursor: pointer;
-  color: #9aa8b5;
-  transition: color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
-}
-.view-switch__btn:hover:not(.view-switch__btn--active) {
-  color: #e8ecf0;
-  background: rgba(255, 255, 255, 0.06);
-}
-.view-switch__btn--active {
-  color: #0a0e12;
-  background: #ffb020;
-  box-shadow: 0 0 20px rgba(255, 176, 32, 0.22);
-}
-
 /* Кнопка «На карту» в шапке контентных страниц */
 .header-map-btn {
   display: inline-flex;
@@ -740,123 +718,24 @@ body {
   gap: 0.375rem;
   height: 2.25rem;
   padding: 0 0.75rem;
-  border-radius: 9999px;
+  border-radius: 0.75rem;
   font-size: 0.8125rem;
   font-weight: 600;
   line-height: 1;
   white-space: nowrap;
-  color: #0a0e12;
-  background: #ffb020;
-  box-shadow: 0 0 20px rgba(255, 176, 32, 0.22);
+  color: #0a0d1f;
+  background: #38bdf8;
+  box-shadow: 0 0 20px rgba(56, 189, 248, 0.22);
   transition: filter 0.15s ease, transform 0.15s ease;
 }
 .header-map-btn:hover {
   filter: brightness(1.06);
 }
 .header-map-btn:active {
-  transform: scale(0.98);
+  transform: scale(0.96);
 }
 
-/* Группа соцсетей — TG и VK не «разъезжаются» */
-.social-links {
-  display: inline-flex;
-  align-items: center;
-  flex-shrink: 0;
-  border-radius: 9999px;
-  padding: 0.125rem;
-  background: rgba(255, 255, 255, 0.05);
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
-}
-.social-links__btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 2rem;
-  height: 2rem;
-  border-radius: 9999px;
-  cursor: pointer;
-  color: #ffffff;
-  transition: filter 0.2s ease, transform 0.15s ease;
-}
-.social-links__btn:nth-of-type(1) {
-  background: #26a5e4;
-}
-.social-links__btn:nth-of-type(2) {
-  background: #0077ff;
-}
-.social-links__btn:nth-of-type(3) {
-  /* Значок MAX уже цветной — своя заливка кружка не нужна. */
-  background: transparent;
-}
-.social-links__btn:hover {
-  filter: brightness(1.08);
-}
-.social-links__sep {
-  width: 1px;
-  height: 0.875rem;
-  background: rgba(255, 255, 255, 0.12);
-  flex-shrink: 0;
-}
-
-/* Боты — подписи в онбординге и компактная строка на карте */
-.bot-links-inline {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.375rem;
-  flex-shrink: 0;
-}
-.bot-links-inline__pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.3rem;
-  border-radius: 9999px;
-  padding: 0.2rem 0.5rem;
-  font-size: 0.65rem;
-  font-weight: 600;
-  color: rgba(255, 255, 255, 0.88);
-  background: rgba(255, 255, 255, 0.06);
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
-  transition: color 0.2s ease, background-color 0.2s ease;
-}
-.bot-links-inline__pill:hover {
-  color: #ffb020;
-  background: rgba(255, 176, 32, 0.12);
-}
-.bot-links-cards__card {
-  display: flex;
-  align-items: flex-start;
-  gap: 0.75rem;
-  border-radius: 1rem;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  background: rgba(255, 255, 255, 0.05);
-  padding: 0.875rem;
-  transition: border-color 0.2s ease, background-color 0.2s ease;
-}
-.bot-links-cards__card:hover {
-  border-color: rgba(255, 176, 32, 0.35);
-  background: rgba(255, 176, 32, 0.08);
-}
-.bot-links-cards__icon {
-  display: grid;
-  flex-shrink: 0;
-  place-items: center;
-  width: 2.25rem;
-  height: 2.25rem;
-  border-radius: 0.75rem;
-  color: #ffffff;
-}
-.bot-links-cards__card:nth-child(1) .bot-links-cards__icon {
-  background: #26a5e4;
-}
-.bot-links-cards__card:nth-child(2) .bot-links-cards__icon {
-  background: #0077ff;
-}
-.bot-links-cards__card:nth-child(3) .bot-links-cards__icon {
-  /* MAX — цветной SVG, фон не нужен. */
-  background: transparent;
-}
-
-/* Подсказка про ботов, если карта долго грузится */
+/* Подсказка, если карта долго грузится */
 .map-slow-load-hint {
   position: absolute;
   inset: 0;
@@ -867,27 +746,10 @@ body {
   padding: 1rem;
   pointer-events: none;
 }
-.map-slow-load-hint__link {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.375rem;
-  border-radius: 9999px;
-  background: rgba(255, 255, 255, 0.08);
-  padding: 0.375rem 0.75rem;
-  font-size: 0.75rem;
-  font-weight: 600;
-  color: rgba(255, 255, 255, 0.92);
-  text-decoration: none;
-  transition: background 0.15s ease;
-}
-.map-slow-load-hint__link:hover {
-  background: rgba(255, 255, 255, 0.14);
-}
-
 /* SEO-блок под картой на главной */
 .home-landings__chip {
   display: inline-block;
-  border-radius: 9999px;
+  border-radius: 0.75rem;
   border: 1px solid rgba(255, 255, 255, 0.1);
   background: rgba(255, 255, 255, 0.05);
   padding: 0.35rem 0.85rem;
@@ -926,7 +788,7 @@ body {
   padding: 0.55rem 1.1rem;
   font-size: 0.875rem;
   font-weight: 600;
-  color: #0a0e12;
+  color: #0a0d1f;
   text-decoration: none;
 }
 .home-landings__cta--ghost {
@@ -965,7 +827,7 @@ body {
   overflow: hidden;
   box-shadow:
     0 16px 48px rgba(0, 0, 0, 0.55),
-    0 0 0 1px rgba(255, 176, 32, 0.12);
+    0 0 0 1px rgba(56, 189, 248, 0.12);
 }
 @media (min-width: 640px) {
   .install-banner {
@@ -981,7 +843,7 @@ body {
   background: linear-gradient(
     90deg,
     transparent 0%,
-    rgba(255, 176, 32, 0.45) 50%,
+    rgba(56, 189, 248, 0.45) 50%,
     transparent 100%
   );
   pointer-events: none;
@@ -1070,17 +932,17 @@ body {
   padding: 0 1rem;
   font-size: 0.875rem;
   font-weight: 700;
-  color: #0a0e12;
-  background: linear-gradient(135deg, #ffb020 0%, #e69500 100%);
+  color: #0a0d1f;
+  background: linear-gradient(135deg, #38bdf8 0%, #0ea5e9 100%);
   cursor: pointer;
   transition: filter 0.2s ease, transform 0.15s ease;
-  box-shadow: 0 4px 16px rgba(255, 176, 32, 0.28);
+  box-shadow: 0 4px 16px rgba(56, 189, 248, 0.28);
 }
 .install-banner__cta:hover {
   filter: brightness(1.06);
 }
 .install-banner__cta:active {
-  transform: scale(0.98);
+  transform: scale(0.96);
 }
 .install-banner__later {
   flex-shrink: 0;
@@ -1100,351 +962,15 @@ body {
   background: rgba(255, 255, 255, 0.09);
 }
 
-/* Плашка поддержки — компактная на мобильных, боты TG/VK */
-.support-banner-wrap {
-  position: fixed;
-  left: 0;
-  right: 0;
-  bottom: calc(var(--mobile-sheet-peek) + 0.5rem + env(safe-area-inset-bottom, 0px));
-  z-index: 1860;
-  display: flex;
-  justify-content: center;
-  padding: 0 0.5rem;
-  pointer-events: none;
-  animation: dock-slide-up 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
-}
-@media (min-width: 640px) {
-  .support-banner-wrap {
-    bottom: calc(5rem + env(safe-area-inset-bottom, 0px));
-    padding: 0 1rem;
-  }
-}
-.support-banner {
-  pointer-events: auto;
-  position: relative;
-  width: 100%;
-  max-width: 20.5rem;
-  border-radius: 1rem;
-  padding: 0.625rem 0.6875rem 0.5625rem;
-  overflow: hidden;
-  box-shadow:
-    0 12px 36px rgba(0, 0, 0, 0.5),
-    0 0 0 1px rgba(255, 176, 32, 0.14);
-}
-@media (min-width: 640px) {
-  .support-banner {
-    max-width: 24rem;
-    padding: 0.875rem 0.9375rem 0.75rem;
-    border-radius: 1.125rem;
-  }
-}
-.support-banner__glow {
-  position: absolute;
-  inset: 0 0 auto 0;
-  height: 1px;
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    rgba(255, 176, 32, 0.5) 50%,
-    transparent 100%
-  );
-  pointer-events: none;
-}
-.support-banner__close {
-  position: absolute;
-  top: 0.375rem;
-  right: 0.375rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 1.625rem;
-  height: 1.625rem;
-  border-radius: 9999px;
-  color: #9aa8b5;
-  cursor: pointer;
-  transition: color 0.2s ease, background-color 0.2s ease;
-}
-.support-banner__close:hover {
-  color: #e8ecf0;
-  background: rgba(255, 255, 255, 0.08);
-}
-.support-banner__head {
-  padding-right: 1.375rem;
-}
-.support-banner__title {
-  margin: 0;
-  font-family: var(--font-unbounded), system-ui, sans-serif;
-  font-size: 0.8125rem;
-  font-weight: 700;
-  line-height: 1.25;
-  color: #ffffff;
-}
-@media (min-width: 640px) {
-  .support-banner__title {
-    font-size: 0.9375rem;
-  }
-}
-.support-banner__hint {
-  margin: 0.25rem 0 0;
-  font-size: 0.6875rem;
-  line-height: 1.35;
-  color: #9aa8b5;
-}
-@media (min-width: 640px) {
-  .support-banner__hint {
-    font-size: 0.75rem;
-    line-height: 1.4;
-  }
-}
-.support-banner__socials {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0.375rem;
-  margin-top: 0.5rem;
-}
-.support-banner__social {
-  display: flex;
-  align-items: center;
-  gap: 0.375rem;
-  min-width: 0;
-  padding: 0.3125rem 0.4375rem;
-  border-radius: 0.625rem;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  background: rgba(255, 255, 255, 0.04);
-  text-decoration: none;
-  transition: border-color 0.2s ease, background-color 0.2s ease;
-}
-.support-banner__social:hover {
-  background: rgba(255, 255, 255, 0.07);
-}
-.support-banner__social--tg:hover {
-  border-color: rgba(38, 165, 228, 0.45);
-}
-.support-banner__social--vk:hover {
-  border-color: rgba(0, 119, 255, 0.45);
-}
-.support-banner__social--max:hover {
-  border-color: rgba(124, 92, 255, 0.45);
-}
-.support-banner__social-badge {
-  display: flex;
-  flex-shrink: 0;
-  align-items: center;
-  justify-content: center;
-  width: 1.5rem;
-  height: 1.5rem;
-  border-radius: 0.4375rem;
-  color: #ffffff;
-}
-.support-banner__social--tg .support-banner__social-badge {
-  background: #26a5e4;
-}
-.support-banner__social--vk .support-banner__social-badge {
-  background: #0077ff;
-}
-.support-banner__social-badge--max {
-  background: rgba(255, 255, 255, 0.06);
-}
-.support-banner__social-text {
-  min-width: 0;
-}
-.support-banner__social-title {
-  display: block;
-  font-size: 0.625rem;
-  font-weight: 700;
-  line-height: 1.2;
-  color: #e8ecf0;
-}
-.support-banner__social-sub {
-  display: block;
-  margin-top: 0.0625rem;
-  font-size: 0.5625rem;
-  line-height: 1.2;
-  color: #9aa8b5;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-@media (min-width: 640px) {
-  .support-banner__social {
-    padding: 0.375rem 0.5rem;
-    gap: 0.4375rem;
-  }
-  .support-banner__social-badge {
-    width: 1.625rem;
-    height: 1.625rem;
-  }
-  .support-banner__social-title {
-    font-size: 0.6875rem;
-  }
-  .support-banner__social-sub {
-    font-size: 0.625rem;
-  }
-}
-.support-banner__actions {
-  display: flex;
-  gap: 0.375rem;
-  margin-top: 0.5rem;
-}
-.support-banner__actions--channel .support-banner__later {
-  flex: 1;
-  width: 100%;
-}
-.support-banner__cta {
-  flex: 1;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 2.125rem;
-  border-radius: 0.6875rem;
-  padding: 0 0.75rem;
-  font-size: 0.75rem;
-  font-weight: 700;
-  color: #0a0e12;
-  text-decoration: none;
-  background: linear-gradient(135deg, #ffb020 0%, #e69500 100%);
-  cursor: pointer;
-  transition: filter 0.2s ease, transform 0.15s ease;
-  box-shadow: 0 3px 12px rgba(255, 176, 32, 0.24);
-}
-.support-banner__cta:hover {
-  filter: brightness(1.06);
-}
-.support-banner__cta:active {
-  transform: scale(0.98);
-}
-.support-banner__later {
-  flex-shrink: 0;
-  min-height: 2.125rem;
-  border-radius: 0.6875rem;
-  padding: 0 0.6875rem;
-  font-size: 0.75rem;
-  font-weight: 600;
-  color: #9aa8b5;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  cursor: pointer;
-  transition: color 0.2s ease, background-color 0.2s ease;
-}
-.support-banner__later:hover {
-  color: #e8ecf0;
-  background: rgba(255, 255, 255, 0.09);
-}
-@media (min-width: 640px) {
-  .support-banner__actions {
-    margin-top: 0.625rem;
-    gap: 0.4375rem;
-  }
-  .support-banner__cta,
-  .support-banner__later {
-    min-height: 2.375rem;
-    font-size: 0.8125rem;
-    border-radius: 0.75rem;
-  }
-}
-.support-banner__cta--tg {
-  gap: 0.375rem;
-  color: #fff;
-  background: linear-gradient(135deg, #2aabee 0%, #229ed9 100%);
-  box-shadow: 0 3px 12px rgba(38, 165, 228, 0.28);
-}
-.support-banner__footer {
-  margin: 0.5rem 0 0;
-  font-size: 0.625rem;
-  line-height: 1.45;
-  color: #7f8f9c;
-  text-align: center;
-}
-.support-banner__footer-handle {
-  font-weight: 600;
-  color: #9aa8b5;
-}
-.support-banner__footer-sep {
-  margin: 0 0.25rem;
-  opacity: 0.55;
-}
-.support-banner__footer-link {
-  color: #8fa0ad;
-  text-decoration: underline;
-  text-decoration-color: rgba(143, 160, 173, 0.45);
-  text-underline-offset: 2px;
-}
-.support-banner__footer-link:hover {
-  color: #c5d0d9;
-}
-.support-banner__footer-link--muted {
-  color: #6d7f8c;
-}
-@media (min-width: 640px) {
-  .support-banner__footer {
-    font-size: 0.6875rem;
-  }
-}
 
-/* Режим списка — стекло по бокам */
-.list-scene {
-  background:
-    radial-gradient(ellipse 120% 80% at 50% -20%, rgba(255, 176, 32, 0.06), transparent 55%),
-    linear-gradient(180deg, #121820 0%, #0a0e12 100%);
-}
 /* Стеклянная карточка в списке АЗС */
 .glass-card {
   border-radius: 1rem;
   border: 1px solid rgba(255, 255, 255, 0.08);
-  background: rgba(20, 26, 33, 0.72);
+  background: rgba(22, 26, 51, 0.72);
   backdrop-filter: blur(14px) saturate(1.2);
   -webkit-backdrop-filter: blur(14px) saturate(1.2);
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
-}
-
-/* Вкладки списка */
-.list-tabs-row {
-  display: flex;
-  gap: 0.375rem;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-  scroll-snap-type: x proximity;
-  padding-bottom: 0.25rem;
-  margin-left: -0.25rem;
-  margin-right: -0.25rem;
-  padding-left: 0.25rem;
-  padding-right: 0.25rem;
-}
-.list-tabs-row .list-tab {
-  scroll-snap-align: start;
-  white-space: nowrap;
-}
-.list-tab {
-  min-height: 38px;
-  border-radius: 9999px;
-  padding: 0 0.7rem;
-  font-size: 0.75rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  border: 1px solid transparent;
-}
-@media (min-width: 640px) {
-  .list-tab {
-    min-height: 40px;
-    padding: 0 0.875rem;
-    font-size: 0.8125rem;
-  }
-}
-.list-tab--active {
-  border-color: #ffb020;
-  background: #ffb020;
-  color: #0a0e12;
-  box-shadow: 0 0 20px rgba(255, 176, 32, 0.2);
-}
-.list-tab--idle {
-  border-color: rgba(255, 255, 255, 0.08);
-  background: rgba(255, 255, 255, 0.05);
-  color: #9aa8b5;
-}
-.list-tab--idle:hover {
-  color: #e8ecf0;
-  background: rgba(255, 255, 255, 0.09);
 }
 
 /* Шапка — компактная на мобильных */
@@ -1504,33 +1030,15 @@ body {
   height: 1.25rem;
   color: #9aa8b5;
 }
-.header-menu__action-icon--tg,
-.header-menu__action-icon--vk,
-.header-menu__action-icon--max {
-  width: 1.375rem;
-  height: 1.375rem;
-  border-radius: 0.375rem;
-  color: #ffffff;
-}
-.header-menu__action-icon--tg {
-  background: #26a5e4;
-}
-.header-menu__action-icon--vk {
-  background: #0077ff;
-}
-.header-menu__action-icon--max {
-  /* Значок MAX уже цветной — своя заливка не нужна. */
-  background: transparent;
-}
 .header-menu__action--accent {
-  color: #ffb020;
+  color: #38bdf8;
   font-weight: 600;
 }
 .header-menu__action--accent .header-menu__action-icon {
-  color: #ffb020;
+  color: #38bdf8;
 }
 .header-menu__action--accent:hover {
-  background: rgba(255, 176, 32, 0.12);
+  background: rgba(56, 189, 248, 0.12);
   color: #ffc04d;
 }
 
@@ -1542,7 +1050,7 @@ body {
   gap: 0.5rem;
   min-height: 2.5rem;
   padding: 0 0.875rem;
-  border-radius: 9999px;
+  border-radius: 0.75rem;
   border: 1px solid rgba(255, 255, 255, 0.1);
   background: rgba(255, 255, 255, 0.05);
   font-size: 0.8125rem;
@@ -1556,8 +1064,8 @@ body {
     box-shadow 0.2s ease;
 }
 .share-btn:hover {
-  border-color: rgba(255, 176, 32, 0.35);
-  background: rgba(255, 176, 32, 0.1);
+  border-color: rgba(56, 189, 248, 0.35);
+  background: rgba(56, 189, 248, 0.1);
   color: #ffffff;
 }
 .share-btn--success {
@@ -1577,10 +1085,10 @@ body {
   margin-top: 1.25rem;
   padding: 0.875rem;
   border-radius: 0.875rem;
-  border: 1px solid rgba(255, 176, 32, 0.18);
+  border: 1px solid rgba(56, 189, 248, 0.18);
   background: linear-gradient(
     165deg,
-    rgba(255, 176, 32, 0.07) 0%,
+    rgba(56, 189, 248, 0.07) 0%,
     rgba(255, 255, 255, 0.02) 72%
   );
 }
@@ -1622,10 +1130,10 @@ body {
   border-radius: 0.75rem;
   font-size: 0.9375rem;
   font-weight: 700;
-  color: #0a0e12;
+  color: #0a0d1f;
   cursor: pointer;
-  background: linear-gradient(135deg, #ffb020 0%, #e69500 100%);
-  box-shadow: 0 4px 14px rgba(255, 176, 32, 0.22);
+  background: linear-gradient(135deg, #38bdf8 0%, #0ea5e9 100%);
+  box-shadow: 0 4px 14px rgba(56, 189, 248, 0.22);
   transition: filter 0.2s ease, background-color 0.2s ease;
 }
 @media (min-width: 640px) {
@@ -1678,7 +1186,7 @@ body {
   height: 1.125rem;
   flex-shrink: 0;
   border-radius: 2px;
-  background: #ffb020;
+  background: #38bdf8;
 }
 .seo-section__lead {
   margin-top: 0.375rem;
@@ -1693,18 +1201,18 @@ body {
   gap: 0.5rem;
   min-height: 2.5rem;
   padding: 0 1.125rem;
-  border-radius: 9999px;
-  border: 1px solid rgba(255, 176, 32, 0.35);
-  background: rgba(255, 176, 32, 0.08);
+  border-radius: 0.75rem;
+  border: 1px solid rgba(56, 189, 248, 0.35);
+  background: rgba(56, 189, 248, 0.08);
   font-size: 0.875rem;
   font-weight: 600;
-  color: #ffb020;
+  color: #38bdf8;
   cursor: pointer;
   transition: border-color 0.2s ease, background-color 0.2s ease;
 }
 .seo-station-list__more:hover {
-  border-color: rgba(255, 176, 32, 0.55);
-  background: rgba(255, 176, 32, 0.14);
+  border-color: rgba(56, 189, 248, 0.55);
+  background: rgba(56, 189, 248, 0.14);
 }
 .seo-station-list__more-count {
   font-size: 0.75rem;
@@ -1746,52 +1254,6 @@ body {
   line-height: 1.45;
   color: #9aa8b5;
 }
-.seo-list-engage__channels {
-  margin: 0.75rem 0 0;
-  padding: 0;
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 0.375rem;
-}
-.seo-list-engage__channel {
-  display: flex;
-  align-items: flex-start;
-  gap: 0.625rem;
-  padding: 0.625rem 0.75rem;
-  border-radius: 0.625rem;
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  background: rgba(0, 0, 0, 0.15);
-  cursor: pointer;
-  transition: border-color 0.2s ease, background-color 0.2s ease;
-}
-.seo-list-engage__channel:hover {
-  border-color: rgba(255, 176, 32, 0.28);
-  background: rgba(255, 176, 32, 0.05);
-}
-.seo-list-engage__channel-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 2rem;
-  height: 2rem;
-  flex-shrink: 0;
-  border-radius: 0.5rem;
-  background: rgba(255, 255, 255, 0.06);
-}
-.seo-list-engage__channel-name {
-  display: block;
-  font-size: 0.8125rem;
-  font-weight: 700;
-  color: #fff;
-}
-.seo-list-engage__channel-benefit {
-  display: block;
-  margin-top: 0.125rem;
-  font-size: 0.75rem;
-  line-height: 1.35;
-  color: #9aa8b5;
-}
 .seo-list-engage__share {
   display: flex;
   flex-wrap: wrap;
@@ -1804,7 +1266,7 @@ body {
   gap: 0.375rem;
   min-height: 2.125rem;
   padding: 0 0.75rem;
-  border-radius: 9999px;
+  border-radius: 0.75rem;
   border: 1px solid rgba(255, 255, 255, 0.1);
   background: rgba(255, 255, 255, 0.04);
   font-size: 0.75rem;
@@ -1814,28 +1276,15 @@ body {
   transition: border-color 0.2s ease, background-color 0.2s ease;
 }
 .seo-list-engage__share-btn:hover {
-  border-color: rgba(255, 176, 32, 0.35);
-  background: rgba(255, 176, 32, 0.08);
+  border-color: rgba(56, 189, 248, 0.35);
+  background: rgba(56, 189, 248, 0.08);
 }
 .seo-list-engage__share-btn--accent {
-  color: #ffb020;
-  border-color: rgba(255, 176, 32, 0.25);
+  color: #38bdf8;
+  border-color: rgba(56, 189, 248, 0.25);
 }
-.seo-list-engage__wa {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 1rem;
-  height: 1rem;
-  border-radius: 0.25rem;
-  background: #25d366;
-  font-size: 0.5rem;
-  font-weight: 800;
-  color: #fff;
-}
-.seo-list-engage__share-btn:focus-visible,
-.seo-list-engage__channel:focus-visible {
-  outline: 2px solid #ffb020;
+.seo-list-engage__share-btn:focus-visible {
+  outline: 2px solid #38bdf8;
   outline-offset: 2px;
 }
 
@@ -1879,7 +1328,7 @@ body {
   gap: 0.5rem;
   min-height: 2.75rem;
   padding: 0 1rem;
-  border-radius: 9999px;
+  border-radius: 0.75rem;
   border: 1px solid transparent;
   font-size: 0.8125rem;
   font-weight: 700;
@@ -1898,14 +1347,8 @@ body {
   box-shadow: 0 10px 32px rgba(0, 0, 0, 0.48);
 }
 .seo-float-fab--share {
-  color: #0a0e12;
-  background: linear-gradient(135deg, #ffb020 0%, #e69500 100%);
-}
-.seo-float-fab--subscribe {
-  color: #e8ecf0;
-  border-color: rgba(255, 255, 255, 0.14);
-  background: rgba(22, 28, 36, 0.94);
-  backdrop-filter: blur(12px);
+  color: #0a0d1f;
+  background: linear-gradient(135deg, #38bdf8 0%, #0ea5e9 100%);
 }
 .seo-float-fab__label {
   white-space: nowrap;
@@ -1958,7 +1401,7 @@ body {
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: #ffb020;
+  color: #38bdf8;
 }
 .seo-float-card__title {
   margin: 0.375rem 0 0;
@@ -1997,75 +1440,16 @@ body {
   transition: border-color 0.2s ease, background-color 0.2s ease;
 }
 .seo-float-card__action:hover {
-  border-color: rgba(255, 176, 32, 0.35);
-  background: rgba(255, 176, 32, 0.08);
-}
-.seo-float-card__wa {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 1.25rem;
-  height: 1.25rem;
-  border-radius: 0.25rem;
-  background: #25d366;
-  font-size: 0.5625rem;
-  font-weight: 800;
-  color: #fff;
-}
-.seo-float-card__channels {
-  margin: 0.75rem 0 0;
-  padding: 0;
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 0.375rem;
-}
-.seo-float-channel {
-  display: flex;
-  align-items: flex-start;
-  gap: 0.625rem;
-  padding: 0.625rem 0.75rem;
-  border-radius: 0.75rem;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  background: rgba(255, 255, 255, 0.03);
-  cursor: pointer;
-  transition: border-color 0.2s ease, background-color 0.2s ease;
-}
-.seo-float-channel:hover {
-  border-color: rgba(255, 176, 32, 0.3);
-  background: rgba(255, 176, 32, 0.06);
-}
-.seo-float-channel__icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 2rem;
-  height: 2rem;
-  flex-shrink: 0;
-  border-radius: 0.5rem;
-  background: rgba(255, 255, 255, 0.06);
-}
-.seo-float-channel__name {
-  display: block;
-  font-size: 0.875rem;
-  font-weight: 700;
-  color: #fff;
-}
-.seo-float-channel__benefit {
-  display: block;
-  margin-top: 0.125rem;
-  font-size: 0.75rem;
-  line-height: 1.35;
-  color: #9aa8b5;
+  border-color: rgba(56, 189, 248, 0.35);
+  background: rgba(56, 189, 248, 0.08);
 }
 .seo-float-fab:focus-visible {
-  outline: 2px solid #ffb020;
+  outline: 2px solid #38bdf8;
   outline-offset: 2px;
 }
 .seo-float-card__action:focus-visible,
-.seo-float-channel:focus-visible,
 .seo-station-list__more:focus-visible {
-  outline: 2px solid #ffb020;
+  outline: 2px solid #38bdf8;
   outline-offset: 2px;
 }
 
@@ -2099,55 +1483,12 @@ body {
   line-height: 1.2;
 }
 
-.seo-share-panel__menu {
-  position: absolute;
-  left: 0;
-  top: calc(100% + 0.5rem);
-  z-index: 40;
-  min-width: min(20rem, calc(100vw - 2rem));
-  border-radius: 1rem;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  background: #1a1f28;
-  padding: 0.5rem;
-  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.45);
-}
-.seo-share-panel__menu-title {
-  padding: 0.5rem 0.75rem 0.25rem;
-  font-size: 0.75rem;
-  font-weight: 600;
-  color: #9aa4b2;
-}
-.seo-share-panel__item {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 0.125rem;
-  width: 100%;
-  padding: 0.625rem 0.75rem;
-  border-radius: 0.625rem;
-  text-align: left;
-  cursor: pointer;
-  transition: background-color 0.15s ease;
-}
-.seo-share-panel__item:hover {
-  background: rgba(255, 176, 32, 0.1);
-}
-.seo-share-panel__item-label {
-  font-size: 0.875rem;
-  font-weight: 600;
-  color: #e8ecf0;
-}
-.seo-share-panel__item-hint {
-  font-size: 0.75rem;
-  color: #9aa4b2;
-}
-
 .seo-share-block {
   width: 100%;
 }
 .seo-share-block__inner {
   border-radius: 0.875rem;
-  border: 1px solid rgba(255, 176, 32, 0.18);
+  border: 1px solid rgba(56, 189, 248, 0.18);
   background: rgba(255, 255, 255, 0.03);
   padding: 0.625rem 0.75rem;
 }
@@ -2176,7 +1517,7 @@ body {
   gap: 0.3125rem;
   min-height: 2rem;
   padding: 0 0.625rem;
-  border-radius: 9999px;
+  border-radius: 0.75rem;
   border: 1px solid rgba(255, 255, 255, 0.1);
   background: rgba(255, 255, 255, 0.04);
   font-size: 0.75rem;
@@ -2187,183 +1528,15 @@ body {
   transition: border-color 0.2s ease, background-color 0.2s ease;
 }
 .seo-share-block__quick-btn:hover {
-  border-color: rgba(255, 176, 32, 0.35);
-  background: rgba(255, 176, 32, 0.08);
+  border-color: rgba(56, 189, 248, 0.35);
+  background: rgba(56, 189, 248, 0.08);
 }
 .seo-share-block__quick-btn--more {
-  color: #ffb020;
+  color: #38bdf8;
 }
 .seo-share-block__quick-btn--install {
-  color: #ffb020;
+  color: #38bdf8;
 }
-.seo-share-block__wa {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 1rem;
-  height: 1rem;
-  border-radius: 0.25rem;
-  background: #25d366;
-  font-size: 0.5rem;
-  font-weight: 800;
-  color: #fff;
-}
-.seo-share-block__menu {
-  margin-top: 0.375rem;
-  border-radius: 0.625rem;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  background: rgba(0, 0, 0, 0.25);
-  padding: 0.25rem;
-}
-
-.seo-bot-subscribe {
-  border-radius: 0.875rem;
-  border: 1px solid rgba(255, 176, 32, 0.18);
-  background: rgba(255, 255, 255, 0.03);
-  padding: 0.625rem 0.75rem;
-}
-.seo-bot-subscribe__row {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-@media (min-width: 640px) {
-  .seo-bot-subscribe__row {
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    gap: 0.75rem;
-  }
-}
-.seo-bot-subscribe__lead {
-  margin: 0;
-  font-size: 0.8125rem;
-  line-height: 1.4;
-  color: #fff;
-}
-.seo-bot-subscribe__lead-muted {
-  font-weight: 400;
-  color: #9aa8b5;
-}
-.seo-bot-subscribe__pills {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.375rem;
-  flex-shrink: 0;
-}
-.seo-bot-subscribe__pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.375rem;
-  min-height: 2rem;
-  padding: 0 0.625rem;
-  border-radius: 9999px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  background: rgba(255, 255, 255, 0.04);
-  font-size: 0.75rem;
-  font-weight: 600;
-  color: #e8ecf0;
-  transition: border-color 0.2s ease, background-color 0.2s ease;
-  cursor: pointer;
-}
-.seo-bot-subscribe__pill:hover {
-  border-color: rgba(255, 176, 32, 0.35);
-  background: rgba(255, 176, 32, 0.08);
-}
-.seo-bot-subscribe__pill--telegram:hover {
-  border-color: rgba(42, 171, 238, 0.4);
-}
-.seo-bot-subscribe__pill--max:hover {
-  border-color: rgba(124, 92, 255, 0.4);
-}
-.seo-bot-subscribe__pill-name {
-  color: #fff;
-}
-.seo-bot-subscribe__pill-handle {
-  color: #ffb020;
-  font-weight: 500;
-}
-
-/* Legacy card grid — онбординг и прочие места */
-.seo-bot-grid {
-  display: grid;
-  gap: 0.75rem;
-}
-.seo-bot-grid--primary {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-}
-@media (min-width: 768px) {
-  .seo-bot-grid:not(.seo-bot-grid--primary) {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-}
-.seo-bot-card__logo {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 2.75rem;
-  height: 2.75rem;
-  border-radius: 0.75rem;
-  background: rgba(255, 255, 255, 0.06);
-  margin-bottom: 0.25rem;
-}
-.seo-bot-card--tg .seo-bot-card__logo {
-  color: #2aabee;
-  background: rgba(42, 171, 238, 0.12);
-}
-.seo-bot-card--max .seo-bot-card__logo {
-  background: rgba(124, 92, 255, 0.12);
-}
-.seo-bot-card {
-  display: flex;
-  flex-direction: column;
-  gap: 0.375rem;
-  border-radius: 1rem;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  background: rgba(0, 0, 0, 0.2);
-  padding: 1rem;
-  transition:
-    border-color 0.2s ease,
-    transform 0.2s ease,
-    background-color 0.2s ease;
-}
-.seo-bot-card:hover {
-  border-color: rgba(255, 176, 32, 0.35);
-  background: rgba(255, 176, 32, 0.06);
-  transform: translateY(-1px);
-}
-.seo-bot-card__name {
-  font-size: 1rem;
-  font-weight: 700;
-  color: #fff;
-}
-.seo-bot-card__handle {
-  font-size: 0.8125rem;
-  font-weight: 600;
-  color: #ffb020;
-}
-.seo-bot-card__tagline {
-  flex: 1;
-  font-size: 0.8125rem;
-  line-height: 1.45;
-  color: #b8c0cc;
-}
-.seo-bot-card__cta {
-  margin-top: 0.5rem;
-  font-size: 0.8125rem;
-  font-weight: 600;
-  color: #ffb020;
-}
-.seo-bot-card--tg:hover {
-  border-color: rgba(42, 171, 238, 0.45);
-}
-.seo-bot-card--vk:hover {
-  border-color: rgba(76, 117, 163, 0.45);
-}
-.seo-bot-card--max:hover {
-  border-color: rgba(124, 92, 255, 0.45);
-}
-
 /* Три основные кнопки в карточке АЗС */
 .station-actions {
   display: flex;
@@ -2373,31 +1546,36 @@ body {
 /* Главная кнопка карточки закреплена внизу, вне скролла — доступна без
    прокрутки мимо блоков цены/очереди (см. StationPanel.tsx). */
 .station-sheet__footer {
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
   background: rgba(12, 16, 22, 0.97);
-  padding: 0.625rem 1rem calc(0.625rem + env(safe-area-inset-bottom, 0px));
+  padding: 0 1rem calc(0.625rem + env(safe-area-inset-bottom, 0px));
 }
 .station-actions__primary {
   display: inline-flex;
-  min-height: 3rem;
+  min-height: 3.125rem;
   width: 100%;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  border-radius: 0.75rem;
-  background: #ffb020;
+  border-radius: 0.875rem;
+  background: linear-gradient(180deg, #4dd0fb 0%, #38bdf8 55%, #0ea5e9 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.4),
+    0 4px 14px rgba(56, 189, 248, 0.35);
   padding: 0 1rem;
   font-size: 1rem;
   font-weight: 700;
-  color: #0a0e12;
+  color: #0a0d1f;
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  transition:
+    filter 0.2s ease,
+    transform 0.12s ease;
 }
 .station-actions__primary:hover {
-  background: #e69500;
+  filter: brightness(1.06);
 }
 .station-actions__primary:active {
-  transform: scale(0.96);
+  transform: scale(0.97);
+  filter: brightness(0.96);
 }
 .station-actions__row {
   display: grid;
@@ -2411,8 +1589,9 @@ body {
   justify-content: center;
   gap: 0.375rem;
   border-radius: 0.75rem;
-  border: 1px solid rgba(0, 212, 170, 0.35);
-  background: rgba(0, 212, 170, 0.1);
+  border: 1px solid rgba(0, 212, 170, 0.3);
+  background: rgba(0, 212, 170, 0.08);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.25);
   padding: 0 0.625rem;
   font-size: 0.8125rem;
   font-weight: 600;
@@ -2444,13 +1623,17 @@ body {
   gap: 0.625rem;
 }
 .route-actions__title {
-  font-size: 0.875rem;
-  font-weight: 600;
-  color: #ffffff;
+  font-family:
+    ui-monospace, "SFMono-Regular", Menlo, Consolas, "Liberation Mono", monospace;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #7c8aa5;
 }
 .route-actions__grid {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(5.5rem, 1fr));
   gap: 0.375rem;
 }
 .nav-chip {
@@ -2459,9 +1642,10 @@ body {
   justify-content: center;
   min-height: 2.75rem;
   padding: 0 0.75rem;
-  border-radius: 9999px;
-  border: 1px solid rgba(0, 212, 170, 0.25);
-  background: rgba(0, 212, 170, 0.08);
+  border-radius: 0.75rem;
+  border: 1px solid rgba(0, 212, 170, 0.22);
+  background: rgba(0, 212, 170, 0.06);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.25);
   font-size: 0.75rem;
   font-weight: 600;
   color: #00d4aa;
@@ -2477,19 +1661,24 @@ body {
   color: #33e0be;
 }
 
+/* История статусов — «журнал событий» с вертикальной трассой между узлами,
+   как след на осциллографе, вместо простого списка с кружками. */
 .status-timeline {
   margin-bottom: 1rem;
   border-radius: 0.75rem;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  background: rgba(255, 255, 255, 0.03);
-  padding: 0.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(0, 0, 0, 0.16);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3);
+  padding: 0.75rem 0.875rem;
 }
 .status-timeline__title {
-  font-size: 0.75rem;
+  font-family:
+    ui-monospace, "SFMono-Regular", Menlo, Consolas, "Liberation Mono", monospace;
+  font-size: 0.6875rem;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: #9aa8b5;
+  letter-spacing: 0.08em;
+  color: #7c8aa5;
 }
 .status-timeline__subtitle {
   margin-top: 0.125rem;
@@ -2497,29 +1686,41 @@ body {
   color: #9aa8b5;
 }
 .status-timeline__list {
-  margin-top: 0.5rem;
+  margin-top: 0.625rem;
   display: flex;
   flex-direction: column;
-  gap: 0.375rem;
 }
 .status-timeline__item {
+  position: relative;
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.625rem;
+  padding: 0.3125rem 0;
   font-size: 0.8125rem;
 }
+.status-timeline__item:not(:last-child)::before {
+  content: "";
+  position: absolute;
+  left: 0.5625rem;
+  top: 1.25rem;
+  bottom: -0.3125rem;
+  width: 1px;
+  background: rgba(255, 255, 255, 0.12);
+}
 .status-timeline__dot {
+  position: relative;
+  z-index: 1;
   display: inline-flex;
   flex-shrink: 0;
   align-items: center;
   justify-content: center;
-  width: 1.375rem;
-  height: 1.375rem;
-  border-radius: 9999px;
-  font-size: 0.625rem;
+  width: 1.125rem;
+  height: 1.125rem;
+  border-radius: 0.25rem;
+  font-size: 0.5625rem;
   font-weight: 900;
-  color: #0a0e12;
-  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.15);
+  color: #0a0d1f;
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.12);
 }
 
 .header-menu__item {
@@ -2561,8 +1762,8 @@ body {
   transition: color 0.2s ease, background-color 0.2s ease;
 }
 .goroda-alpha__link:hover {
-  color: #ffb020;
-  background: rgba(255, 176, 32, 0.12);
+  color: #38bdf8;
+  background: rgba(56, 189, 248, 0.12);
 }
 
 /* Плавное появление оверлеев и всплывающих панелей */
@@ -2685,7 +1886,7 @@ body {
   margin-top: 0.375rem;
 }
 .legal-prose a {
-  color: #ffb020;
+  color: #38bdf8;
   text-decoration: underline;
   text-underline-offset: 2px;
 }
@@ -2702,8 +1903,8 @@ body {
 .legal-callout {
   margin-top: 2rem;
   border-radius: 1rem;
-  border: 1px solid rgba(255, 176, 32, 0.3);
-  background: rgba(255, 176, 32, 0.1);
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  background: rgba(56, 189, 248, 0.1);
   padding: 1.25rem;
   font-size: 0.875rem;
   color: #e8ecf0;
@@ -2718,7 +1919,7 @@ body {
 }
 .legal-doc-list a {
   font-weight: 600;
-  color: #ffb020;
+  color: #38bdf8;
 }
 .legal-doc-list a:hover {
   color: #ffc04d;
@@ -2771,7 +1972,7 @@ body {
   background: linear-gradient(
     90deg,
     transparent,
-    rgba(255, 176, 32, 0.55) 40%,
+    rgba(56, 189, 248, 0.55) 40%,
     rgba(0, 212, 170, 0.35) 60%,
     transparent
   );
@@ -2787,7 +1988,7 @@ body {
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: #ffb020;
+  color: #38bdf8;
 }
 .cookie-dock__text {
   margin: 0.2rem 0 0;
@@ -2800,12 +2001,12 @@ body {
   font-weight: 600;
   text-decoration: underline;
   text-underline-offset: 2px;
-  text-decoration-color: rgba(255, 176, 32, 0.45);
+  text-decoration-color: rgba(56, 189, 248, 0.45);
   transition: color 0.2s ease, text-decoration-color 0.2s ease;
 }
 .cookie-dock__link:hover {
-  color: #ffb020;
-  text-decoration-color: #ffb020;
+  color: #38bdf8;
+  text-decoration-color: #38bdf8;
 }
 .cookie-dock__accept {
   flex-shrink: 0;
@@ -2814,16 +2015,16 @@ body {
   padding: 0 1rem;
   font-size: 0.8125rem;
   font-weight: 700;
-  color: #0a0e12;
-  background: #ffb020;
+  color: #0a0d1f;
+  background: #38bdf8;
   cursor: pointer;
   transition: background-color 0.2s ease, transform 0.15s ease;
 }
 .cookie-dock__accept:hover {
-  background: #e69500;
+  background: #0ea5e9;
 }
 .cookie-dock__accept:active {
-  transform: scale(0.98);
+  transform: scale(0.96);
 }
 @media (min-width: 640px) {
   .cookie-dock {
@@ -2851,8 +2052,8 @@ body {
      ровно настолько же вырос за счёт padding-bottom. */
   background: linear-gradient(
     to top,
-    rgba(10, 14, 18, 0.92) 0,
-    rgba(10, 14, 18, 0.92) var(--mobile-sheet-peek),
+    rgba(10, 13, 31, 0.92) 0,
+    rgba(10, 13, 31, 0.92) var(--mobile-sheet-peek),
     transparent 100%
   );
   padding-top: 1.5rem;
@@ -2862,7 +2063,7 @@ body {
 }
 @media (min-width: 640px) {
   .legal-bar {
-    background: linear-gradient(to top, rgba(10, 14, 18, 0.92), transparent);
+    background: linear-gradient(to top, rgba(10, 13, 31, 0.92), transparent);
     padding-bottom: 0;
     bottom: 0;
   }
@@ -2884,7 +2085,7 @@ body {
   border-bottom: none;
   box-shadow:
     0 -12px 40px rgba(0, 0, 0, 0.55),
-    0 0 0 1px rgba(255, 176, 32, 0.06);
+    0 0 0 1px rgba(56, 189, 248, 0.06);
   backdrop-filter: blur(18px) saturate(1.25);
   -webkit-backdrop-filter: blur(18px) saturate(1.25);
   padding-bottom: env(safe-area-inset-bottom, 0px);
@@ -2908,7 +2109,7 @@ body {
   background: linear-gradient(
     90deg,
     transparent,
-    rgba(255, 176, 32, 0.55) 45%,
+    rgba(56, 189, 248, 0.55) 45%,
     rgba(0, 212, 170, 0.35) 55%,
     transparent
   );
@@ -2938,7 +2139,7 @@ body {
   height: 0.2rem;
   transform: translateX(-50%);
   border-radius: 999px;
-  background: rgba(255, 176, 32, 0.45);
+  background: rgba(56, 189, 248, 0.45);
 }
 .nearby-sheet__peek-icon {
   display: flex;
@@ -2948,8 +2149,8 @@ body {
   width: 2.25rem;
   height: 2.25rem;
   border-radius: 0.75rem;
-  background: rgba(255, 176, 32, 0.12);
-  color: #ffb020;
+  background: rgba(56, 189, 248, 0.12);
+  color: #38bdf8;
 }
 .nearby-sheet__chevron {
   flex-shrink: 0;
@@ -2967,14 +2168,14 @@ body {
   gap: 0.375rem;
   margin: 0 0.75rem 0.5rem;
   padding: 0.2rem;
-  border-radius: 999px;
+  border-radius: 0.75rem;
   background: rgba(255, 255, 255, 0.05);
   box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06);
 }
 .nearby-sheet__segment {
   flex: 1;
   min-height: 2.25rem;
-  border-radius: 999px;
+  border-radius: 0.75rem;
   font-size: 0.8125rem;
   font-weight: 600;
   color: #9aa8b5;
@@ -2985,12 +2186,12 @@ body {
     transform 0.12s ease;
 }
 .nearby-sheet__segment:active {
-  transform: scale(0.98);
+  transform: scale(0.96);
 }
 .nearby-sheet__segment--active {
-  background: #ffb020;
-  color: #0a0e12;
-  box-shadow: 0 0 18px rgba(255, 176, 32, 0.22);
+  background: #38bdf8;
+  color: #0a0d1f;
+  box-shadow: 0 0 18px rgba(56, 189, 248, 0.22);
 }
 .nearby-sheet__segment-badge {
   margin-left: 0.35rem;
@@ -3000,13 +2201,17 @@ body {
   align-items: center;
   justify-content: center;
   border-radius: 999px;
-  background: rgba(10, 14, 18, 0.2);
+  background: rgba(10, 13, 31, 0.2);
   padding: 0 0.25rem;
   font-size: 0.65rem;
   font-weight: 800;
 }
 
-/* Карточка выбранной АЗС — тот же язык, что у листа «Рядом» */
+/* Карточка выбранной АЗС — «приборная панель»: капсула бортовых приборов
+   (циферблаты, LCD-индикаторы), а не ещё одна стеклянная панель вроде
+   остальных в приложении. Токены объявлены локально и переопределяют
+   --ink-muted (см. verdict-badge ниже), поэтому не протекают в остальной
+   интерфейс. */
 .station-sheet-aside {
   position: fixed;
   /* До самого низа и поверх всего, включая peek-полосу листа «Рядом» —
@@ -3020,13 +2225,13 @@ body {
   max-height: 88dvh;
   flex-direction: column;
   overflow: hidden;
-  border-radius: 1.25rem 1.25rem 0 0;
+  border-radius: 1.5rem 1.5rem 0 0;
   background: rgba(12, 16, 22, 0.97);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-bottom: none;
   box-shadow:
     0 -16px 48px rgba(0, 0, 0, 0.6),
-    0 0 0 1px rgba(255, 176, 32, 0.08);
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
   backdrop-filter: blur(20px) saturate(1.3);
   -webkit-backdrop-filter: blur(20px) saturate(1.3);
 }
@@ -3041,7 +2246,7 @@ body {
     border: none;
     border-left: 1px solid rgba(255, 255, 255, 0.08);
     box-shadow: none;
-    background: #141a21;
+    background: #161a33;
     padding-bottom: 0;
     overflow: visible;
     /* На мобильном карточка выезжает снизу (overlay-sheet-up, класс в
@@ -3055,6 +2260,10 @@ body {
 .station-sheet {
   position: relative;
   min-height: 0;
+  /* Панель чуть светлее/глубже, чем поверхность вокруг неё (тёмный сайдбар
+     на десктопе, лист «Рядом» на мобильном) — читается как отдельный
+     врезанный модуль приборов, а не ещё один слой того же стекла. */
+  background: linear-gradient(165deg, #1c2142 0%, #171a35 45%, #12152a 100%);
 }
 .station-sheet__glow {
   position: absolute;
@@ -3064,7 +2273,7 @@ body {
   background: linear-gradient(
     90deg,
     transparent,
-    rgba(255, 176, 32, 0.6) 45%,
+    rgba(56, 189, 248, 0.6) 45%,
     rgba(0, 212, 170, 0.4) 55%,
     transparent
   );
@@ -3079,13 +2288,12 @@ body {
   height: 0.2rem;
   transform: translateX(-50%);
   border-radius: 999px;
-  background: rgba(255, 176, 32, 0.5);
+  background: rgba(56, 189, 248, 0.5);
   pointer-events: none;
 }
 .station-sheet__head {
   position: relative;
-  padding: 1.35rem 1rem 0.75rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  padding: 1.35rem 1rem 1rem;
   /* Свайп вниз за шапку сворачивает карточку (см. StationPanel.tsx) — без
      этого iOS/Android перехватывают вертикальный жест под предустановленный
      скролл/pull-to-refresh и он конфликтует с драгом. */
@@ -3093,20 +2301,55 @@ body {
 }
 @media (min-width: 640px) {
   .station-sheet__head {
-    padding: 1rem;
+    padding: 1rem 1rem 1.125rem;
     touch-action: auto;
   }
 }
+/* Табличка станции в углу шапки — короткий фрагмент id в рамке под LCD,
+   а не декоративная цифра: его можно назвать в репорте о проблеме. */
+.station-sheet__id-chip {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 0.375rem;
+  border: 1px solid rgba(148, 178, 214, 0.18);
+  background: rgba(0, 0, 0, 0.25);
+  padding: 0.1875rem 0.375rem;
+  font-family:
+    ui-monospace, "SFMono-Regular", Menlo, Consolas, "Liberation Mono", monospace;
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: rgba(226, 235, 250, 0.45);
+  white-space: nowrap;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.4);
+}
+/* Разделитель между шапкой и телом панели — тонкая световая линия монтажной
+   планки вместо перфорации талона. Переиспользуется и перед кнопкой в
+   подвале (см. station-sheet__footer в StationPanel.tsx). */
+.station-sheet__divider {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.14) 15%,
+    rgba(255, 255, 255, 0.14) 85%,
+    transparent
+  );
+}
 .station-sheet__icon-btn {
   display: flex;
-  height: 2.75rem;
-  width: 2.75rem;
+  height: 2.5rem;
+  width: 2.5rem;
   align-items: center;
   justify-content: center;
-  border-radius: 0.75rem;
+  border-radius: 0.625rem;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(0, 0, 0, 0.18);
   color: #9aa8b5;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.35);
   transition:
     background-color 0.15s ease,
+    border-color 0.15s ease,
     color 0.15s ease,
     transform 0.12s ease;
 }
@@ -3115,11 +2358,12 @@ body {
   color: #e8ecf0;
 }
 .station-sheet__icon-btn:active {
-  transform: scale(0.96);
+  transform: scale(0.94);
 }
 .station-sheet__icon-btn--active {
-  color: #ffb020;
-  background: rgba(255, 176, 32, 0.12);
+  border-color: rgba(56, 189, 248, 0.4);
+  color: #38bdf8;
+  background: rgba(56, 189, 248, 0.12);
 }
 .station-sheet__scroll {
   -webkit-overflow-scrolling: touch;
@@ -3132,27 +2376,19 @@ body {
     padding: 1rem;
   }
 }
-.station-sheet__stats {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0.5rem;
-}
-.station-sheet__stat {
-  border-radius: 0.875rem;
+/* Лента отчётов — «журнал событий» приборной панели: у каждой записи своя
+   цветная планка статуса слева (--log-accent, инлайн в StationPanel.tsx)
+   вместо универсальной карточки. */
+.report-log__item {
+  border-radius: 0.625rem;
   background: rgba(255, 255, 255, 0.04);
-  padding: 0.75rem;
-  font-size: 0.875rem;
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06);
-}
-.station-sheet__card {
-  border-radius: 0.875rem;
-  background: rgba(255, 255, 255, 0.04);
-  padding: 0.75rem;
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+  padding: 0.75rem 0.75rem 0.75rem 0.8125rem;
+  border-left: 3px solid var(--log-accent, rgba(255, 255, 255, 0.15));
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.05);
 }
 
 /* Skeleton-заглушка ленты отчётов (вместо текста "Загрузка…") — форма
-   повторяет .station-sheet__card, чтобы контент не "прыгал" при загрузке. */
+   повторяет .report-log__item, чтобы контент не "прыгал" при загрузке. */
 .station-skeleton {
   display: flex;
   flex-direction: column;
@@ -3193,14 +2429,21 @@ body {
   }
 }
 
+/* Вердикт — LCD-полоска приборной панели: инлайновые borderColor/background
+   из VerdictBadge.tsx окрашивают только левую планку (остальные стороны
+   границы обнулены здесь per-side), а не всю рамку блока. */
 .verdict-badge {
-  border-radius: 0.875rem;
-  border: 1px solid;
+  border-radius: 0.625rem;
+  border-style: solid;
+  border-width: 0 0 0 3px;
   padding: 0.75rem 0.875rem;
 }
 .verdict-badge__title {
-  font-size: 0.9375rem;
+  font-family:
+    ui-monospace, "SFMono-Regular", Menlo, Consolas, "Liberation Mono", monospace;
+  font-size: 0.875rem;
   font-weight: 700;
+  letter-spacing: 0.01em;
   line-height: 1.3;
 }
 .verdict-badge__subtitle {
@@ -3211,42 +2454,187 @@ body {
   text-wrap: pretty;
 }
 
-.station-sheet__details {
-  border-radius: 0.875rem;
-  background: rgba(255, 255, 255, 0.04);
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06);
-  overflow: hidden;
-}
-.station-sheet__details-summary {
-  display: flex;
-  width: 100%;
-  min-height: 2.75rem;
-  align-items: center;
-  justify-content: space-between;
+/* Приборный кластер (цена / очередь / свежесть) — три круглых циферблата
+   вместо табличных плиток талона (см. StationPanel.tsx). Число всегда видно
+   в центре шкалы; тап раскрывает подробности одной вкладки ниже. */
+.gauge-cluster {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   gap: 0.5rem;
-  padding: 0.75rem;
-  font-size: 0.8125rem;
-  font-weight: 600;
-  color: var(--ink-muted, #9aa8b5);
-  text-align: left;
-  cursor: pointer;
 }
-/* Аккордеон на CSS Grid (0fr↔1fr) — плавно анимирует высоту без JS-замера,
-   в отличие от нативного <details>, который переключается мгновенно. */
-.station-sheet__details-grid {
+.gauge-cluster__tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.375rem;
+  border-radius: 0.875rem;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(0, 0, 0, 0.16);
+  padding: 0.625rem 0.25rem 0.5rem;
+  text-align: center;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.35);
+  transition:
+    background-color 0.15s ease,
+    border-color 0.15s ease,
+    transform 0.12s ease;
+}
+.gauge-cluster__tile:hover {
+  background: rgba(0, 0, 0, 0.24);
+}
+.gauge-cluster__tile:active {
+  transform: scale(0.97);
+}
+.gauge-cluster__tile--active {
+  border-color: rgba(56, 189, 248, 0.35);
+  background: rgba(56, 189, 248, 0.08);
+}
+.gauge-cluster__label {
+  font-family:
+    ui-monospace, "SFMono-Regular", Menlo, Consolas, "Liberation Mono", monospace;
+  font-size: 0.625rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #7c8aa5;
+}
+.gauge-cluster__sub {
+  min-height: 1.2em;
+  font-size: 0.6875rem;
+  color: var(--ink-muted, #9aa8b5);
+}
+.gauge-cluster__sub--empty {
+  color: #5c6a85;
+}
+.gauge-cluster__chevron {
+  color: #4b5975;
+  transition: transform 0.2s ease;
+}
+.gauge-cluster__tile--active .gauge-cluster__chevron {
+  color: #38bdf8;
+  transform: rotate(180deg);
+}
+
+/* Круглый циферблат — conic-gradient вместо SVG: --pct (0..100) и --gc
+   (цвет метрики) приходят инлайновым style из StationPanel.tsx, тем же
+   приёмом, что и остальные цвета по статусу в этом компоненте. */
+.gauge-dial {
+  --pct: 0;
+  --gc: #4b5975;
+  position: relative;
+  display: grid;
+  width: 3.25rem;
+  height: 3.25rem;
+  place-items: center;
+  border-radius: 50%;
+  background: conic-gradient(var(--gc) calc(var(--pct) * 1%), rgba(255, 255, 255, 0.08) 0);
+}
+.gauge-dial::before {
+  content: "";
+  position: absolute;
+  inset: 5px;
+  border-radius: 50%;
+  background: #12152a;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+.gauge-dial__value {
+  position: relative;
+  z-index: 1;
+  font-family:
+    ui-monospace, "SFMono-Regular", Menlo, Consolas, "Liberation Mono", monospace;
+  font-size: 0.75rem;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  color: #ffffff;
+  line-height: 1;
+}
+
+/* Раскрытие вкладки — CSS Grid 0fr↔1fr вместо animation-only входа: даёт
+   симметричную анимацию в обе стороны (сворачивание тоже плавное, не
+   исчезает мгновенно) и её можно прервать повторным тапом на середине,
+   в отличие от keyframes. Тот же приём, что раньше был у отдельного
+   аккордеона "Подробнее о данных". */
+.gauge-detail-grid {
   display: grid;
   grid-template-rows: 0fr;
-  transition: grid-template-rows 0.25s ease;
+  transition: grid-template-rows 0.28s cubic-bezier(0.22, 1, 0.36, 1);
 }
-.station-sheet__details-grid--open {
+.gauge-detail-grid--open {
   grid-template-rows: 1fr;
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
 }
-.station-sheet__details-grid > div {
+.gauge-detail-inner {
   overflow: hidden;
 }
-.station-sheet__details-body {
-  padding: 0.75rem;
+.gauge-detail {
+  border-radius: 0.75rem;
+  background: rgba(0, 0, 0, 0.16);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.35);
+  padding: 0.875rem 0.875rem 0.75rem;
+}
+@media (prefers-reduced-motion: reduce) {
+  .gauge-detail-grid {
+    transition: none;
+  }
+}
+
+/* Hero Dashboard — крупные карточки метрик (цена / очередь / свежесть)
+   вверху карточки станции вместо раскрывающихся талонов. */
+.hero-metrics {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+}
+.hero-metric {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  border-radius: 0.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(0, 0, 0, 0.16);
+  padding: 0.75rem 0.5rem 0.625rem;
+  text-align: center;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.35);
+}
+.hero-metric__value {
+  font-family:
+    ui-monospace, "SFMono-Regular", Menlo, Consolas, "Liberation Mono", monospace;
+  font-size: 1.25rem;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.1;
+  color: #ffffff;
+}
+.hero-metric__label {
+  font-size: 0.625rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #5c6a85;
+  min-height: 1.2em;
+}
+.hero-metric__sub {
+  font-size: 0.6875rem;
+  color: #9aa8b5;
+}
+.hero-metric__sub--empty {
+  color: #5c6a85;
+}
+
+/* Строка счётчика отчётов под вердиктом */
+.report-count {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  color: #9aa8b5;
+  margin-top: 0.375rem;
+}
+.report-count__icon {
+  display: inline-flex;
+  width: 1rem;
+  height: 1rem;
+  align-items: center;
+  justify-content: center;
 }
 
 .situation-map .map-zoom-controls {
@@ -3281,7 +2669,7 @@ body {
   background: linear-gradient(
     90deg,
     transparent,
-    rgba(255, 176, 32, 0.55) 45%,
+    rgba(56, 189, 248, 0.55) 45%,
     rgba(0, 212, 170, 0.35) 55%,
     transparent
   );
@@ -3342,9 +2730,9 @@ body {
   align-items: center;
   justify-content: center;
   border-radius: 0.75rem;
-  background: rgba(255, 176, 32, 0.12);
-  color: #ffb020;
-  box-shadow: inset 0 0 0 1px rgba(255, 176, 32, 0.2);
+  background: rgba(56, 189, 248, 0.12);
+  color: #38bdf8;
+  box-shadow: inset 0 0 0 1px rgba(56, 189, 248, 0.2);
 }
 .map-dock__reset {
   display: inline-flex;
@@ -3353,7 +2741,7 @@ body {
   gap: 0.375rem;
   min-height: 2rem;
   padding: 0 0.625rem;
-  border-radius: 999px;
+  border-radius: 0.75rem;
   font-size: 0.75rem;
   font-weight: 600;
   color: #9aa8b5;
@@ -3385,7 +2773,7 @@ body {
   flex-shrink: 0;
   align-items: center;
   gap: 0.375rem;
-  border-radius: 999px;
+  border-radius: 0.75rem;
   padding: 0 0.875rem;
   font-size: 0.875rem;
   font-weight: 600;
@@ -3401,10 +2789,10 @@ body {
   background: rgba(255, 255, 255, 0.1);
 }
 .map-dock__filter-btn--active {
-  color: #0a0e12;
-  background: #ffb020;
-  border-color: #ffb020;
-  box-shadow: 0 0 20px rgba(255, 176, 32, 0.25);
+  color: #0a0d1f;
+  background: #38bdf8;
+  border-color: #38bdf8;
+  box-shadow: 0 0 20px rgba(56, 189, 248, 0.25);
 }
 .map-dock__filter-badge {
   display: flex;
@@ -3416,8 +2804,8 @@ body {
   padding: 0 0.25rem;
   font-size: 0.75rem;
   font-weight: 700;
-  color: #ffb020;
-  background: #0a0e12;
+  color: #38bdf8;
+  background: #0a0d1f;
 }
 .map-dock__active-chips {
   position: relative;
@@ -3429,14 +2817,14 @@ body {
 }
 .map-dock__active-chip {
   flex-shrink: 0;
-  border-radius: 999px;
+  border-radius: 0.75rem;
   padding: 0.2rem 0.625rem;
   font-size: 0.6875rem;
   font-weight: 600;
   letter-spacing: 0.02em;
-  color: #ffb020;
-  background: rgba(255, 176, 32, 0.1);
-  border: 1px solid rgba(255, 176, 32, 0.25);
+  color: #38bdf8;
+  background: rgba(56, 189, 248, 0.1);
+  border: 1px solid rgba(56, 189, 248, 0.25);
 }
 .map-dock__filters {
   position: relative;
@@ -3516,7 +2904,7 @@ body {
   gap: 0.375rem;
   min-height: 2.25rem;
   padding: 0 0.75rem;
-  border-radius: 999px;
+  border-radius: 0.75rem;
   font-size: 0.75rem;
   font-weight: 700;
   color: #e8ecf0;
@@ -3532,25 +2920,29 @@ body {
   background: rgba(255, 255, 255, 0.1);
 }
 .map-dock__action--active {
-  color: #0a0e12;
+  color: #0a0d1f;
   background: #00d4aa;
   border-color: #00d4aa;
   box-shadow: 0 0 18px rgba(0, 212, 170, 0.3);
 }
 .map-dock__action--urgent.map-dock__action--active {
-  background: #ffb020;
-  border-color: #ffb020;
-  box-shadow: 0 0 18px rgba(255, 176, 32, 0.35);
+  background: #38bdf8;
+  border-color: #38bdf8;
+  box-shadow: 0 0 18px rgba(56, 189, 248, 0.35);
 }
 
 /* Планировщик маршрута */
 .route-planner {
   position: relative;
   z-index: 2;
-  border-radius: 0.875rem;
+  border-radius: 0.5rem;
   padding: 0.625rem;
   background: rgba(0, 0, 0, 0.2);
   border: 1px solid rgba(255, 255, 255, 0.08);
+}
+.route-planner--light {
+  background: #f7f9fb;
+  border-color: #e6eaf0;
 }
 .route-planner__head {
   display: flex;
@@ -3577,7 +2969,7 @@ body {
   min-height: 2rem;
   align-items: center;
   padding: 0 0.75rem;
-  border-radius: 999px;
+  border-radius: 0.75rem;
   font-size: 0.75rem;
   font-weight: 600;
   color: #e8ecf0;
@@ -3589,8 +2981,8 @@ body {
   transition: background-color 0.15s ease;
 }
 .search-history__chip:hover {
-  background: rgba(255, 176, 32, 0.15);
-  border-color: rgba(255, 176, 32, 0.35);
+  background: rgba(56, 189, 248, 0.15);
+  border-color: rgba(56, 189, 248, 0.35);
 }
 
 /* Быстрый отчёт в списке — свёрнут по умолчанию */
@@ -3607,22 +2999,22 @@ body {
   min-height: 3rem;
   padding: 0.75rem 0.875rem;
   border-radius: 0.875rem;
-  border: 1px solid rgba(255, 176, 32, 0.3);
-  background: rgba(255, 176, 32, 0.1);
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  background: rgba(56, 189, 248, 0.1);
   font-size: 0.875rem;
   font-weight: 700;
-  color: #ffb020;
+  color: #38bdf8;
   text-align: left;
   transition:
     background-color 0.15s ease,
     border-color 0.15s ease;
 }
 .quick-report-toggle:hover {
-  background: rgba(255, 176, 32, 0.16);
-  border-color: rgba(255, 176, 32, 0.45);
+  background: rgba(56, 189, 248, 0.16);
+  border-color: rgba(56, 189, 248, 0.45);
 }
 .quick-report-toggle:active {
-  transform: scale(0.98);
+  transform: scale(0.96);
 }
 .quick-report-toggle__icon {
   display: flex;
@@ -3632,7 +3024,7 @@ body {
   align-items: center;
   justify-content: center;
   border-radius: 999px;
-  background: rgba(255, 176, 32, 0.2);
+  background: rgba(56, 189, 248, 0.2);
 }
 .quick-report-toggle__label {
   flex: 1;
@@ -3646,7 +3038,7 @@ body {
   align-items: center;
   gap: 0.3125rem;
   padding: 0 0.75rem;
-  border-radius: 999px;
+  border-radius: 0.75rem;
   border: 1px solid rgba(255, 255, 255, 0.1);
   background: rgba(255, 255, 255, 0.04);
   font-size: 0.75rem;
@@ -3658,8 +3050,8 @@ body {
     background-color 0.15s ease;
 }
 .quick-report-toggle--compact:hover {
-  border-color: rgba(255, 176, 32, 0.4);
-  color: #ffb020;
+  border-color: rgba(56, 189, 248, 0.4);
+  color: #38bdf8;
 }
 .quick-report-panel {
   border-radius: 0.75rem;
@@ -3708,15 +3100,15 @@ body {
     transform 0.12s ease;
 }
 .quick-report-opt:active {
-  transform: scale(0.98);
+  transform: scale(0.96);
 }
 .quick-report-opt--yes:hover {
   border-color: rgba(76, 175, 80, 0.5);
   background: rgba(76, 175, 80, 0.12);
 }
 .quick-report-opt--low:hover {
-  border-color: rgba(255, 176, 32, 0.5);
-  background: rgba(255, 176, 32, 0.12);
+  border-color: rgba(56, 189, 248, 0.5);
+  background: rgba(56, 189, 248, 0.12);
 }
 .quick-report-opt--no:hover {
   border-color: rgba(229, 57, 53, 0.5);
@@ -3768,48 +3160,6 @@ body {
 .quick-report-thanks p {
   margin: 0;
 }
-.quick-report-thanks__sub {
-  margin: 0.5rem 0 0;
-  font-size: 0.6875rem;
-  font-weight: 500;
-  color: #9aa8b5;
-}
-.quick-report-channels {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.375rem;
-  margin-top: 0.5rem;
-}
-.quick-report-channels__btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.375rem;
-  min-height: 2rem;
-  padding: 0 0.625rem;
-  border-radius: 9999px;
-  font-size: 0.6875rem;
-  font-weight: 700;
-  text-decoration: none;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  transition: background-color 0.2s ease, border-color 0.2s ease;
-}
-.quick-report-channels__btn--tg {
-  color: #26a5e4;
-  background: rgba(38, 165, 228, 0.1);
-  border-color: rgba(38, 165, 228, 0.35);
-}
-.quick-report-channels__btn--tg:hover {
-  background: rgba(38, 165, 228, 0.18);
-}
-.quick-report-channels__btn--max {
-  color: #e8ecf0;
-  background: rgba(124, 92, 255, 0.12);
-  border-color: rgba(124, 92, 255, 0.35);
-}
-.quick-report-channels__btn--max:hover {
-  background: rgba(124, 92, 255, 0.2);
-}
-
 .yandex-rtb-slot {
   display: block;
   width: 100%;
@@ -3886,9 +3236,9 @@ body {
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background: #ffb020;
-  border: 2px solid #141a21;
-  box-shadow: 0 0 6px rgba(255, 176, 32, 0.6);
+  background: #38bdf8;
+  border: 2px solid #161a33;
+  box-shadow: 0 0 6px rgba(56, 189, 248, 0.6);
 }
 /* Ранг станции при активном чипе "Топ-3 дешевле" — объясняет, почему
    именно эта тройка показана (см. StationList.tsx). */
@@ -3902,12 +3252,260 @@ body {
   align-items: center;
   justify-content: center;
   border-radius: 999px;
-  border: 2px solid #141a21;
+  border: 2px solid #161a33;
   background: #00c853;
   padding: 0 3px;
   font-size: 9px;
   font-weight: 800;
-  color: #0a0e12;
+  color: #0a0d1f;
+}
+
+/* ============================================================
+   Светлый десктопный сайдбар карты (см. MapSidebar.tsx). Мобильная
+   версия (MobileNearbySheet, MapDock) остаётся тёмной — эти классы
+   применяются только внутри <aside> сайдбара, видимого от sm: и выше.
+   ============================================================ */
+
+.map-sidebar {
+  background: #f2f4f8;
+}
+
+.map-sidebar__panel {
+  background: #ffffff;
+  border-bottom: 1px solid #e6eaf0;
+}
+
+.map-sidebar__disclaimer {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 0.75rem;
+  border: 1px solid #e6eaf0;
+  background: #f7f9fb;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.75rem;
+  line-height: 1.35;
+  color: #6b7480;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+.map-sidebar__disclaimer:hover {
+  background: #eff2f6;
+}
+.map-sidebar__disclaimer-chevron {
+  flex-shrink: 0;
+  margin-left: auto;
+  color: #9aa3af;
+  transition: transform 0.2s ease;
+}
+.map-sidebar__disclaimer-chevron--open {
+  transform: rotate(180deg);
+}
+.map-sidebar__disclaimer-body {
+  margin-top: 0.5rem;
+  border-radius: 0.75rem;
+  border: 1px solid #e6eaf0;
+  background: #f7f9fb;
+  padding: 0.625rem 0.75rem;
+  font-size: 0.75rem;
+  line-height: 1.5;
+  color: #6b7480;
+}
+
+.map-sidebar__route-btn {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 2.75rem;
+  border-radius: 0.875rem;
+  border: 1px solid #e6eaf0;
+  background: #ffffff;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #121722;
+  transition:
+    border-color 0.15s ease,
+    background-color 0.15s ease,
+    color 0.15s ease;
+}
+.map-sidebar__route-btn:hover {
+  border-color: rgba(56, 189, 248, 0.5);
+  background: rgba(56, 189, 248, 0.06);
+}
+.map-sidebar__route-btn--active {
+  border-color: #38bdf8;
+  background: rgba(56, 189, 248, 0.12);
+  color: #0369a1;
+}
+
+.map-sidebar__actions {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.5rem;
+}
+.map-sidebar__action {
+  position: relative;
+  display: flex;
+  min-height: 2.5rem;
+  align-items: center;
+  justify-content: center;
+  gap: 0.375rem;
+  border-radius: 0.75rem;
+  border: 1px solid #e6eaf0;
+  background: #ffffff;
+  padding: 0 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #3a4250;
+  white-space: nowrap;
+  transition:
+    border-color 0.15s ease,
+    background-color 0.15s ease,
+    color 0.15s ease;
+}
+.map-sidebar__action:hover {
+  border-color: #d3d9e2;
+  background: #f7f9fb;
+}
+.map-sidebar__action--active {
+  border-color: #38bdf8;
+  background: rgba(56, 189, 248, 0.1);
+  color: #0369a1;
+}
+.map-sidebar__action-dot {
+  position: absolute;
+  top: -3px;
+  right: -3px;
+  width: 9px;
+  height: 9px;
+  border-radius: 999px;
+  background: #00c853;
+  border: 2px solid #ffffff;
+}
+
+.map-sidebar__support {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 2.75rem;
+  border-radius: 0.75rem;
+  border: 1px solid rgba(0, 200, 83, 0.35);
+  background: rgba(0, 200, 83, 0.08);
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: #0b8a3c;
+  transition:
+    background-color 0.15s ease,
+    border-color 0.15s ease;
+}
+.map-sidebar__support:hover {
+  background: rgba(0, 200, 83, 0.14);
+  border-color: rgba(0, 200, 83, 0.55);
+}
+
+.map-sidebar__tabs {
+  display: flex;
+  gap: 0.375rem;
+  overflow-x: auto;
+}
+.map-sidebar__tab {
+  flex-shrink: 0;
+  border: 1px solid transparent;
+  border-radius: 0.75rem;
+  padding: 0.375rem 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #6b7480;
+  background: #eef1f5;
+  white-space: nowrap;
+  transition: all 0.15s ease;
+}
+.map-sidebar__tab--active {
+  border-color: #38bdf8;
+  background: #38bdf8;
+  color: #04283a;
+}
+.map-sidebar__tab:hover:not(.map-sidebar__tab--active) {
+  background: #e4e8ee;
+  color: #121722;
+}
+
+.map-sidebar__section-title {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: #121722;
+}
+
+/* Карточка станции в светлом сайдбаре — заменяет .glass-card только внутри
+   <aside class="map-sidebar">, мобильный тёмный список (MobileNearbySheet) не трогает. */
+.station-card-light {
+  display: flex;
+  width: 100%;
+  gap: 0.75rem;
+  border-radius: 1rem;
+  border: 1px solid #e6eaf0;
+  background: #ffffff;
+  padding: 0.75rem;
+  text-align: left;
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease,
+    transform 0.1s ease;
+}
+.station-card-light:hover {
+  border-color: #d3d9e2;
+  box-shadow: 0 4px 16px rgba(18, 23, 34, 0.07);
+}
+.station-card-light:active {
+  transform: scale(0.96);
+}
+.station-status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  border-radius: 0.75rem;
+  padding: 0.125rem 0.5rem;
+  font-size: 0.6875rem;
+  font-weight: 700;
+}
+
+/* Зум/локация и легенда карты — светлые на десктопе (от sm: и выше), тёмное
+   стекло остаётся как есть на мобильном (см. .glass-dock и его @media выше). */
+@media (min-width: 640px) {
+  .map-zoom-controls--paper {
+    background: #ffffff;
+    box-shadow:
+      0 8px 24px rgba(18, 23, 34, 0.12),
+      0 0 0 1px #e6eaf0;
+  }
+  .map-zoom-controls--paper .map-zoom-btn {
+    color: #3a4250;
+  }
+  .map-zoom-controls--paper .map-zoom-btn:hover {
+    color: #0369a1;
+    background: rgba(56, 189, 248, 0.08);
+  }
+  .map-zoom-controls--paper .map-zoom-btn--active {
+    color: #0369a1;
+  }
+  .map-zoom-controls--paper .map-zoom-sep {
+    background: #e6eaf0;
+  }
+  .map-legend__track.map-legend--paper {
+    background: #ffffff;
+    box-shadow:
+      0 8px 24px rgba(18, 23, 34, 0.12),
+      0 0 0 1px #e6eaf0;
+  }
+  .map-legend__track.map-legend--paper .map-legend__label {
+    color: #3a4250;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
