@@ -37,7 +37,6 @@ import BrandBadge from "./BrandBadge";
 import VerdictBadge from "./VerdictBadge";
 import QuickReportBar from "./QuickReportBar";
 import {
-  ChevronDownIcon,
   ClockIcon,
   CloseIcon,
   CrosshairIcon,
@@ -95,20 +94,6 @@ export default function StationPanel({
   const [confirmError, setConfirmError] = useState<string | null>(null);
   const [confirmingId, setConfirmingId] = useState<string | null>(null);
   const [showOldReports, setShowOldReports] = useState(false);
-  // Три «окошка» талона (цена/очередь/свежесть) — вместо трёх разных
-  // виджетов (всегда открытые блоки цены/очереди + отдельный аккордеон
-  // свежести) один общий паттерн: заголовок талона показывает главное
-  // число сразу, разворачивается по тапу только одна вкладка за раз.
-  const [openTile, setOpenTile] = useState<"price" | "queue" | "freshness" | null>(
-    null
-  );
-  // Отстаёт от openTile при закрытии — во время сворачивания grid-анимации
-  // (см. .ticket-gauge__detail-grid в globals.css) контент вкладки должен
-  // ещё секунду оставаться на месте, а не пропадать мгновенно раньше высоты.
-  const [displayTile, setDisplayTile] = useState<typeof openTile>(null);
-  useEffect(() => {
-    if (openTile) setDisplayTile(openTile);
-  }, [openTile]);
   const [priceConfirming, setPriceConfirming] = useState(false);
   const [priceConfirmed, setPriceConfirmed] = useState(false);
   const routeAbortRef = useRef<AbortController | null>(null);
