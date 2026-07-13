@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { getClientId } from "@/lib/clientId";
+import { SITE_NAME } from "@/lib/site";
 import {
   computeVerdict,
   confidence,
@@ -40,12 +41,10 @@ import {
   ClockIcon,
   CloseIcon,
   CrosshairIcon,
-  DropletIcon,
   PlusIcon,
   RouteIcon,
   StarIcon,
   ThumbsUpIcon,
-  UsersIcon,
 } from "./Icons";
 import RouteButtons from "./RouteButtons";
 import StatusTimeline from "./StatusTimeline";
@@ -65,6 +64,10 @@ interface StationPanelProps {
   onToggleFavorite: () => void;
   /** Цены соседних станций в текущей области карты — для оценки "дёшево/дорого". */
   priceReference: FuelPrices[];
+  /** Встроена в лист «Рядом» (MobileNearbySheet) или в сайдбар (MapSidebar)
+      вместо отдельной панели поверх карты — тогда свайп-ручка не нужна:
+      хост уже сам управляет своим раскрытием/закрытием. */
+  embedded?: boolean;
 }
 
 export default function StationPanel({
@@ -79,6 +82,7 @@ export default function StationPanel({
   isFavorite,
   onToggleFavorite,
   priceReference,
+  embedded = false,
 }: StationPanelProps) {
   const [reports, setReports] = useState<Report[]>([]);
   const [loading, setLoading] = useState(true);
@@ -91,7 +95,20 @@ export default function StationPanel({
   const [confirmError, setConfirmError] = useState<string | null>(null);
   const [confirmingId, setConfirmingId] = useState<string | null>(null);
   const [showOldReports, setShowOldReports] = useState(false);
-  const [detailsOpen, setDetailsOpen] = useState(true);
+  // Три «окошка» талона (цена/очередь/свежесть) — вместо трёх разных
+  // виджетов (всегда открытые блоки цены/очереди + отдельный аккордеон
+  // свежести) один общий паттерн: заголовок талона показывает главное
+  // число сразу, разворачивается по тапу только одна вкладка за раз.
+  const [openTile, setOpenTile] = useState<"price" | "queue" | "freshness" | null>(
+    null
+  );
+  // Отстаёт от openTile при закрытии — во время сворачивания grid-анимации
+  // (см. .ticket-gauge__detail-grid в globals.css) контент вкладки должен
+  // ещё секунду оставаться на месте, а не пропадать мгновенно раньше высоты.
+  const [displayTile, setDisplayTile] = useState<typeof openTile>(null);
+  useEffect(() => {
+    if (openTile) setDisplayTile(openTile);
+  }, [openTile]);
   const [priceConfirming, setPriceConfirming] = useState(false);
   const [priceConfirmed, setPriceConfirmed] = useState(false);
   const routeAbortRef = useRef<AbortController | null>(null);
@@ -303,6 +320,10 @@ export default function StationPanel({
       mainPrice ? comparePrice(mainPrice.fuel, mainPrice.price, priceReference) : null,
     [mainPrice, priceReference]
   );
+  // "Серийный номер" талона в углу шапки — хвост id станции, реальный
+  // идентификатор (можно сослаться на него в репорте о проблеме), а не
+  // декоративная цифра.
+  const ticketSerial = station.id.slice(-4).toUpperCase();
 
   const buildRoute = async () => {
     if (!userLocation) {
@@ -381,8 +402,12 @@ export default function StationPanel({
 
   return (
     <div className="station-sheet flex h-full min-h-0 flex-col">
-      <span className="station-sheet__glow sm:hidden" aria-hidden />
-      <span className="station-sheet__handle sm:hidden" aria-hidden />
+      {!embedded && (
+        <>
+          <span className="station-sheet__glow sm:hidden" aria-hidden />
+          <span className="station-sheet__handle sm:hidden" aria-hidden />
+        </>
+      )}
 
       <header
         className="station-sheet__head shrink-0"
@@ -393,7 +418,7 @@ export default function StationPanel({
       >
         <div className="flex items-start gap-3">
           <span
-            className="relative shrink-0 rounded-2xl p-0.5"
+            className="relative shrink-0 rounded-[0.875rem] p-0.5"
             style={{
               background: `linear-gradient(135deg, ${STATUS_HEX[station.status]}88, transparent)`,
             }}
@@ -401,7 +426,7 @@ export default function StationPanel({
             <BrandBadge brand={station.brand} name={station.name} size={44} />
           </span>
           <div className="min-w-0 flex-1 pt-0.5">
-            <h2 className="font-display text-base font-bold leading-snug text-white sm:text-lg">
+            <h2 className="text-balance font-display text-base font-bold leading-snug text-white sm:text-lg">
               {displayName(station)}
             </h2>
             {station.address && (
@@ -413,35 +438,94 @@ export default function StationPanel({
               <StatusBadge status={station.status} compact large />
             </div>
           </div>
-          <div className="flex shrink-0 gap-0.5">
-            <button
-              type="button"
-              onClick={onToggleFavorite}
-              aria-label={isFavorite ? "Убрать из избранного" : "В избранное"}
-              className={`station-sheet__icon-btn ${
-                isFavorite ? "station-sheet__icon-btn--active" : ""
-              }`}
-            >
-              <StarIcon className="h-5 w-5" filled={isFavorite} />
-            </button>
-            <button
-              type="button"
-              onClick={onClose}
-              aria-label="Закрыть карточку заправки"
-              className="station-sheet__icon-btn"
-            >
-              <CloseIcon className="h-5 w-5" />
-            </button>
+          <div className="flex shrink-0 flex-col items-end gap-1">
+            <span className="ticket-serial" title="Код станции">
+              №{ticketSerial}
+            </span>
+            <div className="flex gap-0.5">
+              <button
+                type="button"
+                onClick={onToggleFavorite}
+                aria-label={isFavorite ? "Убрать из избранного" : "В избранное"}
+                className={`station-sheet__icon-btn ${
+                  isFavorite ? "station-sheet__icon-btn--active" : ""
+                }`}
+              >
+                <StarIcon className="h-5 w-5" filled={isFavorite} />
+              </button>
+              <button
+                type="button"
+                onClick={onClose}
+                aria-label="Закрыть карточку заправки"
+                className="station-sheet__icon-btn"
+              >
+                <CloseIcon className="h-5 w-5" />
+              </button>
+            </div>
           </div>
         </div>
       </header>
+
+      <div className="station-sheet__divider mx-4" />
 
       <div
         ref={scrollRef}
         className="station-sheet__scroll thin-scroll min-h-0 flex-1 overflow-y-auto overscroll-contain"
       >
         <div className="station-sheet__content space-y-3">
-          <VerdictBadge verdict={verdict} />
+          <div>
+            <VerdictBadge verdict={verdict} />
+            <div className="report-count">
+              <ClockIcon className="h-3.5 w-3.5" />
+              {station.reports_count} отчётов · {freshConfirms} подтверждений
+            </div>
+          </div>
+
+          <div className="hero-metrics">
+            <div
+              className="hero-metric"
+              style={{ "--metric-color": "#38bdf8" } as React.CSSProperties}
+            >
+              <span className="hero-metric__value">
+                {mainPrice ? mainPrice.price.toFixed(2) : "—"}
+              </span>
+              <span className="hero-metric__label">Цена</span>
+              <span className="hero-metric__sub">
+                {mainPrice ? `${mainPrice.fuel} ₽/л` : "нет данных"}
+              </span>
+            </div>
+            <div
+              className="hero-metric"
+              style={
+                {
+                  "--metric-color":
+                    queueEstimate.hasData && queueEstimate.confidence >= 20
+                      ? QUEUE_CHANCE_HEX[queueEstimate.chance]
+                      : "#6b7280",
+                } as React.CSSProperties
+              }
+            >
+              <span className="hero-metric__value">
+                {queueEstimate.hasData && queueEstimate.confidence >= 20
+                  ? `${queueEstimate.probability}%`
+                  : "—"}
+              </span>
+              <span className="hero-metric__label">Очередь</span>
+              <span className="hero-metric__sub">
+                {queueEstimate.hasData && queueEstimate.confidence >= 20
+                  ? QUEUE_CHANCE_LABEL[queueEstimate.chance]
+                  : "нет данных"}
+              </span>
+            </div>
+            <div
+              className="hero-metric"
+              style={{ "--metric-color": FRESHNESS_HEX[conf.level] } as React.CSSProperties}
+            >
+              <span className="hero-metric__value">{conf.score}</span>
+              <span className="hero-metric__label">Свежесть</span>
+              <span className="hero-metric__sub">{FRESHNESS_LABEL[conf.level]}</span>
+            </div>
+          </div>
 
           <QuickReportBar
             stationId={station.id}
@@ -449,218 +533,104 @@ export default function StationPanel({
             primaryFuelType={station.fuel_types[0]}
           />
 
-          {/* Очередь — только здесь, в карточке "Очередь сейчас" ниже (вычисленная
-              оценка); сырое station.queue тут не дублируем, чтобы не показывать
-              два потенциально разных числа. */}
-          {station.limit_liters ? (
-            <dl className="station-sheet__stats">
-              <div className="station-sheet__stat col-span-2">
-                <dt className="flex items-center gap-1.5 text-ink-muted">
-                  <DropletIcon className="h-4 w-4" /> Лимит
-                </dt>
-                <dd className="mt-0.5 font-semibold text-white">
-                  {station.limit_liters} л
-                </dd>
-              </div>
-            </dl>
-          ) : null}
-
-          {/* Виды топлива без цены — те, что уже с ценой, видны в блоке
-              "Цена на топливо" ниже, повторно чипами их не показываем. */}
-          {fuelTypesWithoutPrice.length > 0 && (
-            <div className="flex flex-wrap gap-1.5">
-              {fuelTypesWithoutPrice.map((f) => (
-                <span
-                  key={f}
-                  className="rounded-lg bg-white/5 px-2.5 py-1 text-sm font-medium text-white ring-1 ring-white/8"
-                >
-                  {f}
-                </span>
-              ))}
-            </div>
-          )}
-
-          <section className="station-sheet__card">
-            <div className="flex items-center gap-1.5 text-sm font-semibold text-white">
-              <DropletIcon className="h-4 w-4 text-brand-fuel" />
-              Цена на топливо
-            </div>
-            {priceEntries.length > 0 ? (
-              <>
-                <div className="mt-2 flex flex-wrap gap-1.5">
-                  {priceEntries.map(([fuel, price]) => (
-                    <span
-                      key={fuel}
-                      className="rounded-lg bg-white/5 px-2.5 py-1 text-sm font-medium text-white ring-1 ring-white/8"
-                    >
-                      {fuel} — {price.toFixed(2)} ₽/л
+          <section className="station-sheet__card !p-3">
+            <h3 className="mb-2 text-xs font-bold uppercase tracking-widest text-ink-muted">
+              Топливо и цены
+            </h3>
+            {priceEntries.length > 0 || fuelTypesWithoutPrice.length > 0 || station.limit_liters ? (
+              <ul className="flex flex-col gap-2">
+                {priceEntries.map(([fuel, price]) => (
+                  <li key={fuel} className="flex items-baseline gap-2">
+                    <span className="whitespace-nowrap text-sm font-semibold text-white">
+                      {fuel}
                     </span>
-                  ))}
-                </div>
-                {station.price_updated_at && (
-                  <div className="mt-1.5 flex flex-wrap items-center gap-x-2 gap-y-1">
-                    <p className="text-xs text-ink-muted">
-                      Цена на {timeAgo(station.price_updated_at)}
-                      {Date.now() - new Date(station.price_updated_at).getTime() >
-                        PRICE_FRESH_MS && " (может быть неактуальна)"}
-                    </p>
-                    {station.price_report_id && (
-                      <button
-                        type="button"
-                        onClick={() => void confirmPriceClick()}
-                        disabled={priceConfirming || priceConfirmed}
-                        className="inline-flex min-h-[44px] items-center gap-1 rounded-lg px-1.5 text-xs font-medium text-brand-accent transition-colors hover:bg-white/5 disabled:opacity-50"
-                      >
-                        <ThumbsUpIcon className="h-3.5 w-3.5" />
-                        {priceConfirmed
-                          ? "Спасибо!"
-                          : `Цена верна (${station.price_confirms})`}
-                      </button>
-                    )}
-                  </div>
-                )}
-                {priceCompare && (
-                  <div className="mt-2 flex items-center gap-2">
                     <span
-                      className="inline-block h-2.5 w-2.5 shrink-0 rounded-full"
-                      style={{
-                        background: PRICE_LEVEL_HEX[priceCompare.level],
-                        boxShadow: `0 0 8px ${PRICE_LEVEL_HEX[priceCompare.level]}88`,
-                      }}
                       aria-hidden
+                      className="min-w-2 flex-1 -translate-y-1 border-b border-dotted border-white/20"
                     />
-                    <span
-                      className="text-sm font-medium"
-                      style={{ color: PRICE_LEVEL_HEX[priceCompare.level] }}
-                    >
-                      {PRICE_LEVEL_LABEL[priceCompare.level]}
-                      {priceCompare.diffPct != null &&
-                        priceCompare.level !== "average" &&
-                        ` (${priceCompare.diffPct > 0 ? "+" : ""}${priceCompare.diffPct}%)`}
+                    <span className="whitespace-nowrap font-mono text-[0.9375rem] font-bold tabular-nums text-white">
+                      {price.toFixed(2)} ₽/л
                     </span>
-                  </div>
-                )}
-              </>
+                  </li>
+                ))}
+                {fuelTypesWithoutPrice.map((f) => (
+                  <li key={f} className="flex items-baseline gap-2">
+                    <span className="whitespace-nowrap text-sm font-medium text-ink-muted">
+                      {f}
+                    </span>
+                    <span
+                      aria-hidden
+                      className="min-w-2 flex-1 -translate-y-1 border-b border-dotted border-white/15"
+                    />
+                    <span className="whitespace-nowrap font-mono text-[0.8125rem] font-medium text-ink-muted">
+                      нет данных
+                    </span>
+                  </li>
+                ))}
+                {station.limit_liters ? (
+                  <li className="flex items-baseline gap-2">
+                    <span className="whitespace-nowrap text-sm font-semibold text-white">
+                      Лимит
+                    </span>
+                    <span
+                      aria-hidden
+                      className="min-w-2 flex-1 -translate-y-1 border-b border-dotted border-white/20"
+                    />
+                    <span className="whitespace-nowrap font-mono text-[0.9375rem] font-bold tabular-nums text-white">
+                      {station.limit_liters} л/чел
+                    </span>
+                  </li>
+                ) : null}
+              </ul>
             ) : (
-              <p className="mt-1.5 text-sm text-ink-muted">
+              <p className="text-sm text-ink-muted">
                 Нет данных о цене — сообщите её в отчёте.
               </p>
             )}
-          </section>
-
-          <section className="station-sheet__card">
-            <div className="flex items-center gap-1.5 text-sm font-semibold text-white">
-              <UsersIcon className="h-4 w-4 text-brand-fuel" />
-              Очередь сейчас
-            </div>
-            {queueEstimate.hasData && queueEstimate.confidence >= 20 ? (
-              <>
-                <div className="mt-2 flex items-center justify-between gap-2">
-                  <span
-                    className="flex items-center gap-2 text-sm font-medium"
-                    style={{ color: QUEUE_CHANCE_HEX[queueEstimate.chance] }}
-                  >
-                    <span
-                      className="inline-block h-2.5 w-2.5 shrink-0 rounded-full"
-                      style={{
-                        background: QUEUE_CHANCE_HEX[queueEstimate.chance],
-                        boxShadow: `0 0 8px ${QUEUE_CHANCE_HEX[queueEstimate.chance]}88`,
-                      }}
-                      aria-hidden
-                    />
-                    {QUEUE_CHANCE_LABEL[queueEstimate.chance]}
-                  </span>
-                  <span className="text-xs tabular-nums text-ink-muted">
-                    {queueEstimate.probability}%
-                  </span>
-                </div>
-                <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-white/10">
-                  <div
-                    className="h-full rounded-full transition-[width] duration-300"
-                    style={{
-                      width: `${queueEstimate.probability}%`,
-                      background: QUEUE_CHANCE_HEX[queueEstimate.chance],
-                    }}
-                  />
-                </div>
-                <p className="mt-1.5 flex flex-wrap items-center gap-x-1.5 gap-y-0.5 text-xs text-ink-muted">
-                  <span>по отзывам</span>
-                  {queueEstimate.lastQueueReportAt && (
-                    <>
-                      <span aria-hidden>·</span>
-                      <span className="inline-flex items-center gap-1">
-                        <ClockIcon className="h-3.5 w-3.5" />
-                        {timeAgo(queueEstimate.lastQueueReportAt)}
-                      </span>
-                    </>
-                  )}
+            {station.price_updated_at && priceEntries.length > 0 && (
+              <div className="mt-2.5 flex flex-wrap items-center gap-x-2 gap-y-1">
+                <p className="text-xs text-ink-muted">
+                  Цена на {timeAgo(station.price_updated_at)}
+                  {Date.now() - new Date(station.price_updated_at).getTime() >
+                    PRICE_FRESH_MS && " (может быть неактуальна)"}
                 </p>
-              </>
-            ) : queueEstimate.hasData ? (
-              <p className="mt-1.5 text-sm text-ink-muted">
-                Мало отзывов об очереди — отметьте, если стоите.
-              </p>
-            ) : (
-              <p className="mt-1.5 text-sm text-ink-muted">
-                Нет свежих данных об очереди — сообщите ситуацию.
-              </p>
+                {station.price_report_id && (
+                  <button
+                    type="button"
+                    onClick={() => void confirmPriceClick()}
+                    disabled={priceConfirming || priceConfirmed}
+                    className="inline-flex min-h-[44px] items-center gap-1 rounded-lg px-1.5 text-xs font-medium text-brand-accent transition-[background-color,transform] hover:bg-white/5 active:scale-[0.96] disabled:opacity-50"
+                  >
+                    <ThumbsUpIcon className="h-3.5 w-3.5" />
+                    {priceConfirmed
+                      ? "Спасибо!"
+                      : `Цена верна (${station.price_confirms})`}
+                  </button>
+                )}
+              </div>
+            )}
+            {priceCompare && priceEntries.length > 0 && (
+              <div className="mt-2.5 flex items-center gap-2">
+                <span
+                  className="inline-block h-2.5 w-2.5 shrink-0 rounded-full"
+                  style={{
+                    background: PRICE_LEVEL_HEX[priceCompare.level],
+                    boxShadow: `0 0 8px ${PRICE_LEVEL_HEX[priceCompare.level]}88`,
+                  }}
+                  aria-hidden
+                />
+                <span
+                  className="text-sm font-medium"
+                  style={{ color: PRICE_LEVEL_HEX[priceCompare.level] }}
+                >
+                  {PRICE_LEVEL_LABEL[priceCompare.level]}
+                  {priceCompare.diffPct != null &&
+                    priceCompare.level !== "average" &&
+                    ` (${priceCompare.diffPct > 0 ? "+" : ""}${priceCompare.diffPct}%)`}
+                </span>
+              </div>
             )}
           </section>
-
-          <div className="station-sheet__details">
-            <button
-              type="button"
-              className="station-sheet__details-summary"
-              aria-expanded={detailsOpen}
-              onClick={() => setDetailsOpen((v) => !v)}
-            >
-              Подробнее о данных
-              <ChevronDownIcon
-                className={`h-4 w-4 shrink-0 transition-transform duration-200 ${
-                  detailsOpen ? "rotate-180" : ""
-                }`}
-              />
-            </button>
-            <div
-              className={`station-sheet__details-grid ${
-                detailsOpen ? "station-sheet__details-grid--open" : ""
-              }`}
-            >
-              <div>
-                <div className="station-sheet__details-body">
-                  <div className="flex items-center justify-between gap-2">
-                    <span className="flex items-center gap-2 text-sm font-semibold text-white">
-                      <span
-                        className="inline-block h-2.5 w-2.5 shrink-0 rounded-full"
-                        style={{
-                          background: FRESHNESS_HEX[conf.level],
-                          boxShadow: `0 0 8px ${FRESHNESS_HEX[conf.level]}88`,
-                        }}
-                        aria-hidden
-                      />
-                      Свежесть: {FRESHNESS_LABEL[conf.level]}
-                    </span>
-                    <span className="text-xs tabular-nums text-ink-muted">
-                      {conf.score}/100
-                    </span>
-                  </div>
-                  <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-white/10">
-                    <div
-                      className="h-full rounded-full transition-[width] duration-300"
-                      style={{
-                        width: `${conf.score}%`,
-                        background: FRESHNESS_HEX[conf.level],
-                      }}
-                    />
-                  </div>
-                  <p className="mt-2 flex items-center gap-1.5 text-xs text-ink-muted">
-                    <ClockIcon className="h-3.5 w-3.5" />
-                    {timeAgo(station.last_report_at)} · подтверждено водителями: {freshConfirms}
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
 
           <div className="station-actions">
             <div className="station-actions__row">
@@ -686,7 +656,7 @@ export default function StationPanel({
                 variant="station"
                 url={shareStationUrl(station.id)}
                 title={station.name}
-                text={`${station.name} — наличие топлива на карте «бензрядом»`}
+                text={`${station.name} — наличие топлива на карте «${SITE_NAME}»`}
                 label="Поделиться"
                 copiedLabel="Скопировано"
                 className="flex-1"
@@ -694,7 +664,7 @@ export default function StationPanel({
             </div>
 
             {routeInfo && (
-              <p className="flex items-center justify-center gap-2 text-sm text-white">
+              <p className="flex items-center justify-center gap-2 text-sm tabular-nums text-white">
                 <span className="font-semibold text-brand-accent">
                   {formatRouteDistance(routeInfo.distanceM)}
                 </span>
@@ -774,7 +744,7 @@ export default function StationPanel({
                         type="button"
                         onClick={() => void confirm(r.id)}
                         disabled={confirmingId === r.id}
-                        className="mt-2 inline-flex min-h-[44px] items-center gap-1.5 rounded-lg px-2 text-sm font-medium text-brand-accent transition-colors hover:bg-white/5 active:scale-[0.98] disabled:opacity-50"
+                        className="mt-2 inline-flex min-h-[44px] items-center gap-1.5 rounded-lg px-2 text-sm font-medium text-brand-accent transition-[background-color,transform] hover:bg-white/5 active:scale-[0.96] disabled:opacity-50"
                       >
                         <ThumbsUpIcon className="h-4 w-4" />
                         {confirmingId === r.id
@@ -790,6 +760,7 @@ export default function StationPanel({
                     <button
                       type="button"
                       onClick={() => setShowOldReports((v) => !v)}
+                      aria-expanded={showOldReports}
                       className="w-full rounded-lg px-2 py-2 text-center text-sm font-medium text-ink-muted transition-colors hover:bg-white/5"
                     >
                       {showOldReports
@@ -828,6 +799,7 @@ export default function StationPanel({
       </div>
 
       <div className="station-sheet__footer shrink-0">
+        <div className="station-sheet__divider mb-2.5" aria-hidden />
         <button
           type="button"
           onClick={onReport}
