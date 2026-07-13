@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useRef } from "react";
 import dynamic from "next/dynamic";
 import StationList, { LIST_MODE_TABS, type ListMode } from "./StationList";
+import StationRecommendations from "./StationRecommendations";
 import SortControl from "./SortControl";
 import RadiusSelect from "./RadiusSelect";
 import type { SortBy } from "./Filters";
@@ -385,6 +386,16 @@ export default function MobileNearbySheet({
             </button>
 
         <div className="nearby-sheet__body" aria-hidden={!expanded}>
+            <div className="nearby-sheet__recommendations">
+              <StationRecommendations
+                stations={source}
+                userLocation={listUserLocation}
+                mapCenter={mapCenter}
+                onSelect={onSelect}
+                fuelType={fuelType}
+              />
+            </div>
+
             <div
               className="nearby-sheet__segments no-scrollbar"
               role="tablist"

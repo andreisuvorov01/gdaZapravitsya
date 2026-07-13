@@ -3527,3 +3527,246 @@ h3 {
     transition-duration: 0.001ms !important;
   }
 }
+
+/* Compact station suggestion strip: fits inside sidebar/mobile sheet and remains scrollable. */
+.map-sidebar__recommendations {
+  min-width: 0;
+  overflow: hidden;
+  padding: 0.75rem 0;
+}
+.nearby-sheet__recommendations {
+  min-width: 0;
+  overflow: hidden;
+  padding: 0 0 0.5rem;
+}
+.recommend-strip {
+  display: flex;
+  min-width: 0;
+  gap: 0.5rem;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x proximity;
+  padding: 0 0.75rem 0.25rem;
+  -webkit-overflow-scrolling: touch;
+}
+.recommend-strip--light {
+  padding-inline: 1rem;
+}
+.recommend-card {
+  position: relative;
+  display: flex;
+  flex: 0 0 min(12.5rem, 76vw);
+  max-width: min(12.5rem, 76vw);
+  min-width: 0;
+  flex-direction: column;
+  gap: 0.125rem;
+  scroll-snap-align: start;
+  border-radius: 0.875rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.055);
+  padding: 0.65rem 0.75rem 0.65rem 0.875rem;
+  text-align: left;
+  color: #ffffff;
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+.recommend-strip--light .recommend-card {
+  flex-basis: 10.25rem;
+  max-width: 10.25rem;
+  border-color: #e6eaf0;
+  background: #ffffff;
+  color: #121722;
+}
+.recommend-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 3px;
+  border-radius: 999px 0 0 999px;
+  background: #38bdf8;
+}
+.recommend-card--fuel::before { background: #00c853; }
+.recommend-card--fresh::before { background: #38bdf8; }
+.recommend-card--price::before { background: #ff9100; }
+.recommend-card:hover {
+  border-color: rgba(56, 189, 248, 0.35);
+  background: rgba(255, 255, 255, 0.075);
+}
+.recommend-strip--light .recommend-card:hover {
+  background: #f7f9fb;
+}
+.recommend-card__eyebrow {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: #9aa8b5;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+.recommend-card__title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 0.8125rem;
+  font-weight: 700;
+}
+.recommend-card__meta {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: #9aa8b5;
+  font-size: 0.72rem;
+  font-weight: 500;
+}
+.recommend-strip--light .recommend-card__eyebrow,
+.recommend-strip--light .recommend-card__meta {
+  color: #6b7480;
+}
+
+.map-sidebar__route-btn--urgent {
+  border-color: rgba(0, 200, 83, 0.35);
+  background: rgba(0, 200, 83, 0.08);
+  color: #0b8a3c;
+}
+.map-sidebar__route-btn--urgent.map-sidebar__route-btn--active {
+  border-color: #00c853;
+  background: rgba(0, 200, 83, 0.16);
+  color: #047337;
+}
+.map-sidebar__route-btn--secondary {
+  background: #f7f9fb;
+}
+
+.station-conflict-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  border: 1px solid rgba(56, 189, 248, 0.28);
+  background: rgba(56, 189, 248, 0.1);
+  padding: 0.12rem 0.42rem;
+  color: #38bdf8;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.station-conflict-badge--inline {
+  margin: 0.45rem 0 0.15rem;
+}
+.station-conflict-badge--list {
+  padding: 0.08rem 0.34rem;
+  font-size: 0.58rem;
+}
+
+.filter-panel {
+  border-radius: 1rem;
+}
+.filter-group-label {
+  padding: 0 0.125rem;
+  color: #8ea0b7;
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* Mobile layout refresh: keep the existing dark palette, but change proportions and structure. */
+@media (max-width: 639px) {
+  .map-dock {
+    margin-inline: 0.375rem;
+    border-radius: 1.375rem;
+    padding: 0.625rem;
+    max-height: min(46dvh, calc(100dvh - var(--mobile-sheet-peek) - 5rem));
+  }
+  .map-dock__head {
+    align-items: flex-start;
+  }
+  .map-dock__head-icon {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 999px;
+  }
+  .map-dock__search {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 2.75rem;
+  }
+  .map-dock__filter-btn {
+    justify-content: center;
+  }
+  .map-dock__actions {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    overflow: visible;
+    padding-bottom: 0;
+  }
+  .map-dock__action {
+    width: 100%;
+    justify-content: center;
+    padding-inline: 0.5rem;
+  }
+  .map-dock__stats {
+    align-items: flex-start;
+  }
+  .map-dock__stats > :first-child {
+    flex: 1 1 100%;
+  }
+
+  .nearby-sheet {
+    left: 0.5rem;
+    right: 0.5rem;
+    width: auto;
+    border-radius: 1.5rem 1.5rem 0 0;
+  }
+  .nearby-sheet--peek {
+    max-height: calc(4.25rem + env(safe-area-inset-bottom, 0px));
+  }
+  .nearby-sheet--expanded {
+    max-height: min(82dvh, calc(100dvh - 5rem));
+  }
+  .nearby-sheet__peek {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    min-height: 4.25rem;
+    padding: 0.75rem 1rem 0.65rem;
+  }
+  .nearby-sheet__handle {
+    top: 0.45rem;
+    width: 2rem;
+  }
+  .nearby-sheet__peek-icon {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 999px;
+  }
+  .nearby-sheet__body {
+    gap: 0.375rem;
+  }
+  .nearby-sheet__recommendations {
+    padding-top: 0.125rem;
+  }
+  .nearby-sheet__segments {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    margin-inline: 0.875rem;
+    margin-bottom: 0.625rem;
+  }
+  .nearby-sheet__segment {
+    min-height: 2.5rem;
+  }
+  .nearby-sheet .thin-scroll {
+    padding-inline: 0.875rem;
+  }
+  .nearby-sheet .glass-card {
+    border-radius: 1.125rem;
+    padding: 0.875rem;
+  }
+  .nearby-sheet .station-sheet__head {
+    padding-inline: 1.125rem;
+  }
+  .nearby-sheet .station-sheet__content {
+    padding-inline: 1rem;
+  }
+}
