@@ -997,7 +997,10 @@ export default function AppShell({ demoMode }: { demoMode: boolean }) {
         </div>
       )}
 
-      {showGeoPrompt && (
+      {/* Не показываем поверх развёрнутого мобильного листа «Рядом» — на
+          узких экранах он занимает почти весь экран сверху и баннер бы
+          перекрывал его вкладки/рекомендации. */}
+      {showGeoPrompt && mobileSheetSnap !== "expanded" && (
         <GeoPromptBanner onAllow={allowGeoPrompt} onDismiss={dismissGeoPrompt} />
       )}
 

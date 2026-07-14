@@ -3709,6 +3709,11 @@ h3 {
   min-width: 0;
   overflow: hidden;
   padding: 0 0 0.5rem;
+  /* Флекс-элемент .nearby-sheet__body с overflow:hidden получает автоматический
+     min-height:0 (не размер контента) — без flex-shrink:0 его почти всегда
+     сжимает почти до нуля в пользу соседей, и карточки рекомендаций обрезаются
+     до пары пикселей вместо полной высоты. */
+  flex-shrink: 0;
 }
 .recommend-strip {
   display: flex;
