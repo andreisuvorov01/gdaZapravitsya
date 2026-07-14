@@ -3,14 +3,14 @@ import Link from "next/link";
 import { absoluteUrl, SITE_NAME } from "@/lib/site";
 
 export const metadata: Metadata = {
-  // Суффикс «| ГдеЗаправиться.рф» добавляет шаблон title из app/layout.tsx.
+  // Суффикс «| Бенз-Атлас» добавляет шаблон title из app/layout.tsx.
   title: "Контакты",
   description:
-    "Карта наличия топлива «ГдеЗаправиться.рф» — как устроен сервис и куда обращаться по вопросам.",
+    "Карта наличия топлива «Бенз-Атлас» — как устроен сервис и куда обращаться по вопросам.",
   alternates: { canonical: absoluteUrl("/kontakty") },
   openGraph: {
-    title: "Контакты — ГдеЗаправиться.рф",
-    description: "Как устроен сервис ГдеЗаправиться.рф и куда обращаться по вопросам.",
+    title: "Контакты — Бенз-Атлас",
+    description: "Как устроен сервис Бенз-Атлас и куда обращаться по вопросам.",
     url: absoluteUrl("/kontakty"),
     type: "website",
     siteName: SITE_NAME,

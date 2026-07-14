@@ -70,7 +70,7 @@ export default function IntentHubPage({ intentSlug }: IntentHubPageProps) {
         {intent.hubH1}
       </h1>
       <p className="seo-page-lead mt-4 max-w-2xl text-base leading-relaxed text-ink-muted">
-        {intent.hubDescription} Данные от водителей на «ГдеЗаправиться.рф» — уточняйте
+        {intent.hubDescription} Данные от водителей на «Бенз-Атлас» — уточняйте
         на самой заправке.
       </p>
 

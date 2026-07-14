@@ -31,7 +31,7 @@ jobs:
       # даже когда self-host на сервере настроен и работает.
       - name: Build
         env:
-          NEXT_PUBLIC_SITE_URL: https://xn----8sbaibghrm1elpm4lxb.xn--p1ai
+          NEXT_PUBLIC_SITE_URL: https://benzatlas.ru
           NEXT_TELEMETRY_DISABLED: 1
           NEXT_PUBLIC_TILES_URL: /tiles/russia/{z}/{x}/{y}.mvt
           NEXT_PUBLIC_TILES_MAXZOOM: "14"

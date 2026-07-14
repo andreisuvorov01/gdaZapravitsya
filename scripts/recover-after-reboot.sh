@@ -25,7 +25,7 @@ if [ -f .next/standalone/server.js ] && [ -d .next/standalone/.next/static/css ]
   cp -f .env .next/standalone/.env
   pm2 startOrRestart ecosystem.config.js
   pm2 save
-  echo "==> готово — проверьте https://xn----8sbaibghrm1elpm4lxb.xn--p1ai"
+  echo "==> готово — проверьте https://benzatlas.ru"
   exit 0
 fi
 

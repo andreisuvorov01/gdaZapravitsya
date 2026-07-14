@@ -4,13 +4,13 @@ import { REGIONS } from "@/lib/regions";
 import { absoluteUrl, SITE_NAME } from "@/lib/site";
 
 export const metadata: Metadata = {
-  // Суффикс «| ГдеЗаправиться.рф» добавляет шаблон title из app/layout.tsx.
+  // Суффикс «| Бенз-Атлас» добавляет шаблон title из app/layout.tsx.
   title: "Наличие топлива по регионам России — карта АЗС",
   description:
     "Регионы России на народной карте заправок: где сейчас есть бензин и дизель. Выберите свой субъект РФ и откройте карту АЗС.",
   alternates: { canonical: absoluteUrl("/regiony") },
   openGraph: {
-    title: "Топливо по регионам России — ГдеЗаправиться.рф",
+    title: "Топливо по регионам России — Бенз-Атлас",
     description: "Наличие бензина и дизеля на АЗС по регионам России.",
     url: absoluteUrl("/regiony"),
     type: "website",
@@ -32,7 +32,7 @@ export default function RegionyPage() {
         Наличие топлива по регионам России
       </h1>
       <p className="mt-4 max-w-2xl text-base leading-relaxed text-ink-muted">
-        «ГдеЗаправиться.рф» работает по всей России. Выберите регион, чтобы перейти к
+        «Бенз-Атлас» работает по всей России. Выберите регион, чтобы перейти к
         карте наличия топлива. Для крупных городов доступны подробные страницы с
         актуальными статусами заправок.
       </p>

@@ -3,7 +3,7 @@
 import { SITE_NAME, SITE_URL } from "./site";
 
 /** Домен продакшена. */
-export const SITE_DOMAIN = "где-заправиться.рф";
+export const SITE_DOMAIN = "benzatlas.ru";
 
 /** Дата актуальной редакции правовых документов. */
 export const LEGAL_UPDATED = "30 июня 2026 г.";

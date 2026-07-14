@@ -1,4 +1,4 @@
-// Конфиг pm2 для прод-процесса этого сайта (где-заправиться.рф).
+// Конфиг pm2 для прод-процесса этого сайта (Бенз-Атлас, benzatlas.ru).
 // Standalone-сборка Next.js, запуск/обновление: npm run deploy (см. scripts/deploy.sh).
 //
 // Этот сайт живёт на той же VPS, что и оригинальный форк (benzryadom.ru), как
@@ -10,7 +10,7 @@
 module.exports = {
   apps: [
     {
-      name: "gde-zapravitsya",
+      name: "benz-atlas",
       script: "server.js",
       cwd: "./.next/standalone",
       instances: 1,

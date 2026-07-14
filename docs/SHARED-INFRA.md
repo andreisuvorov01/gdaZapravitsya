@@ -3,7 +3,7 @@
 This repo started as a fork of **benzin-map / benzryadom.ru** (see `CLAUDE.md`
 for the full architecture — data model, status-aggregation algorithm, request
 flow, etc. all still apply as-is). This is a **second, independently designed
-site** on the intended domain **где-заправиться.рф**, sharing the same
+site** on the intended domain **benzatlas.ru**, sharing the same
 Postgres database and the same self-hosted map-tile server as the original
 site, on the same VPS. It does **not** have Telegram/VK/MAX bots — `benzbot/`
 was intentionally excluded from this copy and should stay that way.
@@ -65,7 +65,7 @@ listening before changing ports/services.
   ```js
   env: { NODE_ENV: "production", PORT: 3001, HOSTNAME: "0.0.0.0" }
   ```
-  and its own pm2 app name (e.g. `gde-zapravitsya`), separate from
+  and its own pm2 app name (e.g. `benz-atlas`), separate from
   `benzin-map`/`benzin-tiles`. `pm2 start ecosystem.config.js` here must not
   touch or restart the original repo's pm2 apps.
 - Local dev: `npm run dev` defaults to `:3000` (see `package.json`). If you
@@ -73,24 +73,24 @@ listening before changing ports/services.
   repo's on the same machine, one of them needs an override, e.g.
   `PORT=3001 npm run dev`, to avoid a port clash — they are unrelated to the
   VPS port assignment above, just a local convenience.
-- nginx on the VPS needs its own server block for где-заправиться.рф
+- nginx on the VPS needs its own server block for benzatlas.ru
   proxying `/` and `/api/` to `127.0.0.1:3001` and `/tiles/` to
   `127.0.0.1:8081` (same target as the original site, different vhost).
 
-## Known blocker before this site can go live on где-заправиться.рф
+## Domain-redirect blocker — resolved by the benzatlas.ru rebrand
 
-The domain `где-заправиться.рф` (punycode
-`xn----8sbaibghrm1elpm4lxb.xn--p1ai`) is currently registered on the VPS as
-an **IDN mirror of the original site** and gets force-redirected to
-`benzryadom.ru` in two places there:
-- nginx config `benzradar` (original repo root) — `server_name` includes
-  this host in both the `:80` and `:443` redirect blocks.
-- `middleware.ts` (original repo) — `REDIRECT_TO_CANONICAL_HOSTS` includes
-  the same host and 301s it at the Next.js level too.
+This site was originally planned for the IDN domain `где-заправиться.рф`
+(punycode `xn----8sbaibghrm1elpm4lxb.xn--p1ai`), which was registered on the
+VPS as an **IDN mirror of the original site** and got force-redirected to
+`benzryadom.ru` in two places there (nginx `server_name` blocks and
+`middleware.ts`'s `REDIRECT_TO_CANONICAL_HOSTS` on the original repo).
 
-Both must be edited (remove this host) and the original site redeployed
-before DNS/nginx for this site will actually reach this app instead of
-bouncing straight back to benzryadom.ru.
+Since the site is now branded **Бенз-Атлас** on the plain domain
+**benzatlas.ru**, it is a distinct hostname that was never added to either
+of those hardcoded redirect lists — so the blocker doesn't apply to it. Still
+worth a quick check on the original repo's `middleware.ts` and nginx config
+before going live, in case `benzatlas.ru` was added there for some other
+reason, but no code change on the original site should be required.
 
 ## What's deliberately NOT here
 
@@ -106,7 +106,7 @@ bouncing straight back to benzryadom.ru.
 | `DATABASE_URL` | **same** as original site |
 | `NEXT_PUBLIC_TILES_URL` / `NEXT_PUBLIC_WORLD_TILES_URL` / `NEXT_PUBLIC_TILES_MAXZOOM` | **same** as original site |
 | `TRUST_PROXY` | **same** (`true`, behind nginx) |
-| `NEXT_PUBLIC_SITE_URL` | own — `https://где-заправиться.рф` |
+| `NEXT_PUBLIC_SITE_URL` | own — `https://benzatlas.ru` |
 | `FEED_API_KEY` | leave unset (no bots) |
 | `CRON_SECRET`, `INDEXNOW_KEY` | own, new random values |
 | `NEXT_PUBLIC_YANDEX_RTB_BLOCK_*` | unset/disabled until this site has its own ad account |

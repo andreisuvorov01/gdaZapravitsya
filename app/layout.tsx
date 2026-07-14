@@ -27,8 +27,8 @@ const unbounded = Manrope({
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "ГдеЗаправиться.рф — наличие топлива на карте АЗС",
-    template: "%s | ГдеЗаправиться.рф",
+    default: "Бенз-Атлас — наличие топлива на карте АЗС",
+    template: "%s | Бенз-Атлас",
   },
   description: SITE_DESCRIPTION,
   applicationName: SITE_NAME,
@@ -39,10 +39,10 @@ export const metadata: Metadata = {
     "АЗС",
     "наличие топлива",
     "очереди",
-    "гдезаправиться",
+    "бенз атлас",
   ],
   openGraph: {
-    title: "ГдеЗаправиться.рф — наличие топлива на АЗС",
+    title: "Бенз-Атлас — наличие топлива на АЗС",
     description: "Карта АЗС с актуальным наличием топлива, лимитами и очередями.",
     type: "website",
     siteName: SITE_NAME,
@@ -59,7 +59,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "ГдеЗаправиться.рф — наличие топлива на АЗС",
+    title: "Бенз-Атлас — наличие топлива на АЗС",
     description: "Карта АЗС с актуальным наличием топлива, лимитами и очередями.",
     images: [DEFAULT_OG_IMAGE.url],
   },

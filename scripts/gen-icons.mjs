@@ -73,7 +73,7 @@ console.log("✓ public/favicon.ico (120×120 PNG)");
 
 // SVG с встроенным PNG — рекомендуемый формат Яндекса для чёткой иконки в выдаче.
 const favSvg = `<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="120" height="120" viewBox="0 0 120 120" role="img" aria-label="ГдеЗаправиться.рф">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="120" height="120" viewBox="0 0 120 120" role="img" aria-label="Бенз-Атлас">
   <image width="120" height="120" xlink:href="data:image/png;base64,${fav120.toString("base64")}"/>
 </svg>
 `;

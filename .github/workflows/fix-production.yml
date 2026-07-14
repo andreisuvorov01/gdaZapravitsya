@@ -23,6 +23,6 @@ jobs:
             git pull --ff-only
             bash scripts/fix-nginx-static.sh
             bash scripts/ensure-standalone-env.sh
-            pm2 restart gde-zapravitsya
+            pm2 restart benz-atlas
             curl -fsS -o /dev/null http://127.0.0.1:3001/
             echo "==> починка завершена"

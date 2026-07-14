@@ -11,7 +11,7 @@ interface ArticleCtaProps {
 
 export function ArticleCta({
   title = "Проверьте наличие бензина прямо сейчас",
-  text = "Откройте карту «ГдеЗаправиться.рф» — актуальные статусы АЗС по всей России.",
+  text = "Откройте карту «Бенз-Атлас» — актуальные статусы АЗС по всей России.",
   primaryLabel = "Смотреть карту бензина",
   primaryHref = "/",
   secondaryLabel,

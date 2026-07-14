@@ -24,7 +24,7 @@ export default function HomeSeoLandings() {
     >
       <div className="mx-auto max-w-3xl px-4 py-12 sm:px-6 sm:py-16">
         <h1 className="seo-page-h1 font-display text-2xl font-extrabold tracking-tight text-white sm:text-4xl">
-          Где бензин сейчас? ГдеЗаправиться
+          Где бензин сейчас? Бенз-Атлас
         </h1>
         <p className="seo-page-lead mt-3 text-lg font-medium leading-snug text-white/90 sm:text-xl">
           {HOME_H1_CONTINUATION}
@@ -167,7 +167,7 @@ export default function HomeSeoLandings() {
           </div>
         </section>
 
-        <h2 className="sr-only">Разделы карты ГдеЗаправиться.рф</h2>
+        <h2 className="sr-only">Разделы карты Бенз-Атлас</h2>
         <h3 className="sr-only">Города и регионы</h3>
         <h3 className="sr-only">Статьи и справка</h3>
       </div>

@@ -5,13 +5,13 @@ import { getTrafficWinnerBrands, getTrafficWinnerCities } from "@/lib/seo-growth
 import { absoluteUrl, SITE_NAME } from "@/lib/site";
 
 export const metadata: Metadata = {
-  // Суффикс «| ГдеЗаправиться.рф» добавляет шаблон title из app/layout.tsx.
+  // Суффикс «| Бенз-Атлас» добавляет шаблон title из app/layout.tsx.
   title: "Сети АЗС России: наличие топлива на карте",
   description:
     "Лукойл, Роснефть, Газпромнефть, Татнефть и другие сети АЗС. Узнайте, где сейчас есть бензин и дизель, на народной карте заправок.",
   alternates: { canonical: absoluteUrl("/seti") },
   openGraph: {
-    title: "Сети АЗС России — ГдеЗаправиться.рф",
+    title: "Сети АЗС России — Бенз-Атлас",
     description:
       "Наличие топлива по сетям АЗС: Лукойл, Роснефть, Газпромнефть и другие.",
     url: absoluteUrl("/seti"),

@@ -61,7 +61,7 @@ bash scripts/ensure-standalone-env.sh
 echo "==> nginx: путь к /_next/static"
 bash scripts/fix-nginx-static.sh
 
-echo "==> pm2: gde-zapravitsya"
+echo "==> pm2: benz-atlas"
 pm2 startOrRestart ecosystem.config.js
 pm2 save
 

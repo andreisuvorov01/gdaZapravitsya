@@ -41,14 +41,14 @@ export async function generateMetadata({
 
   const prep = cityPrepositional(city);
   const title = `Где ${fuel.label} в ${prep} сейчас — на каких заправках`;
-  const description = `Где ${fuel.genitive} в ${prep}: на каких АЗС есть по отчётам водителей. Очереди, лимиты — карта «ГдеЗаправиться.рф».`;
+  const description = `Где ${fuel.genitive} в ${prep}: на каких АЗС есть по отчётам водителей. Очереди, лимиты — карта «Бенз-Атлас».`;
 
   return {
     title,
     description,
     alternates: { canonical: absoluteUrl(`/azs/${city.slug}/${fuel.slug}`) },
     openGraph: {
-      title: `${fuel.label} в ${prep} — ГдеЗаправиться.рф`,
+      title: `${fuel.label} в ${prep} — Бенз-Атлас`,
       description,
       url: absoluteUrl(`/azs/${city.slug}/${fuel.slug}`),
       type: "website",
@@ -82,7 +82,7 @@ export default async function CityFuelPage({
   const faq = azsFuelFaq(city, fuel, prep, gen, statsFromCounts(counts, stations.length));
   const pageUrl = absoluteUrl(`/azs/${city.slug}/${fuel.slug}`);
   const pageName = `Где ${fuel.label} в ${prep} сейчас`;
-  const description = `На каких заправках ${prep} сейчас есть ${fuel.genitive}: народные отчёты, очереди и лимиты. Карта «ГдеЗаправиться.рф», бесплатно.`;
+  const description = `На каких заправках ${prep} сейчас есть ${fuel.genitive}: народные отчёты, очереди и лимиты. Карта «Бенз-Атлас», бесплатно.`;
 
   const jsonLd = buildProgrammaticSeoGraph({
     pageUrl,
@@ -123,7 +123,7 @@ export default async function CityFuelPage({
       </h1>
 
       <p className="seo-page-lead mt-3 max-w-2xl text-base leading-relaxed text-ink-muted">
-        На «ГдеЗаправиться.рф» водители отмечают, на каких АЗС {gen} есть {fuel.genitive}.
+        На «Бенз-Атлас» водители отмечают, на каких АЗС {gen} есть {fuel.genitive}.
         Данные не от сетей — их добавляют люди за пару секунд прямо с телефона.
         {stations.length > 0 && (
           <>

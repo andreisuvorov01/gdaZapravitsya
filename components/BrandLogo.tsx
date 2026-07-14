@@ -10,7 +10,7 @@ interface BrandLogoProps {
   href?: string;
 }
 
-/** Логотип: знак + «ГдеЗаправиться.рф». */
+/** Логотип: знак + «Бенз-Атлас». */
 export default function BrandLogo({
   className = "",
   showTagline = true,
@@ -26,11 +26,11 @@ export default function BrandLogo({
             size === "sm" ? "text-[0.85rem]" : "text-[0.95rem] sm:text-[1.05rem]"
           }`}
         >
-          Где<span className="text-brand-fuel">Заправиться.рф</span>
+          Бенз-<span className="text-brand-fuel">Атлас</span>
         </p>
         {showTagline && (
           <p className="mt-0.5 line-clamp-1 text-[0.48rem] font-medium uppercase tracking-[0.05em] text-ink-muted sm:text-[0.58rem] sm:tracking-[0.08em]">
-            топливо в реальном времени
+            атлас топлива в реальном времени
           </p>
         )}
       </div>
@@ -42,7 +42,7 @@ export default function BrandLogo({
       <Link
         href={href}
         className="min-w-0 shrink rounded-lg outline-offset-2 transition-opacity hover:opacity-90"
-        aria-label="ГдеЗаправиться.рф — на главную карту"
+        aria-label="Бенз-Атлас — на главную карту"
       >
         {inner}
       </Link>

@@ -86,7 +86,7 @@ export default function Onboarding() {
               id="onboarding-title"
               className="mt-1 font-display text-xl font-bold text-white"
             >
-              Как читать карту «ГдеЗаправиться.рф»
+              Как читать карту «Бенз-Атлас»
             </h2>
           </div>
           <button

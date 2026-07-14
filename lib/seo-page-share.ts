@@ -27,7 +27,7 @@ export function buildSeoSharePayload(opts: {
   cityPrep: string;
   pageTitle: string;
 }): SeoSharePayload {
-  const text = `Где есть бензин в ${opts.cityPrep} сейчас — живая карта АЗС на ГдеЗаправиться.рф. Очереди, лимиты, отметки водителей.`;
+  const text = `Где есть бензин в ${opts.cityPrep} сейчас — живая карта АЗС на Бенз-Атлас. Очереди, лимиты, отметки водителей.`;
   return {
     title: opts.pageTitle,
     text,

@@ -27,7 +27,7 @@ function guessCityCases(name) {
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const citiesPath = join(__dirname, "../lib/cities.json");
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://xn----8sbaibghrm1elpm4lxb.xn--p1ai";
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://benzatlas.ru";
 const UA = `gdezapravitsya-city-import/1.0 (+${SITE_URL})`;
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));

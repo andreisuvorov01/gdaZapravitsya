@@ -7,7 +7,7 @@ import { LEGAL_OPERATOR, LEGAL_UPDATED, SITE_DOMAIN } from "@/lib/legal";
 export const metadata: Metadata = {
   title: "Пользовательское соглашение",
   description:
-    "Условия использования краудсорсинговой карты «ГдеЗаправиться.рф»: права, обязанности, отказ от гарантий, ответственность.",
+    "Условия использования краудсорсинговой карты «Бенз-Атлас»: права, обязанности, отказ от гарантий, ответственность.",
   alternates: { canonical: absoluteUrl("/polzovatelskoe-soglashenie") },
   openGraph: {
     title: `Пользовательское соглашение — ${SITE_NAME}`,

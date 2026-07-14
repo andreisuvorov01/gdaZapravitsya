@@ -26,7 +26,7 @@ export async function generateMetadata({
     keywords: article.keywords,
     alternates: { canonical: absoluteUrl(`/blog/${article.slug}`) },
     openGraph: {
-      title: `${article.title} — ГдеЗаправиться.рф`,
+      title: `${article.title} — Бенз-Атлас`,
       description: article.description,
       url: absoluteUrl(`/blog/${article.slug}`),
       type: "article",

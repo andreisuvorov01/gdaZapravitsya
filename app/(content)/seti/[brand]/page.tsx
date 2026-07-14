@@ -49,10 +49,10 @@ export async function generateMetadata({
   const { brand: slug } = await params;
   const brand = findBrandBySlug(slug);
   if (!brand) {
-    // Без суффикса — «| ГдеЗаправиться.рф» добавит шаблон title из app/layout.tsx.
+    // Без суффикса — «| Бенз-Атлас» добавит шаблон title из app/layout.tsx.
     return { title: "Сеть не найдена" };
   }
-  // Суффикс «| ГдеЗаправиться.рф» добавляется шаблоном из app/layout.tsx.
+  // Суффикс «| Бенз-Атлас» добавляется шаблоном из app/layout.tsx.
   const title = `АЗС ${brand.name}: где есть топливо — карта наличия`;
   const description = `Где на заправках ${brand.name} сейчас есть бензин и дизель. Народная карта наличия топлива в реальном времени, бесплатно и без регистрации.`;
   return {
@@ -60,7 +60,7 @@ export async function generateMetadata({
     description,
     alternates: { canonical: absoluteUrl(`/seti/${brand.slug}`) },
     openGraph: {
-      title: `АЗС ${brand.name}: где есть топливо — ГдеЗаправиться.рф`,
+      title: `АЗС ${brand.name}: где есть топливо — Бенз-Атлас`,
       description,
       url: absoluteUrl(`/seti/${brand.slug}`),
       type: "website",
@@ -129,7 +129,7 @@ export default async function BrandPage({
         {intro}
       </p>
       <p className="mt-3 max-w-2xl text-base leading-relaxed text-ink-muted">
-        На народной карте «ГдеЗаправиться.рф» вы можете посмотреть, на каких заправках{" "}
+        На народной карте «Бенз-Атлас» вы можете посмотреть, на каких заправках{" "}
         {brand.name} прямо сейчас есть бензин и дизель. Статусы обновляют сами
         автомобилисты, поэтому актуальное наличие лучше уточнять на самой АЗС.
       </p>

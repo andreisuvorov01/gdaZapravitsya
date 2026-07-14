@@ -6,13 +6,13 @@ import { absoluteUrl, SITE_NAME } from "@/lib/site";
 import GorodaIndex from "@/components/GorodaIndex";
 
 export const metadata: Metadata = {
-  // Суффикс «| ГдеЗаправиться.рф» добавляет шаблон title из app/layout.tsx.
+  // Суффикс «| Бенз-Атлас» добавляет шаблон title из app/layout.tsx.
   title: "Где есть бензин по городам России — карта АЗС",
   description:
     "Выберите свой город и узнайте, на каких АЗС сейчас есть бензин и дизель. Народная карта наличия топлива в реальном времени.",
   alternates: { canonical: absoluteUrl("/goroda") },
   openGraph: {
-    title: "Наличие топлива по городам России — ГдеЗаправиться.рф",
+    title: "Наличие топлива по городам России — Бенз-Атлас",
     description:
       "Карта АЗС с актуальным наличием бензина и дизеля по городам России.",
     url: absoluteUrl("/goroda"),

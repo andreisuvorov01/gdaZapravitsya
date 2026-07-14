@@ -11,7 +11,7 @@ export function MapLoadFallback() {
     <div className="map-canvas flex h-full items-center justify-center">
       <div className="flex max-w-sm flex-col items-center gap-3 rounded-2xl bg-surface/80 px-6 py-5 shadow-lg backdrop-blur-sm">
         <span className="h-10 w-10 animate-pulse rounded-full bg-brand-fuel/40 ring-4 ring-brand-fuel/10" />
-        <p className="text-sm font-medium text-ink-muted">Загрузка карты…</p>
+        <p className="text-sm font-medium text-ink-muted">Открываем атлас…</p>
       </div>
     </div>
   );

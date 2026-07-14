@@ -14,7 +14,7 @@ import {
 export const metadata: Metadata = {
   title: "Политика конфиденциальности",
   description:
-    "Как «ГдеЗаправиться.рф» обрабатывает данные: без регистрации, анонимные отчёты, геолокация, cookie и Яндекс.Метрика.",
+    "Как «Бенз-Атлас» обрабатывает данные: без регистрации, анонимные отчёты, геолокация, cookie и Яндекс.Метрика.",
   alternates: { canonical: absoluteUrl("/confidentialnost") },
   openGraph: {
     title: `Политика конфиденциальности — ${SITE_NAME}`,
