@@ -41,6 +41,7 @@ h3 {
   --z-menu-backdrop: 1350;
   --z-menu: 1400;
   --z-install: 1850;
+  --z-geo-prompt: 1800;
   --z-onboarding: 2000;
 }
 
@@ -306,6 +307,33 @@ h3 {
     right: 0.75rem;
     bottom: calc(0.75rem + env(safe-area-inset-bottom, 0px));
   }
+}
+
+/* FAB "Сообщить" — над стеком зум-контролов, thumb zone справа внизу. */
+.report-fab {
+  position: absolute;
+  right: 0.625rem;
+  bottom: calc(var(--mobile-sheet-peek) + 9.5rem + env(safe-area-inset-bottom, 0px));
+  z-index: 520;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 3rem;
+  padding: 0 1.125rem 0 1rem;
+  border-radius: 999px;
+  color: #0a0d1f;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #38bdf8 0%, #0ea5e9 100%);
+  box-shadow:
+    0 10px 28px rgba(56, 189, 248, 0.35),
+    0 2px 8px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  transition: filter 0.2s ease, transform 0.15s ease;
+  animation: dock-slide-up 0.3s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.report-fab:active {
+  transform: scale(0.96);
 }
 
 /* Легенда статусов — слева внизу, горизонтальная */
@@ -972,6 +1000,127 @@ h3 {
   background: rgba(255, 255, 255, 0.09);
 }
 
+/* Прайминг-плашка геолокации — своё объяснение перед нативным браузерным
+   попапом разрешения, сверху под шапкой (в отличие от install-banner внизу). */
+.geo-prompt-wrap {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: calc(4.25rem + env(safe-area-inset-top, 0px));
+  z-index: var(--z-geo-prompt);
+  display: flex;
+  justify-content: center;
+  padding: 0 0.75rem;
+  pointer-events: none;
+  animation: dock-slide-up 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@media (min-width: 640px) {
+  .geo-prompt-wrap {
+    top: calc(5rem + env(safe-area-inset-top, 0px));
+    padding: 0 1rem;
+  }
+}
+.geo-prompt {
+  pointer-events: auto;
+  width: 100%;
+  max-width: 26rem;
+  border-radius: 1.125rem;
+  padding: 0.875rem 0.875rem 0.75rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  box-shadow:
+    0 16px 48px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(56, 189, 248, 0.12);
+}
+.geo-prompt__icon {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 0.75rem;
+  background: rgba(56, 189, 248, 0.12);
+  border: 1px solid rgba(56, 189, 248, 0.24);
+}
+.geo-prompt__copy {
+  min-width: 0;
+  flex: 1;
+}
+.geo-prompt__title {
+  margin: 0;
+  font-size: 0.875rem;
+  font-weight: 700;
+  line-height: 1.35;
+  color: #ffffff;
+}
+.geo-prompt__hint {
+  margin: 0.25rem 0 0;
+  font-size: 0.75rem;
+  line-height: 1.4;
+  color: #9aa8b5;
+}
+.geo-prompt__actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.625rem;
+}
+.geo-prompt__cta {
+  min-height: 2.25rem;
+  border-radius: 0.75rem;
+  padding: 0 0.875rem;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: #0a0d1f;
+  background: linear-gradient(135deg, #38bdf8 0%, #0ea5e9 100%);
+  cursor: pointer;
+  transition: filter 0.2s ease, transform 0.15s ease;
+}
+.geo-prompt__cta:active {
+  transform: scale(0.96);
+}
+.geo-prompt__later {
+  min-height: 2.25rem;
+  border-radius: 0.75rem;
+  padding: 0 0.875rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: #9aa8b5;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  cursor: pointer;
+  transition: color 0.2s ease, background-color 0.2s ease;
+}
+.geo-prompt__later:hover {
+  color: #e8ecf0;
+  background: rgba(255, 255, 255, 0.09);
+}
+
+/* Снэкбар "Отменить" — свайп-действие в StationList (избранное). */
+.undo-snackbar {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  border-radius: 999px;
+  padding: 0.5rem 0.5rem 0.5rem 1rem;
+  background: rgba(10, 13, 31, 0.92);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 10px 32px rgba(0, 0, 0, 0.45);
+  font-size: 0.8125rem;
+  color: #e8ecf0;
+  animation: dock-slide-up 0.2s ease both;
+}
+.undo-snackbar__action {
+  flex-shrink: 0;
+  min-height: 2rem;
+  padding: 0 0.75rem;
+  border-radius: 999px;
+  font-weight: 700;
+  color: #38bdf8;
+  background: rgba(56, 189, 248, 0.12);
+  cursor: pointer;
+}
 
 /* Стеклянная карточка в списке АЗС */
 .glass-card {

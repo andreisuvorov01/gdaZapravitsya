@@ -2,7 +2,14 @@
 
 import { useState } from "react";
 import { submitQuickReport } from "@/lib/quickReport";
-import { QUEUE_LABELS, type FuelStatus, type FuelType, type QueueLevel } from "@/lib/types";
+import { hapticSuccess } from "@/lib/haptics";
+import {
+  QUEUE_LABELS,
+  type FuelStatus,
+  type FuelType,
+  type OptimisticReportPatch,
+  type QueueLevel,
+} from "@/lib/types";
 import { ChevronDownIcon, PlusIcon } from "./Icons";
 
 const QUEUE_OPTIONS: QueueLevel[] = ["none", "small", "big", "hours"];
@@ -35,7 +42,7 @@ const OPTIONS: {
 
 interface QuickReportBarProps {
   stationId: string;
-  onSubmitted?: () => void;
+  onSubmitted?: (patch?: OptimisticReportPatch) => void;
   /** Вид топлива для быстрого шага цены — берём из данных станции, а не хардкодим. */
   primaryFuelType?: FuelType;
   /** По умолчанию свёрнута за тапом; можно сразу открыть (см. StationPanel). */
@@ -55,6 +62,7 @@ export default function QuickReportBar({
   const [open, setOpen] = useState(defaultOpen);
   const [busy, setBusy] = useState<string | null>(null);
   const [sent, setSent] = useState(false);
+  const [queued, setQueued] = useState(false);
   const [error, setError] = useState<string | null>(null);
   // Промежуточные шаги после "Есть"/"Мало": сначала очередь, затем
   // необязательный ввод цены АИ-92.
@@ -74,13 +82,22 @@ export default function QuickReportBar({
     setBusy(status);
     setError(null);
     try {
-      await submitQuickReport(stationId, status, price, primaryFuelType, queue);
+      const result = await submitQuickReport(stationId, status, price, primaryFuelType, queue);
+      hapticSuccess();
       setSent(true);
+      setQueued(result.queued);
       setOpen(false);
       setPendingStatus(null);
       setPendingQueue(null);
       setPriceInput("");
-      onSubmitted?.();
+      const hasPrice = status !== "no" && typeof price === "number" && price > 0;
+      onSubmitted?.({
+        status,
+        queue: status === "no" ? "none" : queue,
+        fuel_types: hasPrice ? [primaryFuelType] : [],
+        limit_liters: null,
+        prices: hasPrice ? { [primaryFuelType]: price } : null,
+      });
       window.setTimeout(() => setSent(false), 8000);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Не удалось отправить");
@@ -108,7 +125,11 @@ export default function QuickReportBar({
   if (sent) {
     return (
       <div className="quick-report-thanks" role="status">
-        <p>Спасибо! Отметка отправлена — помогаете другим водителям.</p>
+        <p>
+          {queued
+            ? "Сохранено — отправится, как только появится связь."
+            : "Спасибо! Отметка отправлена — помогаете другим водителям."}
+        </p>
       </div>
     );
   }

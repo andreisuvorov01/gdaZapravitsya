@@ -1,6 +1,6 @@
 "use client";
 
-import { useLayoutEffect, useMemo, useRef } from "react";
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { distanceKm, formatDistance } from "@/lib/geo";
 import {
   bestPrice,
@@ -12,12 +12,14 @@ import {
 } from "@/lib/types";
 import { comparePrice, PRICE_LEVEL_HEX } from "@/lib/priceLevel";
 import { displayName } from "@/lib/brands";
+import { isFavorite as checkIsFavorite } from "@/lib/favorites";
 import type { SortBy } from "./Filters";
 import StatusBadge, { STATUS_GLYPH } from "./StatusBadge";
 import BrandBadge from "./BrandBadge";
 import StationMetaRow from "./StationMetaRow";
-import { FuelPumpIcon } from "./Icons";
+import { FuelPumpIcon, StarIcon } from "./Icons";
 import { NEAR_RADIUS_DEFAULT_KM } from "@/lib/useNearRadius";
+import { hapticTick } from "@/lib/haptics";
 
 export type ListMode = "near" | "recent" | "fuel" | "favorites";
 
@@ -61,6 +63,50 @@ interface StationListProps {
       полагаемся на браузер: побочные изменения размеров вокруг (например,
       счётчики над списком) могут сдвинуть его при повторном показе. */
   frozen?: boolean;
+  /** Идёт самая первая загрузка станций (см. AppShell::mapDataReady) — вместо
+      пустого списка/спиннера показываем skeleton-карточки. */
+  firstLoad?: boolean;
+  /** Потянуть список вниз от самого верха — принудительно обновить (передаёт
+      только мобильный лист, см. MobileNearbySheet). Без этого проп жест не активен. */
+  onPullRefresh?: () => void;
+  /** Свайп карточки — добавить/убрать из избранного (передаёт только мобильный
+      лист). Без этого проп жест не активен, карточка ведёт себя как раньше. */
+  onToggleFavorite?: (id: string) => void;
+}
+
+const PULL_THRESHOLD_PX = 64;
+const PULL_MAX_PX = 96;
+const SWIPE_MAX_PX = 88;
+const SWIPE_THRESHOLD_PX = 64;
+
+const SKELETON_ROWS = 5;
+
+function StationListSkeleton({ light, embedded }: { light: boolean; embedded: boolean }) {
+  const block = light ? "bg-black/10" : "bg-white/10";
+  return (
+    <ul
+      className={`thin-scroll min-h-0 flex-1 space-y-2 overflow-y-auto px-3 pt-1 sm:px-4 ${
+        embedded ? "pb-3" : "pb-36 sm:pb-28"
+      }`}
+      aria-hidden
+    >
+      {Array.from({ length: SKELETON_ROWS }).map((_, i) => (
+        <li
+          key={i}
+          className={`flex animate-pulse gap-3 p-3.5 sm:p-4 ${
+            light ? "station-card-light" : "glass-card"
+          }`}
+        >
+          <span className={`h-11 w-11 shrink-0 rounded-2xl ${block}`} />
+          <div className="min-w-0 flex-1 space-y-2 py-0.5">
+            <div className={`h-3.5 w-3/5 rounded ${block}`} />
+            <div className={`h-3 w-2/5 rounded ${block}`} />
+            <div className={`h-3 w-4/5 rounded ${block}`} />
+          </div>
+        </li>
+      ))}
+    </ul>
+  );
 }
 
 function priceForSort(s: StationStatus, fuelType?: FuelType | "all"): number {
@@ -123,8 +169,22 @@ export default function StationList({
   emergencyActive = false,
   light = false,
   frozen = false,
+  firstLoad = false,
+  onPullRefresh,
+  onToggleFavorite,
 }: StationListProps) {
   const listRef = useRef<HTMLUListElement>(null);
+  const [pullDistance, setPullDistance] = useState(0);
+  const [pullRefreshing, setPullRefreshing] = useState(false);
+  const [swipe, setSwipe] = useState<{ id: string; dx: number } | null>(null);
+  const [undo, setUndo] = useState<{ id: string; wasFavorite: boolean } | null>(null);
+  const swipeRef = useRef<{
+    id: string;
+    startX: number;
+    startY: number;
+    active: boolean;
+  } | null>(null);
+  const undoTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const prevModeRef = useRef(mode);
   // Непрерывно запоминаем позицию скролла на каждый scroll-жест, а не
   // разово в момент скрытия — к моменту, когда сработает эффект на
@@ -185,6 +245,122 @@ export default function StationList({
     }
     prevFrozenRef.current = frozen;
   }, [frozen]);
+
+  // Pull-to-refresh — тянем список вниз от самого верха. Активен только если
+  // хост передал onPullRefresh (только мобильный лист, см. MobileNearbySheet)
+  // и список не заморожен (открыта карточка станции поверх).
+  useEffect(() => {
+    if (!onPullRefresh || frozen) return;
+    const el = listRef.current;
+    if (!el) return;
+
+    let startY = 0;
+    let tracking = false;
+
+    const onTouchStart = (e: TouchEvent) => {
+      tracking = el.scrollTop <= 0;
+      startY = e.touches[0].clientY;
+    };
+    const onTouchMove = (e: TouchEvent) => {
+      if (!tracking) return;
+      if (el.scrollTop > 0) {
+        tracking = false;
+        setPullDistance(0);
+        return;
+      }
+      const delta = e.touches[0].clientY - startY;
+      if (delta <= 0) {
+        setPullDistance(0);
+        return;
+      }
+      e.preventDefault();
+      setPullDistance(Math.min(PULL_MAX_PX, delta * 0.5));
+    };
+    const onTouchEnd = () => {
+      if (!tracking) return;
+      tracking = false;
+      setPullDistance((d) => {
+        if (d >= PULL_THRESHOLD_PX) {
+          hapticTick();
+          setPullRefreshing(true);
+          onPullRefresh();
+          window.setTimeout(() => setPullRefreshing(false), 800);
+        }
+        return 0;
+      });
+    };
+
+    el.addEventListener("touchstart", onTouchStart, { passive: true });
+    el.addEventListener("touchmove", onTouchMove, { passive: false });
+    el.addEventListener("touchend", onTouchEnd);
+    el.addEventListener("touchcancel", onTouchEnd);
+    return () => {
+      el.removeEventListener("touchstart", onTouchStart);
+      el.removeEventListener("touchmove", onTouchMove);
+      el.removeEventListener("touchend", onTouchEnd);
+      el.removeEventListener("touchcancel", onTouchEnd);
+    };
+  }, [onPullRefresh, frozen]);
+
+  useEffect(() => {
+    return () => {
+      if (undoTimerRef.current) clearTimeout(undoTimerRef.current);
+    };
+  }, []);
+
+  // Свайп карточки — добавить/убрать из избранного, со снэкбаром "Отменить".
+  // Направление не важно (влево/вправо) — единственное действие, как в
+  // почтовых клиентах с одним свайп-жестом.
+  const commitFavoriteSwipe = (id: string) => {
+    if (!onToggleFavorite) return;
+    const wasFavorite = checkIsFavorite(id);
+    onToggleFavorite(id);
+    hapticTick();
+    if (undoTimerRef.current) clearTimeout(undoTimerRef.current);
+    setUndo({ id, wasFavorite });
+    undoTimerRef.current = setTimeout(() => setUndo(null), 4500);
+  };
+
+  const handleUndo = () => {
+    if (!undo || !onToggleFavorite) return;
+    onToggleFavorite(undo.id);
+    if (undoTimerRef.current) clearTimeout(undoTimerRef.current);
+    setUndo(null);
+  };
+
+  const onItemTouchStart = (id: string) => (e: React.TouchEvent) => {
+    if (!onToggleFavorite) return;
+    const t = e.touches[0];
+    swipeRef.current = { id, startX: t.clientX, startY: t.clientY, active: true };
+  };
+
+  const onItemTouchMove = (e: React.TouchEvent) => {
+    const drag = swipeRef.current;
+    if (!drag?.active) return;
+    const t = e.touches[0];
+    const dx = t.clientX - drag.startX;
+    const dy = t.clientY - drag.startY;
+    if (Math.abs(dy) > 10 && Math.abs(dy) > Math.abs(dx)) {
+      // Вертикальный жест — отдаём его нативному скроллу списка.
+      swipeRef.current = null;
+      setSwipe(null);
+      return;
+    }
+    if (Math.abs(dx) < 6) return;
+    setSwipe({ id: drag.id, dx: Math.max(-SWIPE_MAX_PX, Math.min(SWIPE_MAX_PX, dx)) });
+  };
+
+  const onItemTouchEnd = () => {
+    const drag = swipeRef.current;
+    swipeRef.current = null;
+    if (!drag) return;
+    setSwipe((cur) => {
+      if (cur && cur.id === drag.id && Math.abs(cur.dx) >= SWIPE_THRESHOLD_PX) {
+        commitFavoriteSwipe(cur.id);
+      }
+      return null;
+    });
+  };
 
   // Референс цен для сравнения "дёшево/дорого" — все станции текущей
   // выборки (не только отфильтрованный/отсортированный подсписок ниже).
@@ -260,6 +436,10 @@ export default function StationList({
     };
   }, [mode]);
 
+  if (firstLoad && stations.length === 0) {
+    return <StationListSkeleton light={light} embedded={embedded} />;
+  }
+
   if (sorted.length === 0) {
     return (
       <div
@@ -290,6 +470,7 @@ export default function StationList({
   }
 
   return (
+    <div className="relative flex min-h-0 flex-1 flex-col">
     <ul
       ref={listRef}
       onScroll={handleScroll}
@@ -298,6 +479,24 @@ export default function StationList({
         embedded ? "pb-3" : "pb-36 sm:pb-28"
       }`}
     >
+      {onPullRefresh && (pullDistance > 0 || pullRefreshing) && (
+        <li
+          className="flex items-center justify-center overflow-hidden"
+          style={{
+            height: pullRefreshing ? 36 : pullDistance,
+            transition: pullRefreshing ? "height 0.15s ease" : undefined,
+          }}
+          aria-hidden
+        >
+          <span
+            className={`h-4 w-4 rounded-full border-2 ${
+              light ? "border-paper-muted" : "border-ink-muted"
+            } border-t-transparent ${
+              pullRefreshing || pullDistance >= PULL_THRESHOLD_PX ? "animate-spin" : ""
+            }`}
+          />
+        </li>
+      )}
       {sorted.map((s, i) => {
         const price = bestPrice(s.prices);
         const priceCompare = price
@@ -315,6 +514,32 @@ export default function StationList({
           <span className="station-conflict-badge station-conflict-badge--list">спорно</span>
         );
 
+        const isSwiping = swipe?.id === s.id;
+        const swipeBackground = onToggleFavorite && isSwiping && (
+          <div
+            className={`absolute inset-0 z-0 flex items-center rounded-2xl bg-brand-fuel/15 px-5 text-brand-fuel ${
+              swipe.dx < 0 ? "justify-end" : "justify-start"
+            }`}
+            aria-hidden
+          >
+            <StarIcon
+              className="h-5 w-5"
+              filled={Math.abs(swipe.dx) >= SWIPE_THRESHOLD_PX}
+            />
+          </div>
+        );
+        const swipeHandlers = onToggleFavorite
+          ? {
+              onTouchStart: onItemTouchStart(s.id),
+              onTouchMove: onItemTouchMove,
+              onTouchEnd: onItemTouchEnd,
+              onTouchCancel: onItemTouchEnd,
+            }
+          : {};
+        const swipeStyle = isSwiping
+          ? { transform: `translateX(${swipe.dx}px)`, transition: "none" as const }
+          : undefined;
+
         if (light) {
           return (
             <li
@@ -323,7 +548,9 @@ export default function StationList({
                 if (el) itemRefs.current.set(s.id, el);
                 else itemRefs.current.delete(s.id);
               }}
+              className="relative"
             >
+              {swipeBackground}
               <button
                 type="button"
                 // Без этого фокус по клику сам скроллит список (частично
@@ -333,7 +560,11 @@ export default function StationList({
                 onMouseDown={(e) => e.preventDefault()}
                 onClick={() => onSelect(s)}
                 onMouseEnter={() => onHighlight?.(s.id)}
-                className="station-card-light group"
+                className={`station-card-light group relative z-10 ${
+                  onToggleFavorite ? "touch-pan-y" : ""
+                }`}
+                style={swipeStyle}
+                {...swipeHandlers}
               >
                 <span className="relative shrink-0">
                   <BrandBadge brand={s.brand} name={s.name} size={44} />
@@ -396,7 +627,9 @@ export default function StationList({
             if (el) itemRefs.current.set(s.id, el);
             else itemRefs.current.delete(s.id);
           }}
+          className="relative"
         >
+          {swipeBackground}
           <button
             type="button"
             // См. комментарий у аналогичной light-кнопки выше — предотвращает
@@ -404,7 +637,11 @@ export default function StationList({
             onMouseDown={(e) => e.preventDefault()}
             onClick={() => onSelect(s)}
             onMouseEnter={() => onHighlight?.(s.id)}
-            className="glass-card group flex w-full cursor-pointer gap-3 p-3.5 text-left transition hover:border-white/15 sm:p-4"
+            className={`glass-card group relative z-10 flex w-full cursor-pointer gap-3 p-3.5 text-left transition hover:border-white/15 sm:p-4 ${
+              onToggleFavorite ? "touch-pan-y" : ""
+            }`}
+            style={swipeStyle}
+            {...swipeHandlers}
           >
             <span className="relative shrink-0">
               <BrandBadge brand={s.brand} name={s.name} size={44} />
@@ -480,5 +717,16 @@ export default function StationList({
         );
       })}
     </ul>
+    {undo && (
+      <div className="pointer-events-none absolute inset-x-0 bottom-3 z-20 flex justify-center px-3">
+        <div className="undo-snackbar pointer-events-auto">
+          <span>{undo.wasFavorite ? "Убрано из избранного" : "Добавлено в избранное"}</span>
+          <button type="button" onClick={handleUndo} className="undo-snackbar__action">
+            Отменить
+          </button>
+        </div>
+      </div>
+    )}
+    </div>
   );
 }

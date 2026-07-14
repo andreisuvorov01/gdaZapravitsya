@@ -3,6 +3,7 @@
 import { GAS_BRANDS } from "@/lib/brands";
 import { FUEL_TYPES, type FuelStatus, type FuelType } from "@/lib/types";
 import { CheckIcon } from "./Icons";
+import ScrollFadeRow from "./ScrollFadeRow";
 
 export type SortBy = "distance" | "fresh" | "price";
 
@@ -33,7 +34,7 @@ export default function Filters({ value, onChange, light = false }: FiltersProps
     <div className="filter-panel space-y-3">
       <div className="filter-group-label">Топливо</div>
       {/* Топливо — все виды чипами в один прокручиваемый ряд */}
-      <div className="filter-scroll-row no-scrollbar">
+      <ScrollFadeRow className="filter-scroll-row no-scrollbar">
         {FUEL_OPTIONS.map((f) => (
           <button
             key={f}
@@ -47,11 +48,11 @@ export default function Filters({ value, onChange, light = false }: FiltersProps
             {f === "all" ? "Всё топливо" : f}
           </button>
         ))}
-      </div>
+      </ScrollFadeRow>
 
       <div className="filter-group-label">Наличие, цена и сеть</div>
       {/* Сеть АЗС + быстрый фильтр «есть бензин» */}
-      <div className="filter-scroll-row no-scrollbar">
+      <ScrollFadeRow className="filter-scroll-row no-scrollbar">
         <select
           aria-label="Сеть АЗС"
           value={value.brand}
@@ -100,7 +101,7 @@ export default function Filters({ value, onChange, light = false }: FiltersProps
         >
           {value.fuelType === "all" ? "Выберите топливо" : "Топ-3 дешевле"}
         </button>
-      </div>
+      </ScrollFadeRow>
     </div>
   );
 }

@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { getClientId } from "@/lib/clientId";
 import { SITE_NAME } from "@/lib/site";
+import { isMobileViewport } from "@/lib/useIsMobile";
 import {
   computeVerdict,
   confidence,
@@ -29,6 +30,7 @@ import {
   QUEUE_LABELS,
   STATUS_HEX,
   type FuelPrices,
+  type OptimisticReportPatch,
   type Report,
   type StationStatus,
 } from "@/lib/types";
@@ -81,7 +83,7 @@ interface StationPanelProps {
   onClose: () => void;
   onReport: () => void;
   refreshKey: number;
-  onChanged: () => void;
+  onChanged: (patch?: OptimisticReportPatch) => void;
   userLocation: [number, number] | null;
   onRouteGeometry: (geom: GeoJSON.LineString | null) => void;
   onRequestLocation: () => void;
@@ -150,8 +152,7 @@ export default function StationPanel({
   const DISMISS_DISTANCE_PX = 90;
   const DISMISS_VELOCITY = 0.6;
 
-  const isMobileSheet = () =>
-    typeof window !== "undefined" && !window.matchMedia("(min-width: 640px)").matches;
+  const isMobileSheet = isMobileViewport;
 
   const beginDismissDrag = (el: HTMLElement, y: number, t: number) => {
     el.classList.remove("overlay-sheet-up");

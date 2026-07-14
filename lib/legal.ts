@@ -9,7 +9,7 @@ export const SITE_DOMAIN = "где-заправиться.рф";
 export const LEGAL_UPDATED = "30 июня 2026 г.";
 
 /** Идентификатор счётчика Яндекс.Метрики. */
-export const YANDEX_METRIKA_ID = 110340642;
+export const YANDEX_METRIKA_ID = 110730798;
 
 /**
  * Оператор персональных данных (администратор сервиса).

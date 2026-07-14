@@ -1,6 +1,7 @@
 "use client";
 
 import type { SortBy } from "./Filters";
+import ScrollFadeRow from "./ScrollFadeRow";
 
 const SORT_OPTIONS: { id: SortBy; label: string }[] = [
   { id: "distance", label: "Ближе" },
@@ -18,7 +19,7 @@ interface SortControlProps {
     спрятана за лишним тапом «Фильтры» (переупорядочивает 40+ строк). */
 export default function SortControl({ value, onChange, className = "" }: SortControlProps) {
   return (
-    <div
+    <ScrollFadeRow
       className={`filter-scroll-row no-scrollbar ${className}`}
       role="group"
       aria-label="Сортировка"
@@ -36,6 +37,6 @@ export default function SortControl({ value, onChange, className = "" }: SortCon
           {o.label}
         </button>
       ))}
-    </div>
+    </ScrollFadeRow>
   );
 }

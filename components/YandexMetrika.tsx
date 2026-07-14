@@ -23,6 +23,7 @@ ym(${id}, 'init', {
   defer: true,
   webvisor: true,
   clickmap: true,
+  ecommerce: "dataLayer",
   trackLinks: true,
   accurateTrackBounce: true,
   trackHash: true,

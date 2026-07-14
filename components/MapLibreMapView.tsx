@@ -18,6 +18,7 @@ import {
   type StationStatus,
 } from "@/lib/types";
 import { clampBBoxSpan } from "@/lib/bbox";
+import { hapticLongPress } from "@/lib/haptics";
 import { buildClusterMarkerEl, type ClusterCounts } from "@/lib/clusterIcon";
 import { STATUS_GLYPH } from "./StatusBadge";
 import { CrosshairIcon, MinusIcon, PlusIcon } from "./Icons";
@@ -1055,6 +1056,7 @@ export default function MapLibreMapView({
         const x = pressStart.x - rect.left;
         const y = pressStart.y - rect.top;
         const lngLat = map.unproject([x, y]);
+        hapticLongPress();
         onLongPressRef.current?.(lngLat.lat, lngLat.lng);
         clearPress();
       }, LONG_MS);

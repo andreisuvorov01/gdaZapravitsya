@@ -1,6 +1,9 @@
 // Утилиты установки PWA / ярлыка.
 
 import { SITE_NAME } from "./site";
+import { isMobileViewport } from "./useIsMobile";
+
+export { isMobileViewport };
 
 export interface BeforeInstallPromptEvent extends Event {
   prompt: () => Promise<void>;
@@ -19,11 +22,6 @@ export function isStandalone(): boolean {
     ("standalone" in navigator &&
       Boolean((navigator as Navigator & { standalone?: boolean }).standalone))
   );
-}
-
-export function isMobileViewport(): boolean {
-  if (typeof window === "undefined") return true;
-  return window.matchMedia("(max-width: 768px)").matches;
 }
 
 /** Ярлык .url для рабочего стола Windows. */

@@ -11,7 +11,12 @@ import StationRecommendations from "./StationRecommendations";
 import StationList, { LIST_MODE_TABS, type ListMode } from "./StationList";
 import { useInstallPrompt } from "./InstallPromptContext";
 import { DONATE_URL, SITE_NAME, SITE_URL } from "@/lib/site";
-import type { FuelPrices, FuelStatus, StationStatus } from "@/lib/types";
+import type {
+  FuelPrices,
+  FuelStatus,
+  OptimisticReportPatch,
+  StationStatus,
+} from "@/lib/types";
 import {
   ChevronDownIcon,
   FilterIcon,
@@ -59,7 +64,7 @@ interface MapSidebarProps {
   onCloseStation: () => void;
   onReportStation: () => void;
   stationRefreshKey: number;
-  onStationChanged: () => void;
+  onStationChanged: (patch?: OptimisticReportPatch) => void;
   onRouteGeometry: (geom: GeoJSON.LineString | null) => void;
   onRequestLocation: () => void;
   isStationFavorite: boolean;

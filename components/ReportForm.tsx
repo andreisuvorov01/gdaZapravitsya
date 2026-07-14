@@ -2,6 +2,8 @@
 
 import { useEffect, useRef, useState } from "react";
 import { getClientId } from "@/lib/clientId";
+import { hapticSuccess } from "@/lib/haptics";
+import { submitOrQueueReport } from "@/lib/reportQueue";
 import {
   FUEL_TYPES,
   QUEUE_LABELS,
@@ -9,6 +11,7 @@ import {
   type FuelPrices,
   type FuelStatus,
   type FuelType,
+  type OptimisticReportPatch,
   type QueueLevel,
   type StationStatus,
 } from "@/lib/types";
@@ -17,7 +20,7 @@ import { AlertIcon, BanIcon, CheckIcon, CloseIcon } from "./Icons";
 interface ReportFormProps {
   station: StationStatus;
   onClose: () => void;
-  onSubmitted: () => void;
+  onSubmitted: (patch?: OptimisticReportPatch) => void;
 }
 
 const STATUS_OPTIONS = ["yes", "low", "no"] as const;
@@ -139,19 +142,17 @@ export default function ReportForm({
       website,
     };
     try {
-      const res = await fetch("/api/reports", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "x-client-id": getClientId(),
-        },
-        body: JSON.stringify(payload),
+      // Сетевой сбой не считается ошибкой — отчёт уйдёт в офлайн-очередь
+      // (см. lib/reportQueue.ts) и досошлётся сам при появлении сети.
+      await submitOrQueueReport(payload, getClientId());
+      hapticSuccess();
+      onSubmitted({
+        status: payload.status,
+        queue: payload.queue,
+        fuel_types: payload.fuel_types,
+        limit_liters: payload.limit_liters ?? null,
+        prices: payload.prices,
       });
-      if (!res.ok) {
-        const j = await res.json().catch(() => ({}));
-        throw new Error(j.error ?? "Не удалось отправить отчёт");
-      }
-      onSubmitted();
     } catch (err) {
       setError(err instanceof Error ? err.message : "Ошибка отправки");
     } finally {

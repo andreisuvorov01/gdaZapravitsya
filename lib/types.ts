@@ -152,3 +152,13 @@ export interface CreateReportPayload {
 
 // Bounding box карты: [south, west, north, east]
 export type BBox = [number, number, number, number];
+
+/** Минимум полей нового отчёта, нужный для мгновенного оптимистичного патча
+    StationStatus в UI, не дожидаясь пересчёта на сервере — см. lib/stationPatch.ts. */
+export interface OptimisticReportPatch {
+  status: FuelStatus;
+  queue: QueueLevel | null;
+  fuel_types: FuelType[];
+  limit_liters: number | null;
+  prices?: FuelPrices | null;
+}

@@ -30,6 +30,44 @@ export async function getCurrentPosition(): Promise<{ lat: number; lng: number }
 }
 
 /**
+ * Грубая позиция сразу (короткий таймаут, разрешён кэш до 5 минут — обычно
+ * IP/Wi-Fi фикс приходит почти мгновенно), затем уточнение через GPS в
+ * фоне — вызывает onFix дважды (сначала precise=false, потом precise=true),
+ * не блокируя первый рендер ожиданием точного фикса.
+ */
+export function getProgressivePosition(
+  onFix: (lat: number, lng: number, precise: boolean) => void,
+  onError: () => void,
+  options?: { preciseTimeout?: number }
+): void {
+  if (!isGeolocationSupported()) {
+    onError();
+    return;
+  }
+  let gotAny = false;
+
+  navigator.geolocation.getCurrentPosition(
+    (pos) => {
+      gotAny = true;
+      onFix(pos.coords.latitude, pos.coords.longitude, false);
+    },
+    () => {},
+    { enableHighAccuracy: false, timeout: 5000, maximumAge: 300000 }
+  );
+
+  navigator.geolocation.getCurrentPosition(
+    (pos) => {
+      gotAny = true;
+      onFix(pos.coords.latitude, pos.coords.longitude, true);
+    },
+    () => {
+      if (!gotAny) onError();
+    },
+    { enableHighAccuracy: true, timeout: options?.preciseTimeout ?? 15000, maximumAge: 0 }
+  );
+}
+
+/**
  * Обёртка над navigator.geolocation.getCurrentPosition с колбэками
  * (для обратной совместимости с существующим кодом в AppShell).
  */

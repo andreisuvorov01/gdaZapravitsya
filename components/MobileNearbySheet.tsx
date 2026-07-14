@@ -8,7 +8,14 @@ import SortControl from "./SortControl";
 import RadiusSelect from "./RadiusSelect";
 import type { SortBy } from "./Filters";
 import { useNearRadius } from "@/lib/useNearRadius";
-import type { FuelPrices, FuelStatus, FuelType, StationStatus } from "@/lib/types";
+import { hapticTick } from "@/lib/haptics";
+import type {
+  FuelPrices,
+  FuelStatus,
+  FuelType,
+  OptimisticReportPatch,
+  StationStatus,
+} from "@/lib/types";
 import { ChevronDownIcon, ChevronUpIcon, FuelPumpIcon, StarIcon } from "./Icons";
 
 const StationPanel = dynamic(() => import("./StationPanel"));
@@ -68,12 +75,18 @@ interface MobileNearbySheetProps {
   onCloseStation?: () => void;
   onReportStation?: () => void;
   stationRefreshKey?: number;
-  onStationChanged?: () => void;
+  onStationChanged?: (patch?: OptimisticReportPatch) => void;
   onRouteGeometry?: (geom: GeoJSON.LineString | null) => void;
   onRequestLocation?: () => void;
   isStationFavorite?: boolean;
   onToggleStationFavorite?: () => void;
   priceReference?: FuelPrices[];
+  /** Идёт самая первая загрузка станций — см. StationList::firstLoad. */
+  firstLoad?: boolean;
+  /** Потянуть список вниз от самого верха — принудительно обновить (см. StationList::onPullRefresh). */
+  onPullRefresh?: () => void;
+  /** Свайп карточки в списке — добавить/убрать из избранного (см. StationList::onToggleFavorite). */
+  onToggleListFavorite?: (id: string) => void;
 }
 
 /** Выдвижной лист «Рядом» — карта всегда на экране, список по запросу. */
@@ -108,6 +121,9 @@ export default function MobileNearbySheet({
   isStationFavorite = false,
   onToggleStationFavorite,
   priceReference = [],
+  firstLoad = false,
+  onPullRefresh,
+  onToggleListFavorite,
 }: MobileNearbySheetProps) {
   // Карточка станции всегда показывается развёрнутой — как раньше
   // отдельная панель поверх карты, так теперь тот же лист «Рядом».
@@ -139,6 +155,7 @@ export default function MobileNearbySheet({
     if (velocity > FLING_VELOCITY) nextSnap = "expanded";
     else if (velocity < -FLING_VELOCITY) nextSnap = "peek";
     else nextSnap = lastHeight > mid ? "expanded" : "peek";
+    if (nextSnap !== effectiveSnap) hapticTick();
     onSnapChange(nextSnap);
   };
   const applySnapDecisionRef = useRef(applySnapDecision);
@@ -248,7 +265,10 @@ export default function MobileNearbySheet({
 
   if (hidden) return null;
 
-  const toggleSnap = () => onSnapChange(expanded ? "peek" : "expanded");
+  const toggleSnap = () => {
+    hapticTick();
+    onSnapChange(expanded ? "peek" : "expanded");
+  };
 
   // Драг за ручку/шапку — высота листа следует за пальцем напрямую (инлайн
   // max-height), а не только тап-переключение между peek/expanded. Финальный
@@ -448,6 +468,9 @@ export default function MobileNearbySheet({
               fuelType={fuelType}
               emergencyActive={emergencyActive}
               frozen={Boolean(selectedStation)}
+              firstLoad={firstLoad}
+              onPullRefresh={onPullRefresh}
+              onToggleFavorite={onToggleListFavorite}
             />
             </div>
         </div>

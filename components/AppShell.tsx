@@ -14,9 +14,14 @@ import {
   expandBBox,
 } from "@/lib/bbox";
 import { mergeStationLists } from "@/lib/stationMap";
+import { distanceKm } from "@/lib/geo";
+import { applyOptimisticReportPatch } from "@/lib/stationPatch";
 import { readUserLocation, saveUserLocation } from "@/lib/userLocation";
 import { dedupeStationsByLocation } from "@/lib/stationDedup";
-import { GEO_FAIL_HINT, getCurrentPositionWithCallbacks } from "@/lib/geolocation";
+import { GEO_FAIL_HINT, getProgressivePosition } from "@/lib/geolocation";
+import { queryGeoPermission } from "@/lib/geoPermission";
+import { isDismissed, markDismissed } from "@/lib/clientStorage";
+import GeoPromptBanner from "./GeoPromptBanner";
 import { fetchOsrmRoute } from "@/lib/route";
 import { stationsAlongRoute } from "@/lib/routeCorridor";
 import {
@@ -25,7 +30,13 @@ import {
   readFavoriteStationsCache,
 } from "@/lib/favoritesOffline";
 import { checkFavoriteStatusChanges } from "@/lib/favoriteAlerts";
-import type { BBox, FuelPrices, FuelStatus, StationStatus } from "@/lib/types";
+import type {
+  BBox,
+  FuelPrices,
+  FuelStatus,
+  OptimisticReportPatch,
+  StationStatus,
+} from "@/lib/types";
 import { type FilterState } from "./Filters";
 import MapDock from "./MapDock";
 import MapSidebar from "./MapSidebar";
@@ -40,7 +51,7 @@ import {
   subscribeFavorites,
   toggleFavorite,
 } from "@/lib/favorites";
-import { StarIcon } from "./Icons";
+import { FuelPumpIcon, StarIcon } from "./Icons";
 import type { MapTheme } from "./MapLibreMapView";
 import MobileNearbySheet, {
   type NearbySheetSnap,
@@ -66,6 +77,7 @@ const DEFAULT_CENTER: [number, number] = [55.7558, 37.6173];
 const DEFAULT_ZOOM = 11;
 const DEFAULT_BBOX: BBox = [55.55, 37.35, 55.95, 37.95];
 const LIST_RADIUS_KM = 15;
+const GEO_PROMPT_KEY = "geo_prompt_v1";
 // Кэш станций по bbox (stationCacheRef) иначе растёт без границ за долгую
 // сессию панорамирования — держим только недавно посещённые области.
 // Запись читается ниже только пока не старше 60с (см. cacheFresh) — TTL
@@ -132,6 +144,7 @@ export default function AppShell({ demoMode }: { demoMode: boolean }) {
     lng: number;
   } | null>(null);
   const [offlineBanner, setOfflineBanner] = useState(false);
+  const [showGeoPrompt, setShowGeoPrompt] = useState(false);
   const [demoDismissed, setDemoDismissed] = useState(false);
   const bboxRef = useRef<BBox | null>(null);
   const pendingStationId = useRef<string | null>(null);
@@ -149,6 +162,10 @@ export default function AppShell({ demoMode }: { demoMode: boolean }) {
   // На десктопе это не проявлялось: там геолокация обычно даёт один грубый
   // фикс через Wi-Fi, а не непрерывный поток от GPS-чипа.
   const lastAppliedPosRef = useRef<{ lat: number; lng: number; at: number } | null>(null);
+  // Был ли watchPosition активен до того, как вкладка ушла в фон (см. эффект
+  // на visibilitychange ниже) — чтобы понять, нужно ли возобновлять его при
+  // возврате, а не просто "включён ли он прямо сейчас".
+  const wasWatchingRef = useRef(false);
   const stationCacheRef = useRef<
     Map<string, { at: number; stations: StationStatus[] }>
   >(new Map());
@@ -220,6 +237,7 @@ export default function AppShell({ demoMode }: { demoMode: boolean }) {
   const startWatch = useCallback(() => {
     if (typeof navigator === "undefined" || !navigator.geolocation) return;
     if (watchIdRef.current != null) return;
+    wasWatchingRef.current = true;
     watchIdRef.current = navigator.geolocation.watchPosition(
       (pos) => {
         const lat = pos.coords.latitude;
@@ -255,6 +273,24 @@ export default function AppShell({ demoMode }: { demoMode: boolean }) {
     };
   }, []);
 
+  // GPS с enableHighAccuracy держит чип активным непрерывно — ощутимый расход
+  // батареи на телефоне за долгую сессию. Останавливаем watchPosition, пока
+  // вкладка не видна, и возобновляем при возврате (poll станций ниже уже
+  // отдельно останавливается на visibilitychange — этот эффект про GPS).
+  useEffect(() => {
+    const onVisibility = () => {
+      if (typeof navigator === "undefined" || !navigator.geolocation) return;
+      if (document.visibilityState === "visible") {
+        if (wasWatchingRef.current && watchIdRef.current == null) startWatch();
+      } else if (watchIdRef.current != null) {
+        navigator.geolocation.clearWatch(watchIdRef.current);
+        watchIdRef.current = null;
+      }
+    };
+    document.addEventListener("visibilitychange", onVisibility);
+    return () => document.removeEventListener("visibilitychange", onVisibility);
+  }, [startWatch]);
+
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const citySlug = params.get("city");
@@ -280,12 +316,14 @@ export default function AppShell({ demoMode }: { demoMode: boolean }) {
     }
   }, [stations]);
 
-  const fetchStations = useCallback(async (bbox: BBox) => {
+  const fetchStations = useCallback(async (bbox: BBox, opts?: { force?: boolean }) => {
+    const force = opts?.force ?? false;
     const viewBBox = clampBBoxSpan(bbox);
     const queryBBox = expandBBox(viewBBox, 0.28);
     const prev = bboxRef.current;
     const last = lastFetchRef.current;
     if (
+      !force &&
       prev &&
       bboxNearlyEqual(prev, viewBBox) &&
       last &&
@@ -302,7 +340,7 @@ export default function AppShell({ demoMode }: { demoMode: boolean }) {
     fetchAbortRef.current?.abort();
 
     const cacheKey = bboxCacheKey(queryBBox);
-    const cached = stationCacheRef.current.get(cacheKey);
+    const cached = force ? undefined : stationCacheRef.current.get(cacheKey);
     const cacheFresh = cached && Date.now() - cached.at < 60_000;
     const cacheWarm = cached && Date.now() - cached.at < 15_000;
 
@@ -347,6 +385,10 @@ export default function AppShell({ demoMode }: { demoMode: boolean }) {
         if (res.status === 400 && /bbox|област/i.test(msg)) return;
         throw new Error(msg || `Ошибка ${res.status}`);
       }
+      // Офлайн — service worker подменил сетевой ответ кэшем по этому же bbox
+      // (см. public/sw.js), помечает это заголовком: данные могут быть старше
+      // обычного, показываем баннер вместо того, чтобы выдавать их за свежие.
+      setOfflineBanner(res.headers.get("x-served-by") === "sw-cache");
       const incoming = (json.stations ?? []) as StationStatus[];
       const keepBBox = expandBBox(viewBBox, 0.22);
       const cache = stationCacheRef.current;
@@ -388,8 +430,32 @@ export default function AppShell({ demoMode }: { demoMode: boolean }) {
     }
   }, []);
 
-  const refresh = useCallback(() => {
-    if (bboxRef.current) fetchStations(bboxRef.current);
+  // Мгновенный локальный патч только что отправленного отчёта (см.
+  // lib/stationPatch.ts) — не ждём следующего fetchStations/poll-цикла,
+  // чтобы список и открытая карточка обновились сразу; фоновый fetchStations
+  // ниже всё равно подтягивает точный агрегат с сервера следом.
+  const refresh = useCallback(
+    (patch?: OptimisticReportPatch) => {
+      if (patch && selected) {
+        const id = selected.id;
+        setStations((prev) => applyOptimisticReportPatch(prev, id, patch));
+        setFavoriteStations((prev) => applyOptimisticReportPatch(prev, id, patch));
+        setRouteStations((prev) => applyOptimisticReportPatch(prev, id, patch));
+        setSelected((prev) =>
+          prev && prev.id === id ? applyOptimisticReportPatch([prev], id, patch)[0] : prev
+        );
+      }
+      if (bboxRef.current) fetchStations(bboxRef.current);
+      setPanelRefresh((k) => k + 1);
+    },
+    [fetchStations, selected]
+  );
+
+  // Pull-to-refresh на мобильном листе (см. MobileNearbySheet/StationList) —
+  // в отличие от обычного refresh() выше, обходит debounce/кэш свежести:
+  // жест явно означает "хочу самые свежие данные прямо сейчас".
+  const pullRefreshStations = useCallback(() => {
+    if (bboxRef.current) fetchStations(bboxRef.current, { force: true });
     setPanelRefresh((k) => k + 1);
   }, [fetchStations]);
 
@@ -410,6 +476,25 @@ export default function AppShell({ demoMode }: { demoMode: boolean }) {
     fetchStations(bboxAroundPoint(ref[0], ref[1], LIST_RADIUS_KM));
   }, [userLocation, mapCenter, fetchStations]);
 
+  // Грубая позиция сразу (см. lib/geolocation::getProgressivePosition), точная
+  // подтягивается следом в фоне и лишь тихо обновляет точку — без повторного
+  // перелёта карты и повторного fetchStations на втором (точном) фиксе.
+  const requestProgressiveLocation = useCallback(() => {
+    let appliedOnce = false;
+    getProgressivePosition(
+      (lat, lng) => {
+        if (!appliedOnce) {
+          appliedOnce = true;
+          applyUserPosition(lat, lng, true);
+        } else {
+          setUserLocation([lat, lng]);
+          saveUserLocation(lat, lng);
+        }
+      },
+      () => {}
+    );
+  }, [applyUserPosition]);
+
   // Старт: геолокация или сохранённая позиция; Москва — только fallback.
   useEffect(() => {
     if (geoInitRef.current) return;
@@ -423,26 +508,44 @@ export default function AppShell({ demoMode }: { demoMode: boolean }) {
 
     const saved = readUserLocation();
     if (saved) {
+      // Геолокацию уже разрешали раньше — просто уточняем позицию в фоне,
+      // без нового прайминга.
       const [lat, lng] = saved;
       setUserLocation(saved);
       setMapCenter(saved);
       setFlyTarget(saved);
       fetchStations(bboxAroundPoint(lat, lng, LIST_RADIUS_KM));
       startWatch();
+      requestProgressiveLocation();
+      return () => fetchAbortRef.current?.abort();
     }
 
-    getCurrentPositionWithCallbacks(
-      (lat, lng) => {
-        applyUserPosition(lat, lng, true);
-      },
-      () => {
-        if (!saved) fetchStations(DEFAULT_BBOX);
-      },
-      { enableHighAccuracy: true, timeout: 10000, maximumAge: 60000 }
-    );
+    // Ничего не показывать пустым, пока решаем про геолокацию.
+    fetchStations(DEFAULT_BBOX);
+
+    void queryGeoPermission().then((state) => {
+      if (state === "granted") {
+        requestProgressiveLocation();
+      } else if (state === "denied") {
+        // Уже отклонили на уровне браузера — не спрашиваем повторно.
+      } else if (!isDismissed(GEO_PROMPT_KEY)) {
+        setShowGeoPrompt(true);
+      }
+    });
 
     return () => fetchAbortRef.current?.abort();
-  }, [applyUserPosition, fetchStations, startWatch]);
+  }, [fetchStations, startWatch, requestProgressiveLocation]);
+
+  const dismissGeoPrompt = () => {
+    setShowGeoPrompt(false);
+    markDismissed(GEO_PROMPT_KEY);
+  };
+
+  const allowGeoPrompt = () => {
+    setShowGeoPrompt(false);
+    markDismissed(GEO_PROMPT_KEY);
+    requestProgressiveLocation();
+  };
 
   // Сайдбар со списком станций виден на десктопе постоянно (см. MapSidebar.tsx) —
   // подгружаем станции рядом с пользователем сразу, не дожидаясь панорамирования карты.
@@ -613,7 +716,7 @@ export default function AppShell({ demoMode }: { demoMode: boolean }) {
   const locate = () => {
     setGeoError(null);
     setLocating(true);
-    getCurrentPositionWithCallbacks(
+    getProgressivePosition(
       (lat, lng) => {
         const loc: [number, number] = [lat, lng];
         setUserLocation(loc);
@@ -627,7 +730,7 @@ export default function AppShell({ demoMode }: { demoMode: boolean }) {
         setLocating(false);
         setGeoError(GEO_FAIL_HINT);
       },
-      { enableHighAccuracy: true, timeout: 15000, maximumAge: 0 }
+      { preciseTimeout: 15000 }
     );
   };
 
@@ -651,6 +754,30 @@ export default function AppShell({ demoMode }: { demoMode: boolean }) {
     // панели поверх карты — раскрываем лист, чтобы её было видно.
     setMobileSheetSnap("expanded");
     setFlyTarget([s.lat, s.lng]);
+  };
+
+  // Ближайшая станция текущей области карты — цель FAB "Сообщить", когда
+  // ничего явно не выбрано (см. кнопку report-fab ниже).
+  const nearestStation = useMemo(() => {
+    if (stations.length === 0) return null;
+    const ref = userLocation ?? mapCenter;
+    let best: StationStatus | null = null;
+    let bestDist = Infinity;
+    for (const s of stations) {
+      const d = distanceKm(ref[0], ref[1], s.lat, s.lng);
+      if (d < bestDist) {
+        bestDist = d;
+        best = s;
+      }
+    }
+    return best;
+  }, [stations, userLocation, mapCenter]);
+
+  const openReportFab = () => {
+    const target = selected ?? nearestStation;
+    if (!target) return;
+    if (!selected || selected.id !== target.id) selectStation(target);
+    setShowForm(true);
   };
 
   const closeSelected = () => {
@@ -870,6 +997,10 @@ export default function AppShell({ demoMode }: { demoMode: boolean }) {
         </div>
       )}
 
+      {showGeoPrompt && (
+        <GeoPromptBanner onAllow={allowGeoPrompt} onDismiss={dismissGeoPrompt} />
+      )}
+
       <div className="relative flex min-h-0 flex-1 sm:pb-0">
         <MapSidebar
           onFly={flyTo}
@@ -948,6 +1079,21 @@ export default function AppShell({ demoMode }: { demoMode: boolean }) {
             routeStationCount={routeStations.length}
           />
 
+          {/* Плавающая кнопка "Сообщить" — быстрый вход в отчёт, пока карточка
+              станции не открыта (иначе QuickReportBar уже видна в шторке) и
+              список не развёрнут (закрывает экран целиком). Тап открывает
+              полную форму отчёта для выбранной или ближайшей станции. */}
+          {!selected && !showForm && mobileSheetSnap === "peek" && (
+            <button
+              type="button"
+              onClick={openReportFab}
+              className="report-fab sm:hidden"
+            >
+              <FuelPumpIcon className="h-5 w-5" />
+              Сообщить
+            </button>
+          )}
+
           {/* Пустое состояние — только после первой загрузки данных */}
           {mapDataReady && !loading && visible.length === 0 && !selected && (
             <div className="map-empty-state pointer-events-none absolute inset-x-0 z-[450] flex justify-center px-4">
@@ -1006,9 +1152,9 @@ export default function AppShell({ demoMode }: { demoMode: boolean }) {
         <ReportForm
           station={selected}
           onClose={() => setShowForm(false)}
-          onSubmitted={() => {
+          onSubmitted={(patch) => {
             setShowForm(false);
-            refresh();
+            refresh(patch);
           }}
         />
       )}
@@ -1048,6 +1194,9 @@ export default function AppShell({ demoMode }: { demoMode: boolean }) {
         isStationFavorite={selected ? checkFavorite(selected.id) : false}
         onToggleStationFavorite={() => selected && handleToggleFavorite(selected.id)}
         priceReference={priceReference}
+        firstLoad={!mapDataReady}
+        onPullRefresh={pullRefreshStations}
+        onToggleListFavorite={handleToggleFavorite}
       />
 
       {addStationPin && (
